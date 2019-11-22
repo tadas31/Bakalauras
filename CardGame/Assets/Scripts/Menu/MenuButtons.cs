@@ -1,0 +1,33 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MenuButtons : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void onDeckPress()
+    {
+        //change scene to deck
+    }
+
+    public void onOptionsPress()
+    {
+
+    }
+
+    public void onQuitPress()
+    {
+        Application.Quit();
+    }
+}
