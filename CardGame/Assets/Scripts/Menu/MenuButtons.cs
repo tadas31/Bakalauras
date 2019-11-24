@@ -23,9 +23,10 @@ public class MenuButtons : MonoBehaviour
 
     public void onOptionsPress()
     {
-
+        //change scene or open window (undecided)
     }
 
+    //turns off game
     public void onQuitPress()
     {
         Application.Quit();
