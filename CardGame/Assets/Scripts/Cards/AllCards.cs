@@ -9,8 +9,8 @@ public class AllCards
     //first value in CardBuilder is title second is cost
     private Hashtable cards = new Hashtable()
     {
-        { "spellCard", new CardBuilder("spellCard", 5).setDescription("TEXT").setImage("IMAGE").setType("SPELL").Build() },
-        { "minionCard", new CardBuilder("minionCard", 2).setDescription("TEXT").setImage("IMAGE").setType("GOBLIN").setAttack(1).setLife(5).Build() }
+        { "spellCard", new CardBuilder("spellCard", 5).setDescription("TEXT").setImage("CardImages/goblin_1").setType("SPELL").Build() },
+        { "minionCard", new CardBuilder("minionCard", 2).setDescription("TEXT").setImage("CardImages/goblin_1").setType("GOBLIN").setAttack(1).setLife(5).Build() }
     };
 
     public AllCards()
