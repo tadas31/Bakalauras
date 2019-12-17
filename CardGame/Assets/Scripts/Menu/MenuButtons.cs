@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuButtons : MonoBehaviour
 {
@@ -16,9 +17,10 @@ public class MenuButtons : MonoBehaviour
         
     }
 
+    //change scene to deck
     public void onDeckPress()
     {
-        //change scene to deck
+        SceneManager.LoadScene("Deck");
     }
 
     public void onOptionsPress()
