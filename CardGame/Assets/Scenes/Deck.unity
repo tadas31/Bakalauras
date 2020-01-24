@@ -359,7 +359,6 @@ GameObject:
   - component: {fileID: 936484304}
   - component: {fileID: 936484303}
   - component: {fileID: 936484302}
-  - component: {fileID: 936484306}
   - component: {fileID: 936484307}
   m_Layer: 5
   m_Name: Canvas
@@ -448,24 +447,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &936484306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 936484301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5935b69faf6989f4dacba4a86da1ff95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  content: {fileID: 1567253172}
-  cardPrefab: {fileID: 2382603466189886817, guid: 5487001392c301e4dbfb3109cb33548e,
-    type: 3}
-  minionBackground: {fileID: 21300000, guid: d7970a18efb33c7458a2d219824283ce, type: 3}
-  spellBackground: {fileID: 21300000, guid: 46791eb835cc99d47a394086e575cce6, type: 3}
-  g: {fileID: 0}
 --- !u!114 &936484307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,11 +456,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 936484301}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebaba6205a3e7cd49b531fc0f014ba92, type: 3}
+  m_Script: {fileID: 11500000, guid: 82dd86667dbbe3647bd115d70f345474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CARD_PREFAB_PATH: Cards/Prefabs/Card
-  MINION_BACKGROUND: {fileID: 21300000, guid: d7970a18efb33c7458a2d219824283ce, type: 3}
+  cardPrefab: {fileID: 2382603466189886817, guid: 5487001392c301e4dbfb3109cb33548e,
+    type: 3}
+  minionBackground: {fileID: 21300000, guid: d7970a18efb33c7458a2d219824283ce, type: 3}
+  spellBackground: {fileID: 21300000, guid: 46791eb835cc99d47a394086e575cce6, type: 3}
+  content: {fileID: 1567253172}
 --- !u!1 &1290114686
 GameObject:
   m_ObjectHideFlags: 0
@@ -880,8 +864,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2084240984}
   m_HandleRect: {fileID: 2084240983}
   m_Direction: 2
-  m_Value: 0.9999999
-  m_Size: 0.47497135
+  m_Value: 1
+  m_Size: 0.47508115
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
