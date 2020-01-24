@@ -6,5 +6,5 @@
     ICardBuilder setAttack(int attack);                 //sets card's attack
     ICardBuilder setLife(int life);                     //sets card's life
 
-    Card Build();                                       //returns card that was built
+    AbstractCard Build();                               //returns card that was built
 }
