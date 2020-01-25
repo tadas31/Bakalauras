@@ -15,14 +15,14 @@ public class DisplayAllCards : MonoBehaviour
     public Sprite spellBackground;      //spell card background
     public RectTransform content;       //parent for cards 
 
-    private ScriptableObject[] cards;   //array that contains all cards
+    private Card[] cards;   //array that contains all cards
 
     // Start is called before the first frame update
     void Start()
     {
         //gets all cards
-        ScriptableObject[] minions = Resources.LoadAll<Minion>("Cards/MinionCards");
-        ScriptableObject[] spells = Resources.LoadAll<Spell>("Cards/SpellCards");
+        Card[] minions = Resources.LoadAll<Card>("Cards/MinionCards");
+        Card[] spells = Resources.LoadAll<Card>("Cards/SpellCards");
         cards = minions.Concat(spells).ToArray();
 
         ////calculates height of content game object
@@ -38,18 +38,11 @@ public class DisplayAllCards : MonoBehaviour
             float x = ROW_START + ROW_OFFSET * cardNumberInRow;         //x position of card
             float y = -251.5f - (row - 1) * LINE_OFFSET;                //y position of card
 
-            //spawns minion card
-            if (c.GetType().Name.ToLower().Equals("minion"))
-            {
-                Minion minion = (Minion)c;
-                minion.spawnCard(cardPrefab, spellBackground, content.gameObject, minion, x, y);
-            }
-            //spawns spell card
+            //picks background according to card type
+            if (c.type.ToLower() == "spell")
+                c.spawnCard(cardPrefab, spellBackground, content.gameObject, x, y);     //spawns spell
             else
-            {
-                Spell spell = (Spell)c;
-                spell.spawnCard(cardPrefab, spellBackground, content.gameObject, spell, x, y);
-            }
+                c.spawnCard(cardPrefab, minionBackground, content.gameObject, x, y);    //spawns minion
 
             cardNumber++;
         }

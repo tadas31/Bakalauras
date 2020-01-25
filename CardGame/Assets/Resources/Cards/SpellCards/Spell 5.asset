@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 835bee70eec5a9d42859440b10628877, type: 3}
-  m_Name: Spell1
+  m_Script: {fileID: 11500000, guid: 8075f5c689ce929458b1aa47046be16b, type: 3}
+  m_Name: Spell 3
   m_EditorClassIdentifier: 
-  cardName: Spell1
-  description: new spell?
+  cardName: newSpell
+  description: the new new
   cost: 5
-  image: {fileID: 0}
+  image: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   type: Spell
+  attack: 0
+  life: 0
