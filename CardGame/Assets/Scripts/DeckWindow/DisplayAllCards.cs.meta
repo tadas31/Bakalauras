@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: fa26c3bda144bb7459b20791c53f7fe8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - cardPrefab: {fileID: 2382603466189886817, guid: 5487001392c301e4dbfb3109cb33548e,
+      type: 3}
+  - minionBackground: {fileID: 21300000, guid: d7970a18efb33c7458a2d219824283ce, type: 3}
+  - spellBackground: {fileID: 21300000, guid: 46791eb835cc99d47a394086e575cce6, type: 3}
+  - content: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
