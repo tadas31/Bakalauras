@@ -16,12 +16,14 @@ public class Card : ScriptableObject
     public int life;            //card's life
 
     //spawns minion cards
-    public void spawnCard(GameObject cardPrefab, Sprite background, GameObject parrent, float x, float y)
+    public void spawnCard(GameObject cardPrefab, Sprite background, GameObject parent, float x, float y)
     {
         GameObject newCard = Instantiate(cardPrefab, Vector3.zero, Quaternion.identity);    //creates new game object
-        newCard.GetComponent<Transform>().SetParent(parrent.transform);                     //sets parent
+        newCard.GetComponent<Transform>().SetParent(parent.transform);                      //sets parent
         newCard.transform.localPosition = new Vector3(x, y, 0);                             //sets cards position
         newCard.transform.localScale = Vector3.one;                                         //sets cards scale
+
+        newCard.transform.name = cardName;
 
         //sets values to all card's fields
         foreach (var child in newCard.GetComponentsInChildren<Transform>())
@@ -30,8 +32,9 @@ public class Card : ScriptableObject
             {
                 case "Background":
                     child.GetComponent<Image>().sprite = background;
+                    child.transform.name = "Background - " + cardName;
                     break;
-                case "Title":
+                case "Name":
                     child.GetComponent<TextMeshProUGUI>().text = cardName;
                     break;
                 case "Cost":

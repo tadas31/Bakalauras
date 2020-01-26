@@ -15,18 +15,16 @@ public class DisplayAllCards : MonoBehaviour
     public Sprite spellBackground;      //spell card background
     public RectTransform content;       //parent for cards 
 
-    private Card[] cards;   //array that contains all cards
+    private Card[] cards;               //array that contains all cards
 
     // Start is called before the first frame update
     void Start()
     {
         //gets all cards
-        Card[] minions = Resources.LoadAll<Card>("Cards/MinionCards");
-        Card[] spells = Resources.LoadAll<Card>("Cards/SpellCards");
-        cards = minions.Concat(spells).ToArray();
+        cards = Resources.LoadAll<Card>("Cards/CreatedCards");
 
         ////calculates height of content game object
-        float rows = (float)Math.Ceiling((minions.Length + spells.Length) / 4f);
+        float rows = (float)Math.Ceiling(cards.Length / 4f);
         float height = rows == 1 ? 24 * 2 + 455 : (24 * rows + 24) + (455 * rows);
         content.sizeDelta = new Vector2(0, height);
 
