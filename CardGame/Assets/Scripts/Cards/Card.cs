@@ -15,7 +15,7 @@ public class Card : ScriptableObject
     public int attack;          //card's attack
     public int life;            //card's life
 
-    //spawns minion cards
+    //spawns card with all data about it
     public void spawnCard(GameObject cardPrefab, Sprite background, GameObject parent, float x, float y)
     {
         GameObject newCard = Instantiate(cardPrefab, Vector3.zero, Quaternion.identity);    //creates new game object
@@ -57,5 +57,21 @@ public class Card : ScriptableObject
                     break;
             }
         }
+    }
+
+    //spawns card only displaying cost name and amount of copies in deck
+    public void spawnCardCompact(GameObject cardPrefab, Sprite background, GameObject parent, int amountInDeck, float x, float y)
+    {
+        GameObject newCard = Instantiate(cardPrefab, Vector3.zero, Quaternion.identity);    //creates new game object
+        newCard.GetComponent<Transform>().SetParent(parent.transform);                      //sets parent
+        newCard.transform.localPosition = new Vector3(x, y, 0);                             //sets cards position
+        newCard.transform.localScale = Vector3.one;                                         //sets cards scale
+
+        //sets values to fields
+        newCard.transform.name = "CardInDeck - " + cardName;
+        newCard.GetComponent<Image>().sprite = background;
+        newCard.transform.Find("Cost").GetComponent<TextMeshProUGUI>().text = cost.ToString();
+        newCard.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = cardName;
+        newCard.transform.Find("AmountInDeck").GetComponent<TextMeshProUGUI>().text = "x" + amountInDeck.ToString();
     }
 }

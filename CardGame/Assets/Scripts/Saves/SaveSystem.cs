@@ -5,12 +5,13 @@ using System.Collections.Generic;
 
 public static class SaveSystem
 {
-    private static readonly string PATH = Application.persistentDataPath + "/deck.save";
+    private static readonly string DECK_PATH = Application.persistentDataPath + "/deck.dt";
 
+    //saves cards in deck
     public static void SaveDeck(List<string> cardsInDeck)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        FileStream stream = new FileStream(PATH, FileMode.Create);
+        FileStream stream = new FileStream(DECK_PATH, FileMode.Create);
 
         Deck data = new Deck(cardsInDeck);
 
@@ -18,12 +19,13 @@ public static class SaveSystem
         stream.Close();
     }
 
+    //loads cards that are in deck from save file
     public static Deck LoadDeck()
     {
-        if (File.Exists(PATH) )
+        if (File.Exists(DECK_PATH) )
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(PATH, FileMode.Open);
+            FileStream stream = new FileStream(DECK_PATH, FileMode.Open);
 
             Deck data = (Deck)formatter.Deserialize(stream);
             stream.Close();
@@ -32,7 +34,7 @@ public static class SaveSystem
         }
         else
         {
-            Debug.Log("Save file not found in " + PATH);
+            Debug.Log("Save file not found in " + DECK_PATH);
             return null;
         }
     }

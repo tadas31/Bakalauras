@@ -7,19 +7,19 @@ using UnityEngine.UI;
 
 public class SelectCards : MonoBehaviour
 {
-    public RectTransform content;
-    public TextMeshProUGUI amountOfCardsInDeck;
+    public RectTransform content;                   //parent for cards 
+    public TextMeshProUGUI amountOfCardsInDeck;     //amount of cards in deck
 
     private GraphicRaycaster raycaster;
-    private bool locker = false;
+    private bool locker = false;                    //if true user has pressed left mouse button on card but haven't released yet
 
 
-    private List<RaycastResult> results;
-    private List<RaycastResult> resultsRelease;
-    private float startPos;
-    private float endPos;
+    private List<RaycastResult> results;            //objects hit by raycast when user pressed left mouse button
+    private List<RaycastResult> resultsRelease;     //objects hit by raycast when user released left mouse button
+    private float startPos;                         //position of content game object when user pressed left mouse button
+    private float endPos;                           //position of content game object when user released left mouse button
 
-    private List<string> cardsInDeck;
+    private List<string> cardsInDeck;               //list of cards in deck
 
 
     // Start is called before the first frame update
@@ -27,34 +27,20 @@ public class SelectCards : MonoBehaviour
     {
         raycaster = GetComponent<GraphicRaycaster>();
 
-        cardsInDeck = SaveSystem.LoadDeck() == null ? new List<string>() : SaveSystem.LoadDeck().cardsInDeck;
+        cardsInDeck = SaveSystem.LoadDeck() == null ? new List<string>() : SaveSystem.LoadDeck().cardsInDeck;   //gets cards from save file if file does not exists sets value to nu;;
     }
 
     // Update is called once per frame
     void Update()
     {
-        amountOfCardsInDeck.text = cardsInDeck.Count + "/30 cards";
+        amountOfCardsInDeck.text = cardsInDeck.Count + "/30 cards"; //displays amount of cards in deck
 
+        //adds selected cards to save file
         GameObject c = selectCard();
-        if (c != null)
+        if (c != null && !c.gameObject.name.Contains("CardInDeck - "))
         {
             cardsInDeck.Add(c.name.Replace("Background - ", "") );
-            Debug.Log(c.name);
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
             SaveSystem.SaveDeck(cardsInDeck);
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            foreach(var card in cardsInDeck)
-            {
-                Debug.Log(card);
-            }
         }
             
     }
@@ -96,16 +82,22 @@ public class SelectCards : MonoBehaviour
 
             GameObject card = null;
             GameObject cardRelease = null;
+            string inSelectionOrDeck = null;
+
 
             foreach (RaycastResult result in results)
             {
-                if (result.gameObject.name.Contains("Background - "))
+                if (result.gameObject.name.Contains("Background - ") || result.gameObject.name.Contains("CardInDeck - "))
+                {
                     card = result.gameObject;
+                    inSelectionOrDeck = card.name.Split(' ')[0];
+                }
+                   
             }
 
             foreach (RaycastResult result in resultsRelease)
-            {
-                if (result.gameObject.name.Contains("Background - "))
+            { 
+                if (result.gameObject.name.Contains(inSelectionOrDeck + " - "))
                     cardRelease = result.gameObject;
             }
 
