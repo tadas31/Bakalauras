@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Add comments
+/// </summary>
 public enum PlayerAction
 {
 	SHOOT,
