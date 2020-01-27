@@ -5,6 +5,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
+/// <summary>
+/// Add commetns
+/// </summary>
+
 public class  NetworkPlayer : NetworkBehaviour
 {
 
