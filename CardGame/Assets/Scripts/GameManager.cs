@@ -20,8 +20,9 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-           
     }
+
+
 
     //Adds card to the hand of the player
     public void addCardToHand() 
