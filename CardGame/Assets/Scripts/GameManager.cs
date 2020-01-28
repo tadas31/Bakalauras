@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     {
         GameObject addedCard = Instantiate(card,new Vector3(handCards.transform.position.x, handCards.transform.position.y, handCards.transform.position.z), Quaternion.identity);
         addedCard.transform.localScale = handCards.transform.localScale;
+        addedCard.AddComponent<CardInHand>();
         addedCard.transform.SetParent(handCards.transform);
         Debug.Log("Card added to the hand");
         handReorganize();
