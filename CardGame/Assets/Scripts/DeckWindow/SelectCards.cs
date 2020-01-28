@@ -50,11 +50,17 @@ public class SelectCards : MonoBehaviour
             amountOfCardsInDeck.color = Color.black;
 
 
-        //adds selected cards to save file
+
         GameObject card = selectCard();
-        if (card != null && !card.gameObject.name.Contains("CardInDeck - ") && cardsInDeckCount < maxCountOfCards)
+        if (card != null )
         {
-            addToDeck(card);    
+            //removes selected cards from deck
+            if (card.gameObject.name.Contains("CardInDeck - "))
+                removeFromDeck(card);
+
+            //adds selected cards to deck
+            else if (card.gameObject.name.Contains("Background - ") && cardsInDeckCount < maxCountOfCards)
+                addToDeck(card);    
 
             cardsInDeckCount = 0;
             foreach (var ca in cardsInDeck)
@@ -87,6 +93,29 @@ public class SelectCards : MonoBehaviour
         SaveSystem.SaveDeck(cardsInDeck);
     }
 
+    //removes cards form deck
+    public void removeFromDeck(GameObject c)
+    {
+        string cardName = c.name.Replace("CardInDeck - ", "");
+        foreach (var card in cardsInDeck)
+        {
+            //if card exists and there more than one than lover count by one
+            if (card.name == cardName && card.count > 1)
+            {
+                card.count--;
+                SaveSystem.SaveDeck(cardsInDeck);
+                return;
+            }
+
+            //if there are only one copy of card removed it
+            else if (card.name == cardName && card.count == 1)
+            {
+                cardsInDeck.Remove(card);
+                SaveSystem.SaveDeck(cardsInDeck);
+                return;
+            }
+        }
+    }
 
     //gets card that is under mouse cursor
     private GameObject selectCard()
