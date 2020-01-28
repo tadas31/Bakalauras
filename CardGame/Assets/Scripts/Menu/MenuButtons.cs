@@ -17,6 +17,12 @@ public class MenuButtons : MonoBehaviour
         
     }
 
+    //Opens classic scene
+    public void onClassicPress()
+    {
+        SceneManager.LoadScene("Classic");
+    }
+
     //change scene to deck
     public void onDeckPress()
     {
