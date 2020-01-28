@@ -994,6 +994,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   content: {fileID: 1567253172}
   amountOfCardsInDeck: {fileID: 149481853}
+  maxCount: 30
 --- !u!114 &936484308
 MonoBehaviour:
   m_ObjectHideFlags: 0

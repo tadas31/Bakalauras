@@ -9,6 +9,7 @@ public class SelectCards : MonoBehaviour
 {
     public RectTransform content;                   //parent for cards 
     public TextMeshProUGUI amountOfCardsInDeck;     //amount of cards in deck
+    public int maxCount;                            //maximum amount of cards in deck
 
     private GraphicRaycaster raycaster;
     private bool locker = false;                    //if true user has pressed left mouse button on card but haven't released yet
@@ -33,11 +34,19 @@ public class SelectCards : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        amountOfCardsInDeck.text = cardsInDeck.Count + "/30 cards"; //displays amount of cards in deck
+
+        amountOfCardsInDeck.text = cardsInDeck.Count + "/" + maxCount + "cards"; //displays amount of cards in deck
+
+        //changes color of text for card amount in deck
+        if (cardsInDeck.Count >= maxCount)
+            amountOfCardsInDeck.color = Color.red;
+        else
+            amountOfCardsInDeck.color = Color.black;
+
 
         //adds selected cards to save file
         GameObject c = selectCard();
-        if (c != null && !c.gameObject.name.Contains("CardInDeck - "))
+        if (c != null && !c.gameObject.name.Contains("CardInDeck - ") && cardsInDeck.Count < maxCount)
         {
             cardsInDeck.Add(c.name.Replace("Background - ", "") );
             SaveSystem.SaveDeck(cardsInDeck);
