@@ -5,9 +5,11 @@ using UnityEngine;
 [System.Serializable]
 public class Deck
 {
-    public List<string> cardsInDeck;
+    public List<DeckFormat> cardsInDeck;
 
-    public Deck(List<string> cardsInDeck)
+    public Deck() { }
+
+    public Deck(List<DeckFormat> cardsInDeck)
     {
         this.cardsInDeck = cardsInDeck;
     }

@@ -8,7 +8,7 @@ public static class SaveSystem
     private static readonly string DECK_PATH = Application.persistentDataPath + "/deck.dt";
 
     //saves cards in deck
-    public static void SaveDeck(List<string> cardsInDeck)
+    public static void SaveDeck(List<DeckFormat> cardsInDeck)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(DECK_PATH, FileMode.Create);

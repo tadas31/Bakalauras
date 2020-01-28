@@ -9,7 +9,8 @@ public class SelectCards : MonoBehaviour
 {
     public RectTransform content;                   //parent for cards 
     public TextMeshProUGUI amountOfCardsInDeck;     //amount of cards in deck
-    public int maxCount;                            //maximum amount of cards in deck
+    public int maxCountOfCards;                     //maximum amount of cards in deck
+    public int maxCountOfCopies;                    //maximum amount of same card in deck
 
     private GraphicRaycaster raycaster;
     private bool locker = false;                    //if true user has pressed left mouse button on card but haven't released yet
@@ -20,7 +21,9 @@ public class SelectCards : MonoBehaviour
     private float startPos;                         //position of content game object when user pressed left mouse button
     private float endPos;                           //position of content game object when user released left mouse button
 
-    private List<string> cardsInDeck;               //list of cards in deck
+    private List<DeckFormat> cardsInDeck;           //list of cards in deck
+
+    private int cardsInDeckCount;
 
 
     // Start is called before the first frame update
@@ -28,30 +31,60 @@ public class SelectCards : MonoBehaviour
     {
         raycaster = GetComponent<GraphicRaycaster>();
 
-        cardsInDeck = SaveSystem.LoadDeck() == null ? new List<string>() : SaveSystem.LoadDeck().cardsInDeck;   //gets cards from save file if file does not exists sets value to nu;;
+        cardsInDeck = SaveSystem.LoadDeck() == null ? new List<DeckFormat>() : SaveSystem.LoadDeck().cardsInDeck;   //gets cards from save file if file does not exists sets value to null
+
+        cardsInDeckCount = 0;
+        foreach (var c in cardsInDeck)
+            cardsInDeckCount += c.count;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        amountOfCardsInDeck.text = cardsInDeck.Count + "/" + maxCount + "cards"; //displays amount of cards in deck
+        amountOfCardsInDeck.text = cardsInDeckCount + "/" + maxCountOfCards + "cards"; //displays amount of cards in deck
 
         //changes color of text for card amount in deck
-        if (cardsInDeck.Count >= maxCount)
+        if (cardsInDeckCount >= maxCountOfCards)
             amountOfCardsInDeck.color = Color.red;
         else
             amountOfCardsInDeck.color = Color.black;
 
 
         //adds selected cards to save file
-        GameObject c = selectCard();
-        if (c != null && !c.gameObject.name.Contains("CardInDeck - ") && cardsInDeck.Count < maxCount)
+        GameObject card = selectCard();
+        if (card != null && !card.gameObject.name.Contains("CardInDeck - ") && cardsInDeckCount < maxCountOfCards)
         {
-            cardsInDeck.Add(c.name.Replace("Background - ", "") );
-            SaveSystem.SaveDeck(cardsInDeck);
+            addToDeck(card);    
+
+            cardsInDeckCount = 0;
+            foreach (var ca in cardsInDeck)
+                cardsInDeckCount += ca.count;
         }
-            
+    }
+
+
+    //adds card to deck
+    public void addToDeck(GameObject c)
+    {
+        string cardName = c.name.Replace("Background - ", "");
+        foreach (var card in cardsInDeck)
+        {
+            //if card exists and there are less than allowed amount of them in deck increases counter
+            if (card.name == cardName && card.count < maxCountOfCopies)
+            {
+                card.count++;
+                SaveSystem.SaveDeck(cardsInDeck);
+                return;
+            }
+
+            //if there are maximum amount of selected card in deck addition of card is discarded
+            else if (card.name == cardName && card.count >= maxCountOfCopies)
+                return;
+        }
+
+        //if card does not exists in deck already adds it
+        cardsInDeck.Add( new DeckFormat(c.name.Replace("Background - ", ""), 1));
+        SaveSystem.SaveDeck(cardsInDeck);
     }
 
 

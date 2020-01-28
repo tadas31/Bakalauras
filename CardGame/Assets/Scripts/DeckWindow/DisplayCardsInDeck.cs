@@ -10,7 +10,7 @@ public class DisplayCardsInDeck : MonoBehaviour
     public GameObject compactCardPrefab;    //card prefab
     public Sprite compactBackground;        //card background
 
-    private List<string> cardsInDeck;       //list of all cards saved in deck
+    private List<DeckFormat> cardsInDeck;   //list of all cards saved in deck
     private int count;                      //current count of cards in deck
 
     private List<Card> cards;               //list of card objects saved in deck
@@ -35,8 +35,18 @@ public class DisplayCardsInDeck : MonoBehaviour
     {
         //checks if number of cards changed in deck and displays them
         cardsInDeck = SaveSystem.LoadDeck() == null ? null : SaveSystem.LoadDeck().cardsInDeck;
-        if (cardsInDeck != null && count != cardsInDeck.Count)
-            updateCardDisplay();
+
+
+        if (cardsInDeck != null)
+        {
+            int cardsInDeckCount = 0;
+            foreach (var ca in cardsInDeck)
+                cardsInDeckCount += ca.count;
+
+            if (count != cardsInDeckCount)
+                updateCardDisplay();
+        }
+            
     }
 
     //displays cards in deck
@@ -46,7 +56,7 @@ public class DisplayCardsInDeck : MonoBehaviour
 
         //gets all cards in deck as card objects
         foreach (var c in cardsInDeck)
-            cards.Add(Resources.Load<Card>("Cards/CreatedCards/" + c));
+            cards.Add(Resources.Load<Card>("Cards/CreatedCards/" + c.name));
 
         //calculates height of content game object
         float rows = cards.Count;
@@ -59,7 +69,7 @@ public class DisplayCardsInDeck : MonoBehaviour
         content.sizeDelta = new Vector2(0, height); //sets height of content game object
 
         int row = 0;
-        foreach (var c in cards)
+        for (int i = 0; i < cards.Count; i++)
         {
             float x = 0;    //x position of card
 
@@ -70,12 +80,15 @@ public class DisplayCardsInDeck : MonoBehaviour
 
             float y = - 55 - row * (10 + 60);   //y position of card
 
-            c.spawnCardCompact(compactCardPrefab, compactBackground, content.gameObject, 1, x, y);  //spawns card
+            cards[i].spawnCardCompact(compactCardPrefab, compactBackground, content.gameObject, cardsInDeck[i].count, x, y);  //spawns card
 
             row++;
         }
 
-        count = cards.Count;    //keeps track of card count in deck
+         //keeps track of card count in deck
+        count = 0;
+        foreach (var ca in cardsInDeck)
+            count += ca.count;
     }
 
 
