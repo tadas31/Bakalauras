@@ -4,29 +4,28 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class CardInHand : MonoBehaviour, IPointerClickHandler // 2
-     , IDragHandler
-     , IEndDragHandler
-     , IPointerEnterHandler
-     , IPointerExitHandler
+public class CardInHand : MonoBehaviour, IPointerClickHandler   //interface for OnPointerClick
+     , IDragHandler                                             //interface for OnDrag
+     , IBeginDragHandler                                        //interface for OnBeginDrag
+     , IEndDragHandler                                          //interface for OnEndDrag
+     , IPointerEnterHandler                                     //interface for OnPointerEnter
+     , IPointerExitHandler                                      //interface for OnPointerExit
 {
 
     static float CARD_ENTER_OFFSET = 50f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private Vector3 lastPosition;
+    private bool setLastPos = false;
+    private bool isDraged = false;
 
     public void OnPointerClick(PointerEventData eventData)
     {
         this.transform.localPosition = new Vector3(this.transform.localPosition.x,this.transform.localPosition.y + CARD_ENTER_OFFSET);
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        isDraged = true;
+        setLastPosition(this.transform.localPosition);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -40,17 +39,43 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler // 2
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        isDraged = false;
+        this.transform.localPosition = getLastPosition();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        this.transform.localPosition = new Vector3(this.transform.localPosition.x,this.transform.localPosition.y + CARD_ENTER_OFFSET);
+        if (!isDraged)
+        {
+            setLastPosition(this.transform.localPosition);
+            this.transform.localPosition = new Vector3(this.transform.localPosition.x,this.transform.localPosition.y + CARD_ENTER_OFFSET);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        this.transform.localPosition = new Vector3(this.transform.localPosition.x, this.transform.localPosition.y - CARD_ENTER_OFFSET);
+        if (!isDraged)
+        {
+            this.transform.localPosition = getLastPosition();
+        }
     }
 
+
+    private void setLastPosition(Vector3 pos)
+    {
+        if (!setLastPos)
+        {
+            lastPosition = pos;
+            setLastPos = true;
+        }
+    }
+
+    private Vector3 getLastPosition()
+    {
+        if (setLastPos)
+        {
+            setLastPos = false;
+        }
+        return lastPosition;
+    }
 }
