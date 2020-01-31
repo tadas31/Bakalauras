@@ -16,7 +16,7 @@ public class Card : ScriptableObject
     public int life;            //card's life
 
     //spawns card with all data about it
-    public void spawnCard(GameObject cardPrefab, Sprite background, GameObject parent, float x, float y)
+    public GameObject spawnCard(GameObject cardPrefab, Sprite background, GameObject parent, float x, float y)
     {
         GameObject newCard = Instantiate(cardPrefab, Vector3.zero, Quaternion.identity);    //creates new game object
         newCard.GetComponent<Transform>().SetParent(parent.transform);                      //sets parent
@@ -57,6 +57,7 @@ public class Card : ScriptableObject
                     break;
             }
         }
+        return newCard;
     }
 
     //spawns card only displaying cost name and amount of copies in deck

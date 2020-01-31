@@ -4,63 +4,118 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class CardInHand : MonoBehaviour, IPointerClickHandler   //interface for OnPointerClick
-     , IDragHandler                                             //interface for OnDrag
-     , IBeginDragHandler                                        //interface for OnBeginDrag
-     , IEndDragHandler                                          //interface for OnEndDrag
-     , IPointerEnterHandler                                     //interface for OnPointerEnter
-     , IPointerExitHandler                                      //interface for OnPointerExit
+/// <summary>
+/// Used for cards in hand to have functionality. Uses interfaces that implement OnPointerClick, OnDrag, OnBeginDrag, OnEndDrag, OnPointerEnter, OnPointerExit.
+/// </summary>
+public class CardInHand : MonoBehaviour, IPointerClickHandler   
+     , IDragHandler 
+     , IBeginDragHandler
+     , IEndDragHandler
+     , IPointerEnterHandler
+     , IPointerExitHandler
+    
 {
-
-    static float CARD_ENTER_OFFSET = 50f;
+    //Set offset for how many it should lift up when you enter with the pointer.
+    private static float CARD_ENTER_OFFSET = 50f;
+    //Saves the last position of the card before changing its position
     private Vector3 lastPosition;
+    //Says if the last position is saved.
     private bool setLastPos = false;
-    private bool isDraged = false;
+    //Says if the cards is being dragged
+    private bool isDragged = false;
 
+    /// <summary>
+    /// If the card in hand is clicked by pointer this method is called.
+    /// </summary>
+    /// <param name="eventData">Info about the event</param>
     public void OnPointerClick(PointerEventData eventData)
     {
+        //Pushes the card upward.
         this.transform.localPosition = new Vector3(this.transform.localPosition.x,this.transform.localPosition.y + CARD_ENTER_OFFSET);
     }
 
+    /// <summary>
+    /// If the card is beginning to be dragged this method is called.
+    /// </summary>
+    /// <param name="eventData">Info about the event</param>
     public void OnBeginDrag(PointerEventData eventData)
     {
-        isDraged = true;
+        //Sets that the card is being dragged and sets the position of the card.
+        isDragged = true;
         setLastPosition(this.transform.localPosition);
     }
 
+    /// <summary>
+    /// If the card is dragged this method is called.
+    /// </summary>
+    /// <param name="eventData">Info about the event</param>
     public void OnDrag(PointerEventData eventData)
     {
         Vector2 localPosition = Vector2.zero;
-        //transforms the position of the current pointer to world pointer
+        //Transforms the position of the current pointer to world pointer
         RectTransformUtility.ScreenPointToLocalPointInRectangle(this.GetComponent<RectTransform>(), eventData.position, eventData.pressEventCamera, out localPosition);
-        //set the position
+        //Set the position of the card to the pointer
         this.transform.position = this.transform.TransformPoint(localPosition);
     }
 
+    /// <summary>
+    /// If the card ends to be dragged this method is called.
+    /// </summary>
+    /// <param name="eventData">Info about the event</param>
     public void OnEndDrag(PointerEventData eventData)
     {
-        isDraged = false;
-        this.transform.localPosition = getLastPosition();
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //If the ray cast hits a board element.
+        if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.name == "Board") 
+        {  
+            //Changes the parent of the card to player board.
+            GameObject playerBoard = GameObject.Find("Board/PlayerBoard");
+            this.transform.SetParent(playerBoard.transform);
+            this.transform.localScale = Vector3.one;
+            //Removes this script from the component
+            Destroy(this);
+        }
+        else
+        {
+            //Sets card to last position and ends drag.
+            isDragged = false;
+            this.transform.localPosition = getLastPosition();
+        }
     }
 
+    /// <summary>
+    /// If the pointer enters the card in hand this method is called.
+    /// </summary>
+    /// <param name="eventData">Info about the event</param>
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!isDraged)
+        if (!isDragged)
         {
+            //Sets the last position of card and puts card upward.
             setLastPosition(this.transform.localPosition);
             this.transform.localPosition = new Vector3(this.transform.localPosition.x,this.transform.localPosition.y + CARD_ENTER_OFFSET);
         }
     }
 
+    /// <summary>
+    /// If the pointer exits the card in hand this method is called.
+    /// </summary>
+    /// <param name="eventData">Info about the event</param>
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (!isDraged)
+        if (!isDragged)
         {
+            //Returns to the last position.
             this.transform.localPosition = getLastPosition();
         }
     }
 
 
+    /// <summary>
+    /// Sets the last position of the card that it should return to if there are no prior added.
+    /// </summary>
+    /// <param name="pos">Position that should be added.</param>
     private void setLastPosition(Vector3 pos)
     {
         if (!setLastPos)
@@ -70,6 +125,10 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler   //interface for 
         }
     }
 
+    /// <summary>
+    /// Gets the last position of the card and changes that the last position could be set.
+    /// </summary>
+    /// <returns>The last position of the card.</returns>
     private Vector3 getLastPosition()
     {
         if (setLastPos)

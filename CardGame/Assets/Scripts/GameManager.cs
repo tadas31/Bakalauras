@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour
         addedCard.transform.localScale = handCards.transform.localScale;
         addedCard.AddComponent<CardInHand>();
         addedCard.transform.SetParent(handCards.transform);
-        Debug.Log("Card added to the hand");
         handReorganize();
     }
 
