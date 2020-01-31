@@ -15,13 +15,25 @@ public class DisplayAllCards : MonoBehaviour
     public Sprite spellBackground;      //spell card background
     public RectTransform content;       //parent for cards 
 
-    private List<Card> cards;           //array that contains all cards
+    //private List<Card> cards;           //array that contains all cards
 
     // Start is called before the first frame update
     void Start()
     {
+        displayAllCards(0);
+    }
+
+    public void displayAllCards(int costFilter)
+    {
+        //destroys all children of content object
+        foreach (Transform child in content)
+            Destroy(child.gameObject);
+
         //gets all cards
-        cards = Resources.LoadAll<Card>("Cards/CreatedCards").ToList();
+        List<Card> cards = Resources.LoadAll<Card>("Cards/CreatedCards").ToList();
+
+        if (costFilter != 0)
+            cards = filterByCost(cards, costFilter);
 
         ////calculates height of content game object
         float rows = (float)Math.Ceiling(cards.Count / 4f);
@@ -33,7 +45,7 @@ public class DisplayAllCards : MonoBehaviour
         {
             float row = (float)Math.Ceiling(cardNumber / 4f);           //row in which card is
             float cardNumberInRow = cardNumber - ((row - 1) * 4) - 1;   //card number in row from 0 to 3
-            float x = ROW_START + ROW_OFFSET * cardNumberInRow;         //x position of card
+            float x =  ROW_START + ROW_OFFSET * cardNumberInRow;        //x position of card
             float y = -251.5f - (row - 1) * LINE_OFFSET;                //y position of card
 
             //picks background according to card type
@@ -44,5 +56,17 @@ public class DisplayAllCards : MonoBehaviour
 
             cardNumber++;
         }
+    }
+
+    public List<Card> filterByCost(List<Card> cards, int costFilter)
+    {
+        List<Card> filteredList = new List<Card>();
+        foreach (var c in cards)
+        {
+            if (costFilter == c.cost)
+                filteredList.Add(c);
+        }
+
+        return filteredList;
     }
 }

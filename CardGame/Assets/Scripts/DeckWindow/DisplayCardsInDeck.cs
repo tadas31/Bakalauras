@@ -8,7 +8,6 @@ public class DisplayCardsInDeck : MonoBehaviour
     public RectTransform content;           //parent for cards 
     public GameObject compactCardPrefab;    //card prefab
     public Sprite compactBackground;        //card background
-    public bool isCalledFromStart;          //if true updateCardDisplay is called from start method if false from update
 
     // Start is called before the first frame update
     void Start()
@@ -45,12 +44,6 @@ public class DisplayCardsInDeck : MonoBehaviour
         for (int i = 0; i < cards.Count; i++)
         {
             float x = 0;    //x position of card
-
-            if (!isCalledFromStart && cards.Count < 15)
-                x = 190.0541f;
-            else if (!isCalledFromStart && cards.Count >= 15)
-                x = 181.5541f;
-
             float y = - 55 - row * (10 + 60);   //y position of card
 
             cards[i].spawnCardCompact(compactCardPrefab, compactBackground, content.gameObject, cardsInDeck[i].count, x, y);  //spawns card

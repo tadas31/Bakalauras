@@ -35,10 +35,8 @@ public class SelectCards : MonoBehaviour
         cardsInDeck = SaveSystem.LoadDeck() == null ? new List<DeckFormat>() : SaveSystem.LoadDeck().cardsInDeck;   //gets cards from save file if file does not exists sets value to null
 
         // If there are cards saved in deck displays them.
-        displayCardsInDeck.isCalledFromStart = true;
         if (cardsInDeck != null)
             displayCardsInDeck.updateCardDisplay(cardsInDeck);
-        displayCardsInDeck.isCalledFromStart = false;
 
         // Counts amount of cards in deck.
         cardsInDeckCount = 0;

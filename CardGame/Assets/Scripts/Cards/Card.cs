@@ -23,6 +23,9 @@ public class Card : ScriptableObject
         newCard.transform.localPosition = new Vector3(x, y, 0);                             //sets cards position
         newCard.transform.localScale = Vector3.one;                                         //sets cards scale
 
+        // Sets new anchor position for x.
+        newCard.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, newCard.GetComponent<RectTransform>().anchoredPosition.y);
+
         newCard.transform.name = cardName;
 
         //sets values to all card's fields
@@ -66,6 +69,9 @@ public class Card : ScriptableObject
         newCard.GetComponent<Transform>().SetParent(parent.transform);                      //sets parent
         newCard.transform.localPosition = new Vector3(x, y, 0);                             //sets cards position
         newCard.transform.localScale = Vector3.one;                                         //sets cards scale
+
+        // Sets new anchor position for x.
+        newCard.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, newCard.GetComponent<RectTransform>().anchoredPosition.y);
 
         //sets values to fields
         newCard.transform.name = "CardInDeck - " + cardName;
