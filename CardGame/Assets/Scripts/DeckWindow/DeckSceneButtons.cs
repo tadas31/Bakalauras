@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class DeckSceneButtons : MonoBehaviour
 {
-    public DisplayAllCards displayAllCards;
+    public DisplayAllCards displayAllCards;     // Reference to display all cards script.
+    public Text inputField;
 
     // Start is called before the first frame update
     void Start()
@@ -19,70 +21,87 @@ public class DeckSceneButtons : MonoBehaviour
         
     }
 
+    // Returns back to menu.
     public void onBackPress()
     {
         SceneManager.LoadScene("Menu");
     }
 
     //-----------------------------------------------------------
-    //Buttons for filtering cards by cost
+    // Buttons for filtering cards by cost.
     //-----------------------------------------------------------
     public void onCostAllPress()
     {
-        displayAllCards.displayAllCards(0);
+        displayAllCards.costFilter = 0;
+        displayAllCards.displayAllCards();
     }
 
     public void onCost1Press()
     {
-        displayAllCards.displayAllCards(1);
+        displayAllCards.costFilter = 1;
+        displayAllCards.displayAllCards();
     }
 
     public void onCost2Press()
     {
-        displayAllCards.displayAllCards(2);
+        displayAllCards.costFilter = 2;
+        displayAllCards.displayAllCards();
     }
 
     public void onCost3Press()
     {
-        displayAllCards.displayAllCards(3);
+        displayAllCards.costFilter = 3;
+        displayAllCards.displayAllCards();
     }
 
     public void onCost4Press()
     {
-        displayAllCards.displayAllCards(4);
+        displayAllCards.costFilter = 4;
+        displayAllCards.displayAllCards();
     }
 
     public void onCost5Press()
     {
-        displayAllCards.displayAllCards(5);
+        displayAllCards.costFilter = 5;
+        displayAllCards.displayAllCards();
     }
 
     public void onCost6Press()
     {
-        displayAllCards.displayAllCards(6);
+        displayAllCards.costFilter = 6;
+        displayAllCards.displayAllCards();
     }
 
     public void onCost7Press()
     {
-        displayAllCards.displayAllCards(7);
+        displayAllCards.costFilter = 7;
+        displayAllCards.displayAllCards();
     }
 
     public void onCost8Press()
     {
-        displayAllCards.displayAllCards(8);
+        displayAllCards.costFilter = 8;
+        displayAllCards.displayAllCards();
     }
 
     public void onCost9Press()
     {
-        displayAllCards.displayAllCards(9);
+        displayAllCards.costFilter = 9;
+        displayAllCards.displayAllCards();
     }
 
     public void onCost10Press()
     {
-        displayAllCards.displayAllCards(10);
+        displayAllCards.costFilter = 10;
+        displayAllCards.displayAllCards();
     }
 
     //-----------------------------------------------------------
 
-
+    // Performs search by inputted card name.
+    public void onSearchPress()
+    {
+        displayAllCards.inputInSeachField = inputField.text.ToString();
+        displayAllCards.displayAllCards();
+    }
 }

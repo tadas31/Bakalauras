@@ -15,15 +15,17 @@ public class DisplayAllCards : MonoBehaviour
     public Sprite spellBackground;      //spell card background
     public RectTransform content;       //parent for cards 
 
-    //private List<Card> cards;           //array that contains all cards
+    public int costFilter;              //card cost to filter by
+    public string inputInSeachField;    //string from search input field
 
     // Start is called before the first frame update
     void Start()
     {
-        displayAllCards(0);
+        costFilter = 0;
+        displayAllCards();
     }
 
-    public void displayAllCards(int costFilter)
+    public void displayAllCards()
     {
         //destroys all children of content object
         foreach (Transform child in content)
@@ -32,8 +34,13 @@ public class DisplayAllCards : MonoBehaviour
         //gets all cards
         List<Card> cards = Resources.LoadAll<Card>("Cards/CreatedCards").ToList();
 
+        // Filter by cost.
         if (costFilter != 0)
-            cards = filterByCost(cards, costFilter);
+            cards = filterByCost(cards);
+
+        // Search by name
+        if (inputInSeachField != "" || inputInSeachField != null)
+            cards = searchByName(cards);
 
         ////calculates height of content game object
         float rows = (float)Math.Ceiling(cards.Count / 4f);
@@ -58,12 +65,26 @@ public class DisplayAllCards : MonoBehaviour
         }
     }
 
-    public List<Card> filterByCost(List<Card> cards, int costFilter)
+    // Filters out cards by cost and returns list of those cards.
+    public List<Card> filterByCost(List<Card> cards)
     {
         List<Card> filteredList = new List<Card>();
         foreach (var c in cards)
         {
             if (costFilter == c.cost)
+                filteredList.Add(c);
+        }
+
+        return filteredList;
+    }
+
+    // Searches cards by name.
+    public List<Card> searchByName(List<Card> cards)
+    {
+        List<Card> filteredList = new List<Card>();
+        foreach (var c in cards)
+        {
+            if (c.name.ToLower().Contains(inputInSeachField.ToLower()))
                 filteredList.Add(c);
         }
 
