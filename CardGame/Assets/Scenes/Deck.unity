@@ -857,7 +857,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00001537042}
+  m_AnchoredPosition: {x: 0, y: 0.00008392334}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &936484301
@@ -996,6 +996,7 @@ MonoBehaviour:
   amountOfCardsInDeck: {fileID: 149481853}
   maxCountOfCards: 30
   maxCountOfCopies: 3
+  displayCardsInDeck: {fileID: 936484308}
 --- !u!114 &936484308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1012,6 +1013,7 @@ MonoBehaviour:
   compactCardPrefab: {fileID: 531688995353440279, guid: 2ca293798968fb047b5c5f01870329ab,
     type: 3}
   compactBackground: {fileID: 21300000, guid: b251164158a60814db2b22e88e80650c, type: 3}
+  isCalledFromStart: 0
 --- !u!114 &936484309
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class SelectCards : MonoBehaviour
     public TextMeshProUGUI amountOfCardsInDeck;     //amount of cards in deck
     public int maxCountOfCards;                     //maximum amount of cards in deck
     public int maxCountOfCopies;                    //maximum amount of same card in deck
+    public DisplayCardsInDeck displayCardsInDeck;   //script for displaying cards in deck
 
     private GraphicRaycaster raycaster;
     private bool locker = false;                    //if true user has pressed left mouse button on card but haven't released yet
@@ -33,6 +34,13 @@ public class SelectCards : MonoBehaviour
 
         cardsInDeck = SaveSystem.LoadDeck() == null ? new List<DeckFormat>() : SaveSystem.LoadDeck().cardsInDeck;   //gets cards from save file if file does not exists sets value to null
 
+        // If there are cards saved in deck displays them.
+        displayCardsInDeck.isCalledFromStart = true;
+        if (cardsInDeck != null)
+            displayCardsInDeck.updateCardDisplay(cardsInDeck);
+        displayCardsInDeck.isCalledFromStart = false;
+
+        // Counts amount of cards in deck.
         cardsInDeckCount = 0;
         foreach (var c in cardsInDeck)
             cardsInDeckCount += c.count;
@@ -60,14 +68,16 @@ public class SelectCards : MonoBehaviour
 
             //adds selected cards to deck
             else if (card.gameObject.name.Contains("Background - ") && cardsInDeckCount < maxCountOfCards)
-                addToDeck(card);    
+                addToDeck(card);
+
+            // Refreshes deck view.
+            displayCardsInDeck.updateCardDisplay(cardsInDeck);
 
             cardsInDeckCount = 0;
             foreach (var ca in cardsInDeck)
                 cardsInDeckCount += ca.count;
         }
     }
-
 
     //adds card to deck
     public void addToDeck(GameObject c)
