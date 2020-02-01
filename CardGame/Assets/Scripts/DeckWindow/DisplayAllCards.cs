@@ -6,22 +6,24 @@ using UnityEngine;
 
 public class DisplayAllCards : MonoBehaviour
 {
-    private int ROW_START = -516;       //x coordinates of first card in row
-    private int ROW_OFFSET = 344;       //offset for placing next card in row
-    private int LINE_OFFSET = 478;      //offset for placing cards in next line
+    private int ROW_START = -516;       // X coordinates of first card in row.
+    private int ROW_OFFSET = 344;       // Offset for placing next card in row.
+    private int LINE_OFFSET = 478;      // Offset for placing cards in next line.
 
-    public GameObject cardPrefab;       //card prefab
-    public Sprite minionBackground;     //minion card background
-    public Sprite spellBackground;      //spell card background
-    public RectTransform content;       //parent for cards 
+    public GameObject cardPrefab;       // Card prefab.
+    public Sprite minionBackground;     // Minion card background.
+    public Sprite spellBackground;      // Spell card background.
+    public RectTransform content;       // Parent for cards.
 
-    public int costFilter;              //card cost to filter by
-    public string inputInSeachField;    //string from search input field
+    public int costFilter;              // Card cost to filter by.
+    public string inputInSeachField;    // String from search input field.
+    public string tab;                  // Which tab to display.
 
     // Start is called before the first frame update
     void Start()
     {
         costFilter = 0;
+        tab = "All";
         displayAllCards();
     }
 
@@ -41,6 +43,10 @@ public class DisplayAllCards : MonoBehaviour
         // Search by name
         if (inputInSeachField != "" || inputInSeachField != null)
             cards = searchByName(cards);
+
+        // Filters cards by current tab
+        if (tab != "All")
+            cards = filterByTab(cards);
 
         ////calculates height of content game object
         float rows = (float)Math.Ceiling(cards.Count / 4f);
@@ -85,6 +91,22 @@ public class DisplayAllCards : MonoBehaviour
         foreach (var c in cards)
         {
             if (c.name.ToLower().Contains(inputInSeachField.ToLower()))
+                filteredList.Add(c);
+        }
+
+        return filteredList;
+    }
+
+    // Filters cards by current tab
+    public List<Card> filterByTab(List<Card> cards)
+    {
+        List<Card> filteredList = new List<Card>();
+        foreach (var c in cards)
+        {
+            if (tab == "Minions" && c.type.ToLower() != "spell")
+                filteredList.Add(c);
+
+            else if (tab == "Spells" && c.type.ToLower() == "spell")
                 filteredList.Add(c);
         }
 
