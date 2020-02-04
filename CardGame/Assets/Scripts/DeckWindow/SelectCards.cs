@@ -7,23 +7,24 @@ using UnityEngine.UI;
 
 public class SelectCards : MonoBehaviour
 {
-    public RectTransform content;                   //parent for cards 
-    public TextMeshProUGUI amountOfCardsInDeck;     //amount of cards in deck
-    public int maxCountOfCards;                     //maximum amount of cards in deck
-    public int maxCountOfCopies;                    //maximum amount of same card in deck
+    public RectTransform content;                   // Parent for cards.
+    public TextMeshProUGUI amountOfCardsInDeck;     // Amount of cards in deck.
+    public int maxCountOfCards;                     // Maximum amount of cards in deck.
+    public int maxCountOfCopies;                    // Maximum amount of same card in deck.
+    public DisplayCardsInDeck displayCardsInDeck;   // Reference to display all cards in deck script.
 
-    private GraphicRaycaster raycaster;
-    private bool locker = false;                    //if true user has pressed left mouse button on card but haven't released yet
+    private GraphicRaycaster raycaster;             // Raycast to check what objects are under mouse cursor.
+    private bool locker = false;                    // If true user has pressed left mouse button on card but haven't released yet.
 
 
-    private List<RaycastResult> results;            //objects hit by raycast when user pressed left mouse button
-    private List<RaycastResult> resultsRelease;     //objects hit by raycast when user released left mouse button
-    private float startPos;                         //position of content game object when user pressed left mouse button
-    private float endPos;                           //position of content game object when user released left mouse button
+    private List<RaycastResult> results;            // Objects hit by raycast when user pressed left mouse button.
+    private List<RaycastResult> resultsRelease;     // Objects hit by raycast when user released left mouse button.
+    private float startPos;                         // Position of content game object when user pressed left mouse button.
+    private float endPos;                           // Position of content game object when user released left mouse button.
 
-    private List<DeckFormat> cardsInDeck;           //list of cards in deck
+    private List<DeckFormat> cardsInDeck;           // List of cards in deck.
 
-    private int cardsInDeckCount;
+    private int cardsInDeckCount;                   // Amount of cards in deck.
 
 
     // Start is called before the first frame update
@@ -33,6 +34,11 @@ public class SelectCards : MonoBehaviour
 
         cardsInDeck = SaveSystem.LoadDeck() == null ? new List<DeckFormat>() : SaveSystem.LoadDeck().cardsInDeck;   //gets cards from save file if file does not exists sets value to null
 
+        // If there are cards saved in deck displays them.
+        if (cardsInDeck != null)
+            displayCardsInDeck.updateCardDisplay(cardsInDeck);
+
+        // Counts amount of cards in deck.
         cardsInDeckCount = 0;
         foreach (var c in cardsInDeck)
             cardsInDeckCount += c.count;
@@ -60,14 +66,16 @@ public class SelectCards : MonoBehaviour
 
             //adds selected cards to deck
             else if (card.gameObject.name.Contains("Background - ") && cardsInDeckCount < maxCountOfCards)
-                addToDeck(card);    
+                addToDeck(card);
+
+            // Refreshes deck view.
+            displayCardsInDeck.updateCardDisplay(cardsInDeck);
 
             cardsInDeckCount = 0;
             foreach (var ca in cardsInDeck)
                 cardsInDeckCount += ca.count;
         }
     }
-
 
     //adds card to deck
     public void addToDeck(GameObject c)
