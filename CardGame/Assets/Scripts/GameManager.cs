@@ -10,9 +10,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Deck deck = SaveSystem.LoadDeck();
         for (int i = 0; i < 8; i++)
         {
-            addCardToHand();
+            addCardToHand(deck.pullCard());
         }
 
     }
@@ -25,9 +26,9 @@ public class GameManager : MonoBehaviour
 
 
     //Adds card to the hand of the player
-    public void addCardToHand() 
+    public void addCardToHand(GameObject addedCard) 
     {
-        GameObject addedCard = Instantiate(card,new Vector3(handCards.transform.position.x, handCards.transform.position.y, handCards.transform.position.z), Quaternion.identity);
+        //GameObject addedCard = Instantiate(card,new Vector3(handCards.transform.position.x, handCards.transform.position.y, handCards.transform.position.z), Quaternion.identity);
         addedCard.transform.localScale = handCards.transform.localScale;
         addedCard.AddComponent<CardInHand>();
         addedCard.transform.SetParent(handCards.transform);

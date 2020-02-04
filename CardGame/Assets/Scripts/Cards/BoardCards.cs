@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoardCards : MonoBehaviour
 {
-    //The spacing between the cards that are put on board
+    //The spacing between the cards that are put on board.
     private static float SPACING_BETWEEN_CARDS = 340f;
     private void OnTransformChildrenChanged()
     {
@@ -12,7 +12,7 @@ public class BoardCards : MonoBehaviour
     }
 
     /// <summary>
-    /// Reorganizes the cards on the board by the number of cards on it
+    /// Reorganizes the cards on the board by the number of cards on it.                                                         
     /// </summary>
     private void reorganizeBoard() 
     {

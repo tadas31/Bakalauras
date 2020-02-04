@@ -13,4 +13,20 @@ public class Deck
     {
         this.cardsInDeck = cardsInDeck;
     }
+
+    public GameObject pullCard()
+    {
+        int rand = Random.Range(0,cardsInDeck.Count);
+        DeckFormat pulledCard = cardsInDeck[rand];
+        if (pulledCard.count <= 1)
+        {
+            cardsInDeck.RemoveAt(rand);
+        }
+        else
+        {
+            pulledCard.count--;
+        }
+        Card card = Resources.Load<Card>("Cards/CreatedCards/" + pulledCard.name);
+        return card.spawnCard();
+    }
 }
