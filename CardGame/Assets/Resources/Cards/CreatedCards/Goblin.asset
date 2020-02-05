@@ -19,3 +19,5 @@ MonoBehaviour:
   type: goblin
   attack: 1
   life: 2
+  scripts:
+  - 

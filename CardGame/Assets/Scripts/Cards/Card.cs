@@ -7,13 +7,14 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "New Card", menuName = "New Card")]
 public class Card : ScriptableObject
 {
-    public string cardName;     //card's name
-    public string description;  //card's description
-    public int cost;            //card's cost
-    public Sprite image;        //card's image
-    public string type;         //card's type
-    public int attack;          //card's attack
-    public int life;            //card's life
+    public string cardName;             // Card's name.
+    public string description;          // Card's description.
+    public int cost;                    // Card's cost.
+    public Sprite image;                // Card's image.
+    public string type;                 // Card's type.
+    public int attack;                  // Card's attack.
+    public int life;                    // Card's life.
+    public List<string> scripts;        // Names list of scripts needed for card.
 
     /// <summary>
     /// Spawns the card.
@@ -22,11 +23,23 @@ public class Card : ScriptableObject
     public GameObject spawnCard() 
     {
         //Getting the main card prefab.
-        GameObject cardPrefab = Resources.Load<GameObject>("Cards/Prefabs/Card"); ;
+        GameObject cardPrefab = Resources.Load<GameObject>("Cards/Prefabs/Card");
         //Getting the background of the card by type.
         Sprite background = getBackgroundSprite(type);
         //Creates the game object of the card.
         GameObject newCard = Instantiate(cardPrefab, Vector3.zero, Quaternion.identity);
+
+        //// Gets and adds necessary scripts to card.
+        foreach (var script in scripts)
+        {
+            // Get's script type.
+            System.Type scriptType = System.Type.GetType(script + ",Assembly-CSharp");
+            // Adds script to card.
+            (newCard.AddComponent(scriptType) as MonoBehaviour).enabled = false;
+        }
+
+
+
         //Sets all of the parameters of the card.
         newCard = setDataForCard(newCard, background);
 

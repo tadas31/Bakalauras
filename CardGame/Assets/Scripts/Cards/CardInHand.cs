@@ -73,6 +73,11 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler
             GameObject playerBoard = GameObject.Find("Board/PlayerBoard");
             this.transform.SetParent(playerBoard.transform);
             this.transform.localScale = Vector3.one;
+
+            // Enables all attached scripts.
+            foreach (MonoBehaviour script in gameObject.GetComponents<MonoBehaviour>())
+                script.enabled = true;
+
             //Removes this script from the component
             Destroy(this);
         }
