@@ -1019,7 +1019,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 146627424}
   m_HandleRect: {fileID: 146627423}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2525,6 +2525,8 @@ MonoBehaviour:
   displayAllCards: {fileID: 936484306}
   tabController: {fileID: 768228285}
   isClicked: 0
+  clickedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  notClickedCollor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &936484301
 GameObject:
   m_ObjectHideFlags: 0
@@ -4797,6 +4799,8 @@ MonoBehaviour:
   displayAllCards: {fileID: 936484306}
   tabController: {fileID: 768228285}
   isClicked: 0
+  clickedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  notClickedCollor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &1928175195
 GameObject:
   m_ObjectHideFlags: 0
@@ -5239,8 +5243,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2084240984}
   m_HandleRect: {fileID: 2084240983}
   m_Direction: 2
-  m_Value: 1.0000001
-  m_Size: 0.4749731
+  m_Value: 1
+  m_Size: 0.47489166
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5607,6 +5611,8 @@ MonoBehaviour:
   displayAllCards: {fileID: 936484306}
   tabController: {fileID: 768228285}
   isClicked: 0
+  clickedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  notClickedCollor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &2052432930
 GameObject:
   m_ObjectHideFlags: 0

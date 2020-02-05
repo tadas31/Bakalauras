@@ -62,7 +62,7 @@ public class DisplayAllCards : MonoBehaviour
             float y = -251.5f - (row - 1) * LINE_OFFSET;                //y position of card
 
             //picks background according to card type
-            if (c.type.ToLower() == "spell")
+            if (c.type.ToLower().Contains("spell"))
                 c.spawnCard(cardPrefab, spellBackground, content.gameObject, x, y);     //spawns spell
             else
                 c.spawnCard(cardPrefab, minionBackground, content.gameObject, x, y);    //spawns minion
@@ -103,10 +103,10 @@ public class DisplayAllCards : MonoBehaviour
         List<Card> filteredList = new List<Card>();
         foreach (var c in cards)
         {
-            if (tab == "Minions" && c.type.ToLower() != "spell")
+            if (tab == "Minions" && !c.type.ToLower().Contains("spell"))
                 filteredList.Add(c);
 
-            else if (tab == "Spells" && c.type.ToLower() == "spell")
+            else if (tab == "Spells" && c.type.ToLower().Contains("spell"))
                 filteredList.Add(c);
         }
 
