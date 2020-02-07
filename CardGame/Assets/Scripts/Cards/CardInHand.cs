@@ -30,8 +30,8 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler
     /// <param name="eventData">Info about the event</param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        //Pushes the card upward.
-        this.transform.localPosition = new Vector3(this.transform.localPosition.x,this.transform.localPosition.y + CARD_ENTER_OFFSET);
+        //The card is set as selected.
+        SelectedCard.Instance.Selected = this.gameObject;
     }
 
     /// <summary>
