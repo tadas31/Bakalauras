@@ -36,7 +36,7 @@ public class SelectedCard : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        //Destry the new game object that is created
+        //Destroy the new game object that is created
         else 
         {
             Destroy(gameObject);

@@ -38,6 +38,15 @@ public class Card : ScriptableObject
             (newCard.AddComponent(scriptType) as MonoBehaviour).enabled = false;
         }
 
+        // If it's minion adds attack script.
+        if (!type.ToLower().Contains("spell"))
+        {
+            // Get's script type.
+            System.Type scriptType = System.Type.GetType("Attack" + ",Assembly-CSharp");
+            // Adds script to card.
+            (newCard.AddComponent(scriptType) as MonoBehaviour).enabled = false;
+        }
+
 
 
         //Sets all of the parameters of the card.
@@ -133,7 +142,7 @@ public class Card : ScriptableObject
                     child.GetComponent<TextMeshProUGUI>().text = description;
                     break;
                 case "Stats":
-                    if (type.ToLower().Contains("Spell"))
+                    if (type.ToLower().Contains("spell"))
                         child.GetComponent<TextMeshProUGUI>().text = null;
                     else
                         child.GetComponent<TextMeshProUGUI>().text = attack + " / " + life;
