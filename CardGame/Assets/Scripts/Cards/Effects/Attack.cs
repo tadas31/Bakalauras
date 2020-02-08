@@ -4,16 +4,19 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class Attack : MonoBehaviour, IPointerClickHandler
 {
     private bool attacking;                         // If card is selected to attack true else false.
     private bool selectingCardToAttack;             // If player is selecting card to attack true else false
     private bool attacked;                          // If card has attacked true else false.
+    private DrawArrow drawArrow;
 
     // Start is called before the first frame update
     void Start()
     {
+        drawArrow = transform.parent.GetComponent<DrawArrow>();
         attacking = false;
         selectingCardToAttack = false;
         attacked = false;
@@ -25,6 +28,12 @@ public class Attack : MonoBehaviour, IPointerClickHandler
         // Attack card
         if (attacking)
         {
+            var screenPoint = Input.mousePosition;
+            screenPoint.z = 10.0f; // Distance of the plane from the camera
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(screenPoint);
+            drawArrow.arrowTarget = new Vector3(mousePos.x, mousePos.y, 6);
+
+
             if (Input.GetMouseButtonUp(0) && selectingCardToAttack)
             {
                 attack();
@@ -44,6 +53,12 @@ public class Attack : MonoBehaviour, IPointerClickHandler
         {
             attacking = true;
             selectingCardToAttack = false;
+
+            float xPos = transform.position.x < 0 ? transform.position.x / 1.14f : transform.position.x / 1.1f;
+
+            drawArrow.arrowOrigin = new Vector3(xPos, -0.6f, 6);
+            drawArrow.arrowTarget = new Vector3(xPos, -0.6f, 6);
+            drawArrow.cachedLineRenderer.enabled = true;
         }
     }
 
@@ -108,5 +123,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
 
         attacking = false;
         selectingCardToAttack = false;
+
+        drawArrow.cachedLineRenderer.enabled = false;
     }
 }
