@@ -34,8 +34,10 @@ public class Card : ScriptableObject
         {
             // Get's script type.
             System.Type scriptType = System.Type.GetType(script + ",Assembly-CSharp");
+
             // Adds script to card.
-            (newCard.AddComponent(scriptType) as MonoBehaviour).enabled = false;
+            if (scriptType != null)
+                (newCard.AddComponent(scriptType) as MonoBehaviour).enabled = false;
         }
 
         // If it's minion adds attack script.
