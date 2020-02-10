@@ -7,9 +7,13 @@ public class GameManager : MonoBehaviour
     public GameObject handCards;
     public GameObject card;
 
+    public bool isAttacking;        // Prevents defending card from being selected for attacking used in Attack script.
+
     // Start is called before the first frame update
     void Start()
     {
+        isAttacking = false;
+
         Deck deck = SaveSystem.LoadDeck();
         for (int i = 0; i < 8; i++)
         {
