@@ -29,11 +29,13 @@ public class Card : ScriptableObject
         //Creates the game object of the card.
         GameObject newCard = Instantiate(cardPrefab, Vector3.zero, Quaternion.identity);
 
+        System.Type scriptType;
+
         //// Gets and adds necessary scripts to card.
         foreach (var script in scripts)
         {
             // Get's script type.
-            System.Type scriptType = System.Type.GetType(script + ",Assembly-CSharp");
+            scriptType = System.Type.GetType(script + ",Assembly-CSharp");
 
             // Adds script to card.
             if (scriptType != null)
@@ -44,11 +46,16 @@ public class Card : ScriptableObject
         if (!type.ToLower().Contains("spell"))
         {
             // Get's script type.
-            System.Type scriptType = System.Type.GetType("Attack" + ",Assembly-CSharp");
+            scriptType = System.Type.GetType("Attack" + ",Assembly-CSharp");
             // Adds script to card.
             (newCard.AddComponent(scriptType) as MonoBehaviour).enabled = false;
         }
 
+
+        // Get's script type.
+        scriptType = System.Type.GetType("OnCardDestroy" + ",Assembly-CSharp");
+        // Adds script to card.
+        (newCard.AddComponent(scriptType) as MonoBehaviour).enabled = false;
 
 
         //Sets all of the parameters of the card.

@@ -48,7 +48,7 @@ public class DisplayAllCards : MonoBehaviour
         if (tab != "All")
             cards = filterByTab(cards);
 
-        ////calculates height of content game object
+        //calculates height of content game object
         float rows = (float)Math.Ceiling(cards.Count / 4f);
         float height = rows == 1 ? 24 * 2 + 455 : (24 * rows + 24) + (455 * rows);
         content.sizeDelta = new Vector2(0, height);
