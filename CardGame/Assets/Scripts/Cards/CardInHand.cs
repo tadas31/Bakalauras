@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 /// <summary>
 /// Used for cards in hand to have functionality. Uses interfaces that implement OnPointerClick, OnDrag, OnBeginDrag, OnEndDrag, OnPointerEnter, OnPointerExit.
@@ -69,10 +70,21 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler
         //If the ray cast hits a board element.
         if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.name == "Board") 
         {  
-            //Changes the parent of the card to player board.
-            GameObject playerBoard = GameObject.Find("Board/PlayerBoard");
-            this.transform.SetParent(playerBoard.transform);
-            this.transform.localScale = Vector3.one;
+            if (transform.GetChild(0).Find("Type").GetComponent<TextMeshProUGUI>().text.ToLower().Contains("spell"))
+            {
+                //Changes the parent of the card to spells.
+                GameObject spells = GameObject.Find("Spells");
+                this.transform.SetParent(spells.transform);
+                this.transform.localScale = Vector3.one;
+            }
+            else
+            {
+                //Changes the parent of the card to player board.
+                GameObject playerBoard = GameObject.Find("Board/PlayerBoard");
+                this.transform.SetParent(playerBoard.transform);
+                this.transform.localScale = Vector3.one;
+            }
+
 
             // Enables all attached scripts.
             foreach (MonoBehaviour script in gameObject.GetComponents<MonoBehaviour>())
