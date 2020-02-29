@@ -53,7 +53,7 @@ public class FireBall : MonoBehaviour
              // If player hovers over cards in hand spell returns to hand
             if (defendingCard != null && defendingCard.position == new Vector3(2000, 2000, 2000))
             {
-                attackHelper.moveSpellBackToHand(gameObject);
+                attackHelper.moveCardBackToHand(gameObject);
                 Destroy(defendingCard.gameObject);
             }
         }
@@ -102,7 +102,7 @@ public class FireBall : MonoBehaviour
         }
         else
         {
-            attackHelper.moveSpellBackToHand(gameObject);
+            attackHelper.moveCardBackToHand(gameObject);
             attacking = false;
         }
     }

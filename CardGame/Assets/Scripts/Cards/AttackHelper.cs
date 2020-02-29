@@ -78,10 +78,10 @@ public class AttackHelper : MonoBehaviour
     }
 
     /// <summary>
-    /// If player hovers over cards in hand returns spell to hand.
+    /// Moves card back to hand
     /// </summary>
     /// <param name="defendingCard"></param>
-    public void moveSpellBackToHand(GameObject spell)
+    public void moveCardBackToHand(GameObject spell)
     {
         foreach (MonoBehaviour script in spell.GetComponents<MonoBehaviour>())
             script.enabled = false;
