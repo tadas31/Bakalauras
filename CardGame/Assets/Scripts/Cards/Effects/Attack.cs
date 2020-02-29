@@ -14,8 +14,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
     private bool selectingCardToAttack;     // If player is selecting card to attack true else false.
     private bool attacked;                  // If card has attacked true else false.
     private bool attackStarted;             // If defending card is found and attacking card started attacking true else false.
-    private DrawArrow drawArrow;            // Reference to draw arrow script.
-    private GameManager gameManager;        // Reference to game manager script.
+    private AttackHelper attackHelper;      // Reference to attack helper script.
 
     private bool moveForward;               // True when card moves towards defending card.
     private bool moveBack;                  // True when card goes back to it's position
@@ -28,8 +27,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
     void Start()
     {
         speed = 0.18f;
-        drawArrow = transform.parent.parent.GetComponent<DrawArrow>();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        attackHelper = GameObject.Find("Board").GetComponent<AttackHelper>();
         attacking = false;
         selectingCardToAttack = false;
         attacked = false;
@@ -48,7 +46,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
             var screenPoint = Input.mousePosition;
             screenPoint.z = 10.0f; // Distance of the plane from the camera
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(screenPoint);
-            drawArrow.arrowTarget = new Vector3(mousePos.x, mousePos.y, 6);
+            attackHelper.arrowTarget = new Vector3(mousePos.x, mousePos.y, 6);
 
 
             if (Input.GetMouseButtonUp(0) && selectingCardToAttack && !attackStarted)
@@ -69,7 +67,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
     /// <param name="eventData"></param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!attacked && !gameManager.isAttacking)
+        if (!attacked && !attackHelper.isAttacking)
         {
             // Selects card for attacking.
             attacking = true;
@@ -78,12 +76,12 @@ public class Attack : MonoBehaviour, IPointerClickHandler
             // Enables arrow drawing and sets coordinates.
             float xPos = transform.position.x < 0 ? transform.position.x / 1.14f : transform.position.x / 1.1f;
             float yPos = transform.position.y < 0 ? -0.6f : 3.45f;
-            drawArrow.arrowOrigin = new Vector3(xPos, yPos, 6);
-            drawArrow.arrowTarget = new Vector3(xPos, yPos, 6);
-            drawArrow.cachedLineRenderer.enabled = true;
+            attackHelper.arrowOrigin = new Vector3(xPos, yPos, 6);
+            attackHelper.arrowTarget = new Vector3(xPos, yPos, 6);
+            attackHelper.cachedLineRenderer.enabled = true;
 
             // Prevents defending card from being selected for attacking.
-            gameManager.isAttacking = true;
+            attackHelper.isAttacking = true;
         }
     }
 
@@ -92,36 +90,21 @@ public class Attack : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private IEnumerator attack()
     {
-        // Raycasts all UI elements.
-        PointerEventData pointerData = new PointerEventData(EventSystem.current);
-        pointerData.position = Input.mousePosition;
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(pointerData, results);
 
-        // Gets parent to all card components.
         attackingCard = transform.GetChild(0);
+
+        // Get defending card.
+        defendingCard = attackHelper.getDefendingCard(attackingCard);
+
         startPos = attackingCard.position;
 
-        // Defending card.
-        defendingCard = null;
-
-        // Gets defending card.
-        foreach (RaycastResult result in results)
-        {
-            if (result.gameObject.name.ToLower().Contains("background - ") && result.gameObject.GetComponentInParent<Canvas>().name.ToLower().Contains("board") && attackingCard != result.gameObject.transform)
-            {
-                defendingCard = result.gameObject.transform;
-                break;
-            }
-        }
-
-        // Deals and receives damage
+        // Deals and receives damage.
         if (defendingCard != null)
         {
             attackStarted = true;
-            drawArrow.cachedLineRenderer.enabled = false;
+            attackHelper.cachedLineRenderer.enabled = false;
 
-            // Waits for attacking card to move to defending card
+            // Waits for attacking card to move to defending card.
             moveForward = true;
             while (moveForward)
                 yield return null;
@@ -166,8 +149,6 @@ public class Attack : MonoBehaviour, IPointerClickHandler
                 Destroy(defendingCard.parent.gameObject);
             else
                 defendingCard.transform.Find("Stats").GetComponent<TextMeshProUGUI>().text = defendingCardAttack + " / " + defendingCardLife;
-
-
            
 
             // Marks card as attacked this turn
@@ -179,8 +160,8 @@ public class Attack : MonoBehaviour, IPointerClickHandler
         attacking = false;
         selectingCardToAttack = false;
 
-        drawArrow.cachedLineRenderer.enabled = false;
-        gameManager.isAttacking = false;
+        attackHelper.cachedLineRenderer.enabled = false;
+        attackHelper.isAttacking = false;
     }
 
     /// <summary>
