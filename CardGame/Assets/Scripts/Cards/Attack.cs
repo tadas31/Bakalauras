@@ -109,47 +109,36 @@ public class Attack : MonoBehaviour, IPointerClickHandler
             while (moveForward)
                 yield return null;
 
-            // Gets attacking card stats.
-            string[] attackingCardStats = attackingCard.transform.Find("Stats").GetComponent<TextMeshProUGUI>().text.Split('/');
-            int attackingCardAttack = int.Parse(attackingCardStats[0]);
-            int attackingCardLife = int.Parse(attackingCardStats[1]);
+            // Gets card stats handlers
+            CardStatsHelper attackingCardStats = GetComponent<CardStatsHelper>();
+            CardStatsHelper defendingCardStats = defendingCard.GetComponentInParent<CardStatsHelper>();
 
-            // Gets defending card stats.
-            string[] defendingCardStats = defendingCard.transform.Find("Stats").GetComponent<TextMeshProUGUI>().text.Split('/');
-            int defendingCardAttack = int.Parse(defendingCardStats[0]);
-            int defendingCardLife = int.Parse(defendingCardStats[1]);
+            // Deals damage and updates life's
+            attackingCardStats.takeDamage( defendingCardStats.getAttack() );
+            defendingCardStats.takeDamage( attackingCardStats.getAttack() );
 
-            // Deals and takes damage.
-            attackingCardLife -= defendingCardAttack;
-            defendingCardLife -= attackingCardAttack;
 
             TextMeshProUGUI attackingCardDamageTaken = attackingCard.transform.Find("Image").transform.Find("DamageTaken").GetComponent<TextMeshProUGUI>();
             TextMeshProUGUI defendingCardDamageTaken = defendingCard.transform.Find("Image").transform.Find("DamageTaken").GetComponent<TextMeshProUGUI>();
 
-            attackingCardDamageTaken.text = "-" + defendingCardAttack;
-            defendingCardDamageTaken.text = "-" + attackingCardAttack;
+            attackingCardDamageTaken.text = "-" + defendingCardStats.getAttack();
+            defendingCardDamageTaken.text = "-" + attackingCardStats.getAttack();
 
             yield return new WaitForSeconds(0.1f);
-
+            
             // Waits for card to get back to it's position.
             moveBack = true;
             while (moveBack)
+            {
                 yield return null;
+            }
 
             attackingCardDamageTaken.text = null;
             defendingCardDamageTaken.text = null;
 
-            // Destroys dead cards and updates life values
-            if (attackingCardLife < 1)
-                Destroy(attackingCard.parent.gameObject);
-            else
-                attackingCard.transform.Find("Stats").GetComponent<TextMeshProUGUI>().text = attackingCardAttack + " / " + attackingCardLife;
-
-            if (defendingCardLife < 1)
-                Destroy(defendingCard.parent.gameObject);
-            else
-                defendingCard.transform.Find("Stats").GetComponent<TextMeshProUGUI>().text = defendingCardAttack + " / " + defendingCardLife;
-           
+            // Destroys dead cards
+            attackingCardStats.checkIfSitllAlive();
+            defendingCardStats.checkIfSitllAlive();
 
             // Marks card as attacked this turn
             attacked = true;

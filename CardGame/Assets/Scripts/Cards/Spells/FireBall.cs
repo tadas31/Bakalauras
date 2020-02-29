@@ -77,11 +77,10 @@ public class FireBall : MonoBehaviour
 
             attackHelper.cachedLineRenderer.enabled = false;
 
+            CardStatsHelper defendingCardStats = defendingCard.GetComponentInParent<CardStatsHelper>();
+
             // Deals damage to defending card
-            string[] defendingCardStats = defendingCard.transform.Find("Stats").GetComponent<TextMeshProUGUI>().text.Split('/');
-            int defendingCardAttack = int.Parse(defendingCardStats[0]);
-            int defendingCardLife = int.Parse(defendingCardStats[1]);
-            defendingCardLife -= damage;
+            defendingCardStats.takeDamage( damage );
 
             // Displays damage dealt to defending card
             TextMeshProUGUI defendingCardDamageTaken = defendingCard.transform.Find("Image").transform.Find("DamageTaken").GetComponent<TextMeshProUGUI>();
@@ -89,11 +88,8 @@ public class FireBall : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
             defendingCardDamageTaken.text = null;
 
-
-            if (defendingCardLife < 1)
-                Destroy(defendingCard.parent.gameObject);
-            else
-                defendingCard.transform.Find("Stats").GetComponent<TextMeshProUGUI>().text = defendingCardAttack + " / " + defendingCardLife;
+            // Destroys dead cards
+            defendingCardStats.checkIfSitllAlive();
 
             // Resets all booleans to allow attack with another card
             attacking = false;

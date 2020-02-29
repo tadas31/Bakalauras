@@ -46,7 +46,8 @@ public class DisplayCardsInDeck : MonoBehaviour
             float x = 0;    //x position of card
             float y = - 55 - row * (10 + 60);   //y position of card
 
-            cards[i].spawnCardCompact(compactCardPrefab, compactBackground, content.gameObject, cardsInDeck[i].count, x, y);  //spawns card
+            // Spawns card
+            cards[i].spawnCardCompact(compactCardPrefab, compactBackground, content.gameObject, cardsInDeck[i].count, x, y);
 
             row++;
         }

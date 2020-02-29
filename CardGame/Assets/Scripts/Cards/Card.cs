@@ -49,6 +49,17 @@ public class Card : ScriptableObject
             scriptType = System.Type.GetType("Attack" + ",Assembly-CSharp");
             // Adds script to card.
             (newCard.AddComponent(scriptType) as MonoBehaviour).enabled = false;
+
+
+            // Get's script type.
+            scriptType = System.Type.GetType("CardStatsHelper" + ",Assembly-CSharp");
+
+            // Adds script to card.
+            (newCard.AddComponent(scriptType) as MonoBehaviour).enabled = false;
+
+            // Sets starting stats for minions
+            newCard.GetComponent<CardStatsHelper>().startingAttack = attack;
+            newCard.GetComponent<CardStatsHelper>().startingLife = life;
         }
 
 

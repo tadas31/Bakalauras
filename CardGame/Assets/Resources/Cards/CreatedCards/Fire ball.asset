@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8075f5c689ce929458b1aa47046be16b, type: 3}
-  m_Name: fireBall
+  m_Name: Fire ball
   m_EditorClassIdentifier: 
-  cardName: fireBall
-  description: Casts fire ball deals 9 damage
-  cost: 9
+  cardName: Fire ball
+  description: Casts fire ball deals 3 damage
+  cost: 2
   image: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   type: Fire spell
   attack: 0

@@ -92,4 +92,19 @@ public class AttackHelper : MonoBehaviour
         isAttacking = false;
         cachedLineRenderer.enabled = false;
     }
+
+    /// <summary>
+    /// Gets all enemy cards
+    /// </summary>
+    /// <returns></returns>
+    public List<Transform> getAllEnemyCards()
+    {
+        GameObject enemyBoard = GameObject.Find("EnemyBoard");
+        List<Transform> cards = new List<Transform>();
+
+        for (int i = 0; i < enemyBoard.transform.childCount; i++)
+            cards.Add( enemyBoard.transform.GetChild(i).GetChild(0) );
+
+        return cards;
+    }
 }
