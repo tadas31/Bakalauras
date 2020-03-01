@@ -24,6 +24,13 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler
     private bool setLastPos = false;
     //Says if the cards is being dragged
     private bool isDragged = false;
+    //Reference to attack helper.
+    private AttackHelper attackHelper;
+
+    private void Start()
+    {
+        attackHelper = GameObject.Find("Board").GetComponent<AttackHelper>();
+    }
 
     /// <summary>
     /// If the card in hand is clicked by pointer this method is called.
@@ -41,9 +48,14 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler
     /// <param name="eventData">Info about the event</param>
     public void OnBeginDrag(PointerEventData eventData)
     {
-        //Sets that the card is being dragged and sets the position of the card.
-        isDragged = true;
-        setLastPosition(this.transform.localPosition);
+
+        if (!attackHelper.isAttacking)
+        {
+            //Sets that the card is being dragged and sets the position of the card.
+            isDragged = true;
+            setLastPosition(this.transform.localPosition);
+        }
+           
     }
 
     /// <summary>
@@ -52,11 +64,14 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler
     /// <param name="eventData">Info about the event</param>
     public void OnDrag(PointerEventData eventData)
     {
-        Vector2 localPosition = Vector2.zero;
-        //Transforms the position of the current pointer to world pointer
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(this.GetComponent<RectTransform>(), eventData.position, eventData.pressEventCamera, out localPosition);
-        //Set the position of the card to the pointer
-        this.transform.position = this.transform.TransformPoint(localPosition);
+        if (!attackHelper.isAttacking)
+        {
+            Vector2 localPosition = Vector2.zero;
+            //Transforms the position of the current pointer to world pointer
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(this.GetComponent<RectTransform>(), eventData.position, eventData.pressEventCamera, out localPosition);
+            //Set the position of the card to the pointer
+            this.transform.position = this.transform.TransformPoint(localPosition);
+        }
     }
 
     /// <summary>
@@ -65,39 +80,42 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler
     /// <param name="eventData">Info about the event</param>
     public void OnEndDrag(PointerEventData eventData)
     {
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //If the ray cast hits a board element.
-        if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.name == "Board") 
-        {  
-            if (transform.GetChild(0).Find("Type").GetComponent<TextMeshProUGUI>().text.ToLower().Contains("spell"))
+        if (!attackHelper.isAttacking)
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //If the ray cast hits a board element.
+            if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.name == "Board")
             {
-                //Changes the parent of the card to spells.
-                GameObject spells = GameObject.Find("Spells");
-                this.transform.SetParent(spells.transform);
-                this.transform.localScale = Vector3.one;
+                if (transform.GetChild(0).Find("Type").GetComponent<TextMeshProUGUI>().text.ToLower().Contains("spell"))
+                {
+                    //Changes the parent of the card to spells.
+                    GameObject spells = GameObject.Find("Spells");
+                    this.transform.SetParent(spells.transform);
+                    this.transform.localScale = Vector3.one;
+                }
+                else
+                {
+                    //Changes the parent of the card to player board.
+                    GameObject playerBoard = GameObject.Find("Board/PlayerBoard");
+                    this.transform.SetParent(playerBoard.transform);
+                    this.transform.localScale = Vector3.one;
+                }
+
+
+                // Enables all attached scripts.
+                foreach (MonoBehaviour script in gameObject.GetComponents<MonoBehaviour>())
+                    script.enabled = true;
+
+                //Removes this script from the component
+                Destroy(this);
             }
             else
             {
-                //Changes the parent of the card to player board.
-                GameObject playerBoard = GameObject.Find("Board/PlayerBoard");
-                this.transform.SetParent(playerBoard.transform);
-                this.transform.localScale = Vector3.one;
+                //Sets card to last position and ends drag.
+                isDragged = false;
+                this.transform.localPosition = getLastPosition();
             }
-
-
-            // Enables all attached scripts.
-            foreach (MonoBehaviour script in gameObject.GetComponents<MonoBehaviour>())
-                script.enabled = true;
-
-            //Removes this script from the component
-            Destroy(this);
-        }
-        else
-        {
-            //Sets card to last position and ends drag.
-            isDragged = false;
-            this.transform.localPosition = getLastPosition();
         }
     }
 

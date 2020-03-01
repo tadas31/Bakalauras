@@ -88,7 +88,7 @@ public class FireBall : MonoBehaviour
             yield return new WaitForSeconds( attackHelper.TIME_TO_SHOW_DAMAGE_FROM_SPELLS );
             defendingCardDamageTaken.text = null;
 
-            // Destroys dead cards
+            // Destroys card if its dead
             defendingCardStats.checkIfSitllAlive();
 
             // Resets all booleans to allow attack with another card
