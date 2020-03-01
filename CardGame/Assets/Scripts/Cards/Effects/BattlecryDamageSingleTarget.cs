@@ -63,6 +63,10 @@ public class BattlecryDamageSingleTarget : MonoBehaviour
            
     }
 
+    /// <summary>
+    /// Deals damage.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator battlecry()
     {
         attackHelper.cachedLineRenderer.enabled = false;
