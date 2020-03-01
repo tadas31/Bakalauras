@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 
 public class AttackHelper : MonoBehaviour
 {
+    public float TIME_TO_SHOW_DAMAGE_FROM_SPELLS = 0.3f;
+
+
     public Vector3 arrowOrigin;                 // Star position of arrow.
     public Vector3 arrowTarget;                 // End position of arrow.
     public LineRenderer cachedLineRenderer;     // Line renderer.
@@ -104,6 +107,17 @@ public class AttackHelper : MonoBehaviour
 
         for (int i = 0; i < enemyBoard.transform.childCount; i++)
             cards.Add( enemyBoard.transform.GetChild(i).GetChild(0) );
+
+        return cards;
+    }
+
+    public List<Transform> getAllPlayerCards()
+    {
+        GameObject playerBoard = GameObject.Find("PlayerBoard");
+        List<Transform> cards = new List<Transform>();
+
+        for (int i = 0; i < playerBoard.transform.childCount; i++)
+            cards.Add( playerBoard.transform.GetChild(i).GetChild(0) );
 
         return cards;
     }

@@ -85,7 +85,7 @@ public class FireBall : MonoBehaviour
             // Displays damage dealt to defending card
             TextMeshProUGUI defendingCardDamageTaken = defendingCard.transform.Find("Image").transform.Find("DamageTaken").GetComponent<TextMeshProUGUI>();
             defendingCardDamageTaken.text = "-" + damage;
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds( attackHelper.TIME_TO_SHOW_DAMAGE_FROM_SPELLS );
             defendingCardDamageTaken.text = null;
 
             // Destroys dead cards

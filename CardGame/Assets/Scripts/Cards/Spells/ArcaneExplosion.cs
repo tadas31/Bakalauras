@@ -46,7 +46,7 @@ public class ArcaneExplosion : MonoBehaviour
             defendingCardDamageTaken.text = "-" + damage;
         }
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds( attackHelper.TIME_TO_SHOW_DAMAGE_FROM_SPELLS );
 
         foreach (Transform card in enemyCards)
         {
