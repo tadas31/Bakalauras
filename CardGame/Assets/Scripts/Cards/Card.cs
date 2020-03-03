@@ -45,29 +45,23 @@ public class Card : ScriptableObject
         // If it's minion adds attack script.
         if (!type.ToLower().Contains("spell"))
         {
-            // Get's script type.
-            scriptType = System.Type.GetType("Attack" + ",Assembly-CSharp");
-            // Adds script to card.
-            (newCard.AddComponent(scriptType) as MonoBehaviour).enabled = false;
-
-
-            // Get's script type.
-            scriptType = System.Type.GetType("CardStatsHelper" + ",Assembly-CSharp");
-
-            // Adds script to card.
-            (newCard.AddComponent(scriptType) as MonoBehaviour).enabled = false;
+            // Add minion specific scripts
+            newCard.AddComponent<Attack>().enabled = false;
+            newCard.AddComponent<CardStatsHelper>().enabled = false;
 
             // Sets starting stats for minions
             newCard.GetComponent<CardStatsHelper>().startingAttack = attack;
             newCard.GetComponent<CardStatsHelper>().startingLife = life;
+
+
         }
 
+        // Add scripts needed for all cards
+        newCard.AddComponent<OnCardDestroy>().enabled = false;
+        newCard.AddComponent<CardCostHelper>();
 
-        // Get's script type.
-        scriptType = System.Type.GetType("OnCardDestroy" + ",Assembly-CSharp");
-        // Adds script to card.
-        (newCard.AddComponent(scriptType) as MonoBehaviour).enabled = false;
-
+        // Set starting cost
+        newCard.GetComponent<CardCostHelper>().startingCost = cost;
 
         //Sets all of the parameters of the card.
         newCard = setDataForCard(newCard, background);

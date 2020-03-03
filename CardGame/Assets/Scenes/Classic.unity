@@ -506,6 +506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 103e69df1cfd0404b876cc3dd3a9d90c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TIME_TO_SHOW_DAMAGE_FROM_SPELLS: 0.3
   arrowOrigin: {x: 0, y: 0, z: 0}
   arrowTarget: {x: 0, y: 0, z: 0}
   cachedLineRenderer: {fileID: 0}
@@ -1013,6 +1014,7 @@ GameObject:
   - component: {fileID: 385642080}
   - component: {fileID: 385642081}
   - component: {fileID: 385642082}
+  - component: {fileID: 385642083}
   m_Layer: 0
   m_Name: Card(Clone)
   m_TagString: Untagged
@@ -1066,6 +1068,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingAttack: 2
   startingLife: 10
+--- !u!114 &385642083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385642079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3999017287164e4a8255ea413a07b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingCost: 6
 --- !u!1 &398862076
 GameObject:
   m_ObjectHideFlags: 0
@@ -4355,6 +4370,7 @@ GameObject:
   - component: {fileID: 1190179324}
   - component: {fileID: 1190179325}
   - component: {fileID: 1190179326}
+  - component: {fileID: 1190179327}
   m_Layer: 0
   m_Name: Card(Clone) (1)
   m_TagString: Untagged
@@ -4408,6 +4424,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingAttack: 0
   startingLife: 1
+--- !u!114 &1190179327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190179323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3999017287164e4a8255ea413a07b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingCost: 6
 --- !u!1 &1286324165
 GameObject:
   m_ObjectHideFlags: 0
@@ -6267,6 +6296,7 @@ GameObject:
   - component: {fileID: 1745469067}
   - component: {fileID: 1745469068}
   - component: {fileID: 1745469069}
+  - component: {fileID: 1745469070}
   m_Layer: 0
   m_Name: Card(Clone) (2)
   m_TagString: Untagged
@@ -6320,6 +6350,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingAttack: 2
   startingLife: 5
+--- !u!114 &1745469070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745469066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3999017287164e4a8255ea413a07b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingCost: 6
 --- !u!1 &1824747708
 GameObject:
   m_ObjectHideFlags: 0
