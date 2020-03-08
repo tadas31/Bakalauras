@@ -8,10 +8,10 @@ using UnityEngine.UI;
 public class Card : ScriptableObject
 {
     public string cardName;             // Card's name.
-    public string description;          // Card's description.
     public int cost;                    // Card's cost.
     public Sprite image;                // Card's image.
     public string type;                 // Card's type.
+    public int spellDamage;             // Card's spell damage (Effect damage).
     public int attack;                  // Card's attack.
     public int life;                    // Card's life.
     public List<string> scripts;        // Names list of scripts needed for card.
@@ -30,8 +30,7 @@ public class Card : ScriptableObject
         GameObject newCard = Instantiate(cardPrefab, Vector3.zero, Quaternion.identity);
 
         System.Type scriptType;
-
-        //// Gets and adds necessary scripts to card.
+        // Gets and adds necessary scripts to card.
         foreach (var script in scripts)
         {
             // Get's script type.
@@ -39,7 +38,21 @@ public class Card : ScriptableObject
 
             // Adds script to card.
             if (scriptType != null)
+            {
                 (newCard.AddComponent(scriptType) as MonoBehaviour).enabled = false;
+                var iSpellDamage = newCard.GetComponent(scriptType) as ISpellDamage;
+
+                if (iSpellDamage != null)
+                    iSpellDamage.setSpellDamage(spellDamage);
+                else
+                    continue;
+                
+            }
+            else
+            {
+                continue;
+            }
+                
         }
 
         // If it's minion adds attack script.
@@ -59,9 +72,13 @@ public class Card : ScriptableObject
         // Add scripts needed for all cards
         newCard.AddComponent<OnCardDestroy>().enabled = false;
         newCard.AddComponent<CardCostHelper>();
+        newCard.AddComponent<CardDescriptionHelper>();
 
         // Set starting cost
         newCard.GetComponent<CardCostHelper>().startingCost = cost;
+
+        // Sets starting description scripts
+        newCard.GetComponent<CardDescriptionHelper>().startingScripts = scripts;
 
         //Sets all of the parameters of the card.
         newCard = setDataForCard(newCard, background);
@@ -81,6 +98,36 @@ public class Card : ScriptableObject
         newCard.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, newCard.GetComponent<RectTransform>().anchoredPosition.y);
 
         newCard.transform.name = cardName;
+
+        System.Type scriptType;
+        // Gets and adds necessary scripts to card.
+        foreach (var script in scripts)
+        {
+            // Get's script type.
+            scriptType = System.Type.GetType(script + ",Assembly-CSharp");
+
+            // Adds script to card.
+            if (scriptType != null)
+            {
+                (newCard.AddComponent(scriptType) as MonoBehaviour).enabled = false;
+                var iSpellDamage = newCard.GetComponent(scriptType) as ISpellDamage;
+
+                if (iSpellDamage != null)
+                    iSpellDamage.setSpellDamage(spellDamage);
+                else
+                    continue;
+
+            }
+            else
+            {
+                continue;
+            }
+
+        }
+
+        // Creates description
+        newCard.AddComponent<CardDescriptionHelper>();
+        newCard.GetComponent<CardDescriptionHelper>().startingScripts = scripts;
 
         //sets values to all card's fields
         newCard = setDataForCard(newCard, background);
@@ -151,9 +198,6 @@ public class Card : ScriptableObject
                     break;
                 case "Type":
                     child.GetComponent<TextMeshProUGUI>().text = type;
-                    break;
-                case "Description":
-                    child.GetComponent<TextMeshProUGUI>().text = description;
                     break;
                 case "Stats":
                     if (type.ToLower().Contains("spell"))

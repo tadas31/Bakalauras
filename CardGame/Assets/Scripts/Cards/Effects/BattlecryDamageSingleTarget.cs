@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class BattlecryDamageSingleTarget : MonoBehaviour
+public class BattlecryDamageSingleTarget : MonoBehaviour, IDescription, ISpellDamage
 {
 
     private AttackHelper attackHelper;      // Reference to attack helper.
@@ -22,7 +22,6 @@ public class BattlecryDamageSingleTarget : MonoBehaviour
     private void OnEnable()
     {
         attackHelper = GameObject.Find("Board").GetComponent<AttackHelper>();
-        damage = 1;
         defendingCard = null;
 
         // Enables arrow drawing and sets coordinates.
@@ -86,5 +85,18 @@ public class BattlecryDamageSingleTarget : MonoBehaviour
 
         GetComponent<BattlecryDamageSingleTarget>().enabled = false;
 
+    }
+
+    // Returns description of effect granted by this script
+    public string getDescription()
+    {
+        string description = "Battlecry deals " + damage + " damage";
+        return description;
+    }
+
+    // Sets amount of damage spell deals
+    public void setSpellDamage(int spellDamage)
+    {
+        damage = spellDamage;
     }
 }

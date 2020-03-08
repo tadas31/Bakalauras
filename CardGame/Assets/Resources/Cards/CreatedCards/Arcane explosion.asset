@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Arcane explosion
   m_EditorClassIdentifier: 
   cardName: Arcane explosion
-  description: Deal 1 damage to all enemy minions
   cost: 2
   image: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   type: Arcane spell
+  spellDamage: 1
   attack: 0
   life: 0
   scripts:
-  - ArcaneExplosion
+  - DamageAllEnemies

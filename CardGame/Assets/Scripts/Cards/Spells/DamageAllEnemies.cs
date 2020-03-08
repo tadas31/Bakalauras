@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class ArcaneExplosion : MonoBehaviour
+public class DamageAllEnemies : MonoBehaviour, IDescription, ISpellDamage
 {
 
     private AttackHelper attackHelper;          // Reference to attack helper script.
@@ -14,7 +14,6 @@ public class ArcaneExplosion : MonoBehaviour
     void Start()
     {
         attackHelper = GameObject.Find("Board").GetComponent<AttackHelper>();
-        damage = 1;
 
         // Prevents another card to be selected to attack.
         attackHelper.isAttacking = true;
@@ -60,5 +59,18 @@ public class ArcaneExplosion : MonoBehaviour
         attackHelper.isAttacking = false;
         Destroy(gameObject);
         
+    }
+
+    // Returns description of effect granted by this script
+    public string getDescription()
+    {
+        string description = "Deal " + damage + " damage to all enemy minions";
+        return description;
+    }
+
+    // Sets amount of damage spell deals
+    public void setSpellDamage(int spellDamage)
+    {
+        damage = spellDamage;
     }
 }

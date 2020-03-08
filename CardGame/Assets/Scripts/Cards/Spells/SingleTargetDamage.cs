@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class FireBall : MonoBehaviour
+public class SingleTargetDamage : MonoBehaviour, IDescription, ISpellDamage
 {
     private AttackHelper attackHelper;      // Reference to attack helper script.
 
-    private int damage;                     // Amount of damage spell deals
-    private bool attacking;                 // If player pressed on card to attack true else false;
+    private int damage;                     // Amount of damage spell deals.
+    private bool attacking;                 // If player pressed on card to attack true else false.
 
     // Start is called before the first frame update
     void Start()
     {
-        damage = 3;
         attacking = false;
     }
 
@@ -101,5 +100,18 @@ public class FireBall : MonoBehaviour
             attackHelper.moveCardBackToHand(gameObject);
             attacking = false;
         }
+    }
+
+    // Returns description of effect granted by this script
+    public string getDescription()
+    {
+        string description = "deals " + damage + " damage to one enemy card";
+        return description;
+    }
+
+    // Sets amount of damage spell deals
+    public void setSpellDamage(int spellDamage)
+    {
+        damage = spellDamage;
     }
 }

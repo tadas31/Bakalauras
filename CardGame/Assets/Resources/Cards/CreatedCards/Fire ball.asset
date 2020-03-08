@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Fire ball
   m_EditorClassIdentifier: 
   cardName: Fire ball
-  description: Casts fire ball deals 3 damage
   cost: 2
   image: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   type: Fire spell
+  spellDamage: 3
   attack: 0
   life: 0
   scripts:
-  - FireBall
+  - SingleTargetDamage

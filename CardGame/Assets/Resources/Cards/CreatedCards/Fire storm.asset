@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Fire storm
   m_EditorClassIdentifier: 
   cardName: Fire storm
-  description: Deals 2 damage to all cards
   cost: 3
   image: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   type: Fire spell
+  spellDamage: 1
   attack: 0
   life: 0
   scripts:
-  - FireStorm
+  - DamageAllCards
