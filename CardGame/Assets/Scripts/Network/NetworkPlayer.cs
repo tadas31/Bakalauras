@@ -27,7 +27,7 @@ public class  NetworkPlayer : NetworkBehaviour
 
         Debug.Log("PlayerConnectionObject::Start -- Spawning my own personal unit.");
 
-        RpcSpawnMyUnit();
+        CmdTrigger();
     }
 
     private void Update()
@@ -47,6 +47,12 @@ public class  NetworkPlayer : NetworkBehaviour
             }
            Debug.Log("Put the cards to the hand");
         }
+    }
+
+    [Command]
+    void CmdTrigger()
+    {
+        RpcSpawnMyUnit();
     }
 
     [ClientRpc]
