@@ -26,8 +26,6 @@ public class  NetworkPlayer : NetworkBehaviour
 
 
         Debug.Log("PlayerConnectionObject::Start -- Spawning my own personal unit.");
-
-        CmdTrigger();
     }
 
     private void Update()
@@ -36,38 +34,14 @@ public class  NetworkPlayer : NetworkBehaviour
         {
             return;
         }
-
-        if (handCards != null && state)
-        {
-            state = false;
-            Deck deck = SaveSystem.LoadDeck();
-            for (int i = 0; i < 8; i++)
-            {
-                RpcAddCardToHand(deck.pullCard());
-            }
-           Debug.Log("Put the cards to the hand");
-        }
     }
 
     [Command]
-    void CmdTrigger()
-    {
-        RpcSpawnMyUnit();
-    }
-
-    [ClientRpc]
-    void RpcSpawnMyUnit()
+    void CmdSpawnMyUnit()
     {
         // We are guaranteed to be on the server right now.
         GameObject go = Instantiate(handCanvas);
         handCards = go;
-        Deck deck = SaveSystem.LoadDeck();
-        for (int i = 0; i < 8; i++)
-        {
-            Debug.Log("Adding card");
-            RpcAddCardToHand(deck.pullCard());
-        }
-
         
 
         // Now that the object exists on the server, propagate it to all

@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 5488471150632455057}
   - component: {fileID: 5488471150632455056}
   - component: {fileID: -4825297066041990150}
+  - component: {fileID: -5982999196245769637}
   m_Layer: 5
   m_Name: HandCanvas
   m_TagString: Untagged
@@ -169,6 +170,18 @@ MonoBehaviour:
     i15: 0
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &-5982999196245769637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5488471150632455059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d3895f366580014c83416d47d8e9e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5488471151621893782
 GameObject:
   m_ObjectHideFlags: 0
