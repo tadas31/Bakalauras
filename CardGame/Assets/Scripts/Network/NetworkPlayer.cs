@@ -11,134 +11,91 @@ using UnityEngine.Networking;
 
 public class  NetworkPlayer : NetworkBehaviour
 {
+    public GameObject handCanvas;
+    public GameObject handCards;
+    public bool state = true;
+
+    // Use this for initialization
+    void Start()
+    {
+ 
+        if (isLocalPlayer == false)
+        {
+            return;
+        }
 
 
-	[SyncVar(hook = "OnTurnChange")]
-	public bool isTurn = false;
+        Debug.Log("PlayerConnectionObject::Start -- Spawning my own personal unit.");
 
-	[SyncVar(hook = "UpdateTimeDisplay")]
-	public float time = 100;
+        RpcSpawnMyUnit();
+    }
 
-	public PlayerController controller;
+    private void Update()
+    {
+        if (isLocalPlayer == false)
+        {
+            return;
+        }
 
-	[SyncVar]
-	public bool ready = false;
+        if (handCards != null && state)
+        {
+            state = false;
+            Deck deck = SaveSystem.LoadDeck();
+            for (int i = 0; i < 8; i++)
+            {
+                RpcAddCardToHand(deck.pullCard());
+            }
+           Debug.Log("Put the cards to the hand");
+        }
+    }
 
-	// Use this for initialization
-	void Start()
-	{
-		controller.OnPlayerInput += OnPlayerInput;
-	}
+    [ClientRpc]
+    void RpcSpawnMyUnit()
+    {
+        // We are guaranteed to be on the server right now.
+        GameObject go = Instantiate(handCanvas);
+        handCards = go;
+        Deck deck = SaveSystem.LoadDeck();
+        for (int i = 0; i < 8; i++)
+        {
+            Debug.Log("Adding card");
+            RpcAddCardToHand(deck.pullCard());
+        }
 
-	// Update is called once per frame
-	[Server]
-	void Update()
-	{
-		if (isTurn)
-		{
-			time -= Time.deltaTime;
-			if (time <= 0)
-			{
-				NetworkManager.Instance.AlterTurns();
-			}
-		}
-	}
+        
 
-	public override void OnStartClient()
-	{
-		DontDestroyOnLoad(this);
+        // Now that the object exists on the server, propagate it to all
+        // the clients (and also wire up the NetworkIdentity)
+        NetworkServer.SpawnWithClientAuthority(go, connectionToClient);
+    }
 
-		base.OnStartClient();
-		Debug.Log("Client Network Player start");
-		StartPlayer();
 
-		NetworkManager.Instance.RegisterNetworkPlayer(this);
-	}
+    
+    //Adds card to the hand of the player
+    public void RpcAddCardToHand(GameObject addedCard)
+    {
+        //GameObject addedCard = Instantiate(card,new Vector3(handCards.transform.position.x, handCards.transform.position.y, handCards.transform.position.z), Quaternion.identity);
+        addedCard.transform.localScale = handCards.transform.localScale;
+        addedCard.AddComponent<CardInHand>();
+        addedCard.transform.SetParent(handCards.transform);
+        RpcHandReorganize();
+    }
 
-	public override void OnStartLocalPlayer()
-	{
-		base.OnStartLocalPlayer();
-		controller.SetupLocalPlayer();
-	}
-
-	[Server]
-	public void StartPlayer()
-	{
-		ready = true;
-	}
-
-	public void StartGame()
-	{
-		TurnStart();
-	}
-
-	[Server]
-	public void TurnStart()
-	{
-		isTurn = true;
-		time = 90;
-		RpcTurnStart();
-	}
-
-	[ClientRpc]
-	void RpcTurnStart()
-	{
-		controller.TurnStart();
-	}
-
-	[Server]
-	public void TurnEnd()
-	{
-		isTurn = false;
-		RpcTurnEnd();
-	}
-
-	[ClientRpc]
-	void RpcTurnEnd()
-	{
-		controller.TurnEnd();
-	}
-
-	public override void OnNetworkDestroy()
-	{
-		base.OnNetworkDestroy();
-		NetworkManager.Instance.DeregisterNetworkPlayer(this);
-	}
-
-	public void OnTurnChange(bool turn)
-	{
-		if (isLocalPlayer)
-		{
-			//play turn sound 
-		}
-	}
-
-	public void UpdateScore(int score)
-	{
-		Debug.Log("score:" + score);
-	}
-
-	void OnPlayerInput(PlayerAction action, float amount)
-	{
-		if (action == PlayerAction.SHOOT)
-		{
-			CmdOnPlayerInput(action, amount);
-		}
-	}
-
-	[Command]
-	void CmdOnPlayerInput(PlayerAction action, float amount)
-	{
-		//Shoot bullets
-
-		//Update score
-		NetworkManager.Instance.UpdateScore((int)amount);
-	}
-
-	public void UpdateTimeDisplay(float curtime)
-	{
-		GameObject timerText = GameObject.FindWithTag("Timer");
-		Text timer = timerText.GetComponent<Text>();
-		timer.text = Mathf.Round(curtime).ToString();
-	}
+    /// <summary>
+    /// Reorganizes the had by the cards in hand
+    /// </summary>
+    public void RpcHandReorganize()
+    {
+        //Spacing between cards
+        float spacing = 100f;
+        //The count of cards in the hand
+        int count = handCards.transform.childCount;
+        //Calculation for the card place
+        float positionX = -(spacing * (count / 2));
+        foreach (RectTransform item in handCards.transform)
+        {
+            item.localPosition = new Vector3(positionX, item.localPosition.y);
+            positionX += spacing;
+        }
+    }
 }

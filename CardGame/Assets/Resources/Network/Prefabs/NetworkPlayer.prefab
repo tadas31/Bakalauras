@@ -77,8 +77,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac823d80f7a11f84bbb6bce86a551827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTurn: 0
-  time: 100
-  controller: {fileID: 3098397889584274186, guid: 4a7ba52890f007b4a92753c0fdbda7fc,
+  handCanvas: {fileID: 5488471150632455059, guid: aba8ac83e7cef0e459f89b73838a6fd4,
     type: 3}
-  ready: 0
