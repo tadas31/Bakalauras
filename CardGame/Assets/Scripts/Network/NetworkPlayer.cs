@@ -26,6 +26,7 @@ public class  NetworkPlayer : NetworkBehaviour
 
 
         Debug.Log("PlayerConnectionObject::Start -- Spawning my own personal unit.");
+        CmdSpawnMyUnit();
     }
 
     private void Update()
@@ -49,33 +50,4 @@ public class  NetworkPlayer : NetworkBehaviour
         NetworkServer.SpawnWithClientAuthority(go, connectionToClient);
     }
 
-
-    
-    //Adds card to the hand of the player
-    public void RpcAddCardToHand(GameObject addedCard)
-    {
-        //GameObject addedCard = Instantiate(card,new Vector3(handCards.transform.position.x, handCards.transform.position.y, handCards.transform.position.z), Quaternion.identity);
-        addedCard.transform.localScale = handCards.transform.localScale;
-        addedCard.AddComponent<CardInHand>();
-        addedCard.transform.SetParent(handCards.transform);
-        RpcHandReorganize();
-    }
-
-    /// <summary>
-    /// Reorganizes the had by the cards in hand
-    /// </summary>
-    public void RpcHandReorganize()
-    {
-        //Spacing between cards
-        float spacing = 100f;
-        //The count of cards in the hand
-        int count = handCards.transform.childCount;
-        //Calculation for the card place
-        float positionX = -(spacing * (count / 2));
-        foreach (RectTransform item in handCards.transform)
-        {
-            item.localPosition = new Vector3(positionX, item.localPosition.y);
-            positionX += spacing;
-        }
-    }
 }

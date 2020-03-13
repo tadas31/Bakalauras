@@ -17,7 +17,7 @@ public class Hand : NetworkBehaviour
         for (int i = 0; i < 8; i++)
         {
             Debug.Log("Adding card");
-            addCardToHand(deck.pullCard());
+            CmdMid(deck.pullCard());
         }
     }
 
@@ -27,8 +27,15 @@ public class Hand : NetworkBehaviour
         
     }
 
+    [Command]
+    void CmdMid(GameObject oj)
+    {
+        RpcAddCardToHand(oj);
+    }
+
+    [ClientRpc]
     //Adds card to the hand of the player
-    public void addCardToHand(GameObject addedCard)
+    public void RpcAddCardToHand(GameObject addedCard)
     {
         //GameObject addedCard = Instantiate(card,new Vector3(handCards.transform.position.x, handCards.transform.position.y, handCards.transform.position.z), Quaternion.identity);
         addedCard.transform.localScale = this.transform.localScale;
