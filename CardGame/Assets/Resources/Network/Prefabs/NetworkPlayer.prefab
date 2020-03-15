@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 75337008115949970}
   m_Layer: 0
   m_Name: NetworkPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,3 +79,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handCanvas: {fileID: 5488471150632455059, guid: aba8ac83e7cef0e459f89b73838a6fd4,
     type: 3}
+  card: {fileID: 2382603466189886817, guid: 5487001392c301e4dbfb3109cb33548e, type: 3}
+  state: 1

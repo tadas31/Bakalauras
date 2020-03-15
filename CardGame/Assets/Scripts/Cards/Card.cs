@@ -16,6 +16,66 @@ public class Card : ScriptableObject
     public int life;                    // Card's life.
     public List<string> scripts;        // Names list of scripts needed for card.
 
+    public void AddElementsToCard(GameObject newCard)
+    {
+        //Getting the background of the card by type.
+        Sprite background = getBackgroundSprite(type);
+
+        System.Type scriptType;
+        // Gets and adds necessary scripts to card.
+        foreach (var script in scripts)
+        {
+            // Get's script type.
+            scriptType = System.Type.GetType(script + ",Assembly-CSharp");
+
+            // Adds script to card.
+            if (scriptType != null)
+            {
+                (newCard.AddComponent(scriptType) as MonoBehaviour).enabled = false;
+                var iSpellDamage = newCard.GetComponent(scriptType) as ISpellDamage;
+
+                if (iSpellDamage != null)
+                    iSpellDamage.setSpellDamage(spellDamage);
+                else
+                    continue;
+
+            }
+            else
+            {
+                continue;
+            }
+
+        }
+
+        // If it's minion adds attack script.
+        if (!type.ToLower().Contains("spell"))
+        {
+            // Add minion specific scripts
+            newCard.AddComponent<Attack>().enabled = false;
+            newCard.AddComponent<CardStatsHelper>().enabled = false;
+
+            // Sets starting stats for minions
+            newCard.GetComponent<CardStatsHelper>().startingAttack = attack;
+            newCard.GetComponent<CardStatsHelper>().startingLife = life;
+
+
+        }
+
+        // Add scripts needed for all cards
+        newCard.AddComponent<OnCardDestroy>().enabled = false;
+        newCard.AddComponent<CardCostHelper>();
+        newCard.AddComponent<CardDescriptionHelper>();
+
+        // Set starting cost
+        newCard.GetComponent<CardCostHelper>().startingCost = cost;
+
+        // Sets starting description scripts
+        newCard.GetComponent<CardDescriptionHelper>().startingScripts = scripts;
+
+        //Sets all of the parameters of the card.
+        newCard = setDataForCard(newCard, background);
+    }
+
     /// <summary>
     /// Spawns the card.
     /// </summary>

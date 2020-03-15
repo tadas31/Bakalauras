@@ -579,6 +579,7 @@ MonoBehaviour:
   m_OnlineScene: 
   m_SpawnPrefabs:
   - {fileID: 5488471150632455059, guid: aba8ac83e7cef0e459f89b73838a6fd4, type: 3}
+  - {fileID: 2382603466189886817, guid: 5487001392c301e4dbfb3109cb33548e, type: 3}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -6904,7 +6905,7 @@ PrefabInstance:
     - target: {fileID: 5488471150632455059, guid: aba8ac83e7cef0e459f89b73838a6fd4,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5488471150632455071, guid: aba8ac83e7cef0e459f89b73838a6fd4,
         type: 3}

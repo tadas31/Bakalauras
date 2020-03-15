@@ -3,39 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class Hand : NetworkBehaviour
+public class Hand : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        if (hasAuthority == false) 
-        {
-            return;
-        }
+        pullStartingHand();
+    }
 
+    public void pullStartingHand()
+    { 
         Deck deck = SaveSystem.LoadDeck();
         for (int i = 0; i < 8; i++)
         {
-            Debug.Log("Adding card");
-            CmdMid(deck.pullCard());
+            addCardToHand(deck.pullCard());
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    [Command]
-    void CmdMid(GameObject oj)
-    {
-        RpcAddCardToHand(oj);
-    }
-
-    [ClientRpc]
     //Adds card to the hand of the player
-    public void RpcAddCardToHand(GameObject addedCard)
+    public void addCardToHand(GameObject addedCard)
     {
         //GameObject addedCard = Instantiate(card,new Vector3(handCards.transform.position.x, handCards.transform.position.y, handCards.transform.position.z), Quaternion.identity);
         addedCard.transform.localScale = this.transform.localScale;

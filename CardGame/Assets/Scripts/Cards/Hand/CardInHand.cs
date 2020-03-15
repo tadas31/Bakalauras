@@ -79,7 +79,7 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler
     /// </summary>
     /// <param name="eventData">Info about the event</param>
     public void OnEndDrag(PointerEventData eventData)
-    {
+    { 
         if (!attackHelper.isAttacking)
         {
             RaycastHit hit;
@@ -87,6 +87,7 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler
             //If the ray cast hits a board element.
             if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.name == "Board")
             {
+
                 if (transform.GetChild(0).Find("Type").GetComponent<TextMeshProUGUI>().text.ToLower().Contains("spell"))
                 {
                     //Changes the parent of the card to spells.
@@ -102,10 +103,17 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler
                     this.transform.localScale = Vector3.one;
                 }
 
-
                 // Enables all attached scripts.
                 foreach (MonoBehaviour script in gameObject.GetComponents<MonoBehaviour>())
                     script.enabled = true;
+
+                GameObject[] networkPlayers = GameObject.FindGameObjectsWithTag("Player");
+               
+                foreach (GameObject player in networkPlayers)
+                {
+                    player.GetComponent<NetworkPlayer>().spawnGameObject(this.transform.GetChild(0).Find("Name").GetComponent<TextMeshProUGUI>().text);
+                }
+
 
                 //Removes this script from the component
                 Destroy(this);
