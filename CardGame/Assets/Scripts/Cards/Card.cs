@@ -196,7 +196,7 @@ public class Card : ScriptableObject
     }
 
     //spawns card only displaying cost name and amount of copies in deck
-    public void spawnCardCompact(GameObject cardPrefab, Sprite background, GameObject parent, int amountInDeck, float x, float y)
+    public GameObject spawnCardCompact(GameObject cardPrefab, Sprite background, GameObject parent, int amountInDeck, float x, float y)
     {
         GameObject newCard = Instantiate(cardPrefab, Vector3.zero, Quaternion.identity);    //creates new game object
         newCard.GetComponent<Transform>().SetParent(parent.transform);                      //sets parent
@@ -212,6 +212,10 @@ public class Card : ScriptableObject
         newCard.transform.Find("Cost").GetComponent<TextMeshProUGUI>().text = cost.ToString();
         newCard.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = cardName;
         newCard.transform.Find("AmountInDeck").GetComponent<TextMeshProUGUI>().text = "x" + amountInDeck.ToString();
+
+        newCard.AddComponent<OnDeckCardHover>();
+
+        return newCard;
     }
 
     /// <summary>
