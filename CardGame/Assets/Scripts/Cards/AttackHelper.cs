@@ -22,7 +22,6 @@ public class AttackHelper : MonoBehaviour
 
         isAttacking = false;
 
-        cachedLineRenderer = this.GetComponent<LineRenderer>();
         cachedLineRenderer.enabled = false;
     }
     private void Update()

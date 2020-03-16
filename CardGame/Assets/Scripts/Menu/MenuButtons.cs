@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MenuButtons : MonoBehaviour
 {
+
+    public GameObject PuzzleLevels;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,13 +19,19 @@ public class MenuButtons : MonoBehaviour
         
     }
 
-    //Opens classic scene
+    // Opens classic scene
     public void onClassicPress()
     {
         SceneManager.LoadScene("Classic");
     }
 
-    //change scene to deck
+    // Opens puzzle levels
+    public void onPuzzlePerss()
+    {
+        PuzzleLevels.SetActive(true);
+    }
+
+    // Change scene to deck
     public void onDeckPress()
     {
         SceneManager.LoadScene("Deck");
@@ -34,7 +42,7 @@ public class MenuButtons : MonoBehaviour
         //change scene or open window (undecided)
     }
 
-    //turns off game
+    // Turns off game
     public void onQuitPress()
     {
         Application.Quit();
