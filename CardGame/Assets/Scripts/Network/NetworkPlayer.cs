@@ -24,7 +24,6 @@ public class  NetworkPlayer : NetworkBehaviour
             return;
         }
         Debug.Log("PlayerConnectionObject::Start -- Spawning my own personal unit.");
-        CmdSpawnPlayerBoard();
     }
 
     private void Update()
@@ -70,7 +69,7 @@ public class  NetworkPlayer : NetworkBehaviour
                 break;
             }
         }
-
+        localCard.AddComponent<NetworkCard>();
         selected.AddElementsToCard(localCard);
 
         if (localCard.transform.GetChild(0).Find("Type").GetComponent<TextMeshProUGUI>().text.ToLower().Contains("spell"))
@@ -82,34 +81,25 @@ public class  NetworkPlayer : NetworkBehaviour
         }
         else
         {
-            //Changes the parent of the card to player board.
-            GameObject playerBoard = GameObject.Find("Board/PlayerBoard");
-            localCard.transform.SetParent(playerBoard.transform);
-            localCard.transform.localScale = Vector3.one;
+            if (localCard.GetComponent<NetworkCard>().hasAuthority)
+            {
+                GameObject playerBoard = GameObject.Find("Board/PlayerBoard");
+                localCard.transform.SetParent(playerBoard.transform);
+                localCard.transform.localScale = Vector3.one;
+            }
+            else
+            {
+                GameObject enemyBoard = GameObject.Find("Board/EnemyBoard");
+                localCard.transform.SetParent(enemyBoard.transform);
+                localCard.transform.localScale = Vector3.one;
+            }
         }
 
         // Enables all attached scripts.
         foreach (MonoBehaviour script in gameObject.GetComponents<MonoBehaviour>())
             script.enabled = true;
 
-        localCard.AddComponent<NetworkCard>();
+        
         //Changes the parent of the card to player board.
     }
-
-    [Command]
-    void CmdSpawnPlayerBoard()
-    {
-        // We are guaranteed to be on the server right now.
-        GameObject go = Instantiate(playerBoard);
-        if(FindObjectOfType<NetworkManager>().numPlayers > 1)
-        {
-            Debug.Log("Second added");
-        }
-        
-
-        // Now that the object exists on the server, propagate it to all
-        // the clients (and also wire up the NetworkIdentity)
-        NetworkServer.SpawnWithClientAuthority(go, connectionToClient);
-    }
-
 }
