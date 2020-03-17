@@ -12,6 +12,7 @@ public class SelectCards : MonoBehaviour
     public int maxCountOfCards;                     // Maximum amount of cards in deck.
     public int maxCountOfCopies;                    // Maximum amount of same card in deck.
     public DisplayCardsInDeck displayCardsInDeck;   // Reference to display all cards in deck script.
+    public Transform hoverDisplay;                  // Parent for displaying cards that are hovered over.
 
     private GraphicRaycaster raycaster;             // Raycast to check what objects are under mouse cursor.
     private bool locker = false;                    // If true user has pressed left mouse button on card but haven't released yet.
@@ -120,6 +121,11 @@ public class SelectCards : MonoBehaviour
             {
                 cardsInDeck.Remove(card);
                 SaveSystem.SaveDeck(cardsInDeck);
+
+                //destroys all children of content object
+                foreach (Transform child in hoverDisplay)
+                    Destroy(child.gameObject);
+
                 return;
             }
         }

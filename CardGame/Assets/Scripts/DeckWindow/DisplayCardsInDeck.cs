@@ -40,16 +40,10 @@ public class DisplayCardsInDeck : MonoBehaviour
 
         content.sizeDelta = new Vector2(0, height); //sets height of content game object
 
-        int row = 0;
         for (int i = 0; i < cards.Count; i++)
         {
-            float x = 0;    //x position of card
-            float y = - 55 - row * (10 + 60);   //y position of card
-
             // Spawns card
-            cards[i].spawnCardCompact(compactCardPrefab, compactBackground, content.gameObject, cardsInDeck[i].count, x, y);
-
-            row++;
+            cards[i].spawnCardCompact(compactCardPrefab, compactBackground, content.gameObject, cardsInDeck[i].count, 0, 0);
         }
     }
 

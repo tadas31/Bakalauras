@@ -130,7 +130,7 @@ public class Card : ScriptableObject
         }
 
         // Add scripts needed for all cards
-        newCard.AddComponent<OnCardDestroy>().enabled = false;
+        newCard.AddComponent<OnCardDestroy>();
         newCard.AddComponent<CardCostHelper>();
         newCard.AddComponent<CardDescriptionHelper>();
 

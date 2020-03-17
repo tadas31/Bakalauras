@@ -58,6 +58,9 @@ public class OnDeckCardHover : MonoBehaviour, IPointerEnterHandler
     /// <param name="eventData"></param>
     public void OnPointerExit(PointerEventData eventData)
     {
-        Destroy(createdCard);
+
+        //destroys all children of content object
+        foreach (Transform child in parent.transform)
+            Destroy(child.gameObject);
     }
 }

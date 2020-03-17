@@ -6,9 +6,6 @@ using UnityEngine;
 
 public class DisplayAllCards : MonoBehaviour
 {
-    private int ROW_START = -516;       // X coordinates of first card in row.
-    private int ROW_OFFSET = 344;       // Offset for placing next card in row.
-    private int LINE_OFFSET = 478;      // Offset for placing cards in next line.
 
     public GameObject cardPrefab;       // Card prefab.
     public Sprite minionBackground;     // Minion card background.
@@ -53,21 +50,13 @@ public class DisplayAllCards : MonoBehaviour
         float height = rows == 1 ? 24 * 2 + 455 : (24 * rows + 24) + (455 * rows);
         content.sizeDelta = new Vector2(0, height);
 
-        int cardNumber = 1;     //card number in deck
         foreach (var c in cards)
         {
-            float row = (float)Math.Ceiling(cardNumber / 4f);           //row in which card is
-            float cardNumberInRow = cardNumber - ((row - 1) * 4) - 1;   //card number in row from 0 to 3
-            float x =  ROW_START + ROW_OFFSET * cardNumberInRow;        //x position of card
-            float y = -251.5f - (row - 1) * LINE_OFFSET;                //y position of card
-
             //picks background according to card type
             if (c.type.ToLower().Contains("spell"))
-                c.spawnCard(cardPrefab, spellBackground, content.gameObject, x, y);     //spawns spell
+                c.spawnCard(cardPrefab, spellBackground, content.gameObject, 0, 0);     //spawns spell
             else
-                c.spawnCard(cardPrefab, minionBackground, content.gameObject, x, y);    //spawns minion
-
-            cardNumber++;
+                c.spawnCard(cardPrefab, minionBackground, content.gameObject, 0, 0);    //spawns minion
         }
     }
 
