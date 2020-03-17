@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3223ef47a9009684b92677708779b0d8, type: 3}
+  m_Name: 2
+  m_EditorClassIdentifier: 
+  winCondition: KillEnemyPlayer
+  enemyLife: 15
+  playerLife: 30
+  playerMana: 5
+  enemyCards:
+  - Goblin 1
+  - Goblin 1
+  - Goblin 5
+  playerCards:
+  - Arcane explosion
+  - Goblin 1
+  - Fire ball
+  - Goblin
+  - Fire storm
