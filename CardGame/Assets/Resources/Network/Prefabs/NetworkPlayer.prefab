@@ -77,7 +77,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac823d80f7a11f84bbb6bce86a551827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handCanvas: {fileID: 5488471150632455059, guid: aba8ac83e7cef0e459f89b73838a6fd4,
+  playerBoard: {fileID: 5774481757576985805, guid: f8540287ff79e1b4ca5e6e1bff6c83b0,
     type: 3}
   card: {fileID: 2382603466189886817, guid: 5487001392c301e4dbfb3109cb33548e, type: 3}
-  state: 1

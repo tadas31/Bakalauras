@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class BoardCards : MonoBehaviour
 {
+    private void Start()
+    {
+        this.transform.SetParent(GameObject.Find("/Board").transform);    
+    }
+
     //The spacing between the cards that are put on board.
     private static float SPACING_BETWEEN_CARDS = 340f;
     private void OnTransformChildrenChanged()
