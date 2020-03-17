@@ -90,17 +90,35 @@ public class Attack : MonoBehaviour, IPointerClickHandler
     /// </summary>
     private IEnumerator attack()
     {
+        List<Transform> allEnemyCards = attackHelper.getAllEnemyCards();
+
+        bool hasTaunt = false;      // If true enemy has taunt
+        bool canAttack = true;
+
+        // Checks if enemy has taunts
+        foreach (Transform enemyCard in allEnemyCards)
+        {
+            if (enemyCard.GetComponentInParent<Taunt>() != null)
+            {
+                hasTaunt = true;
+                break;
+            }
+        }
 
         attackingCard = transform.GetChild(0);
 
         // Get defending card.
         defendingCard = attackHelper.getDefendingCard(attackingCard);
 
-        startPos = attackingCard.position;
+        // If enemy has taunts and selected card is not attack gets canceled
+        if (hasTaunt && defendingCard.GetComponentInParent<Taunt>() == null)
+            canAttack = false;
 
         // Deals and receives damage.
-        if (defendingCard != null)
+        if (defendingCard != null && canAttack)
         {
+            startPos = attackingCard.position;
+
             attackStarted = true;
             attackHelper.cachedLineRenderer.enabled = false;
 
