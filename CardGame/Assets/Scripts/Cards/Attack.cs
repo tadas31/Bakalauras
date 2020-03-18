@@ -179,7 +179,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
         // Moves to attacking card to defending card.
         if (moveForward)
         {
-            attackingCard.position = Vector3.MoveTowards(attackingCard.position, defendingCard.position, speed);
+            attackingCard.position = Vector3.MoveTowards(attackingCard.position, defendingCard.position, speed * Time.deltaTime);
             if (Vector3.Distance(attackingCard.position, defendingCard.position) < 2f)
             {
                 moveForward = false;
@@ -189,7 +189,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
         // Attacking card moves to it's starting place
         if (moveBack)
         {
-            attackingCard.position = Vector3.MoveTowards(attackingCard.position, startPos, speed);
+            attackingCard.position = Vector3.MoveTowards(attackingCard.position, startPos, speed * Time.deltaTime);
             if (Vector3.Distance(attackingCard.position, startPos) < 0.001f)
             {
                 attackingCard.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);

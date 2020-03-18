@@ -69,9 +69,6 @@ public class Card : ScriptableObject
         // Set starting cost
         newCard.GetComponent<CardCostHelper>().startingCost = cost;
 
-        // Sets starting description scripts
-        newCard.GetComponent<CardDescriptionHelper>().startingScripts = scripts;
-
         //Sets all of the parameters of the card.
         newCard = setDataForCard(newCard, background);
     }
@@ -137,9 +134,6 @@ public class Card : ScriptableObject
         // Set starting cost
         newCard.GetComponent<CardCostHelper>().startingCost = cost;
 
-        // Sets starting description scripts
-        newCard.GetComponent<CardDescriptionHelper>().startingScripts = scripts;
-
         //Sets all of the parameters of the card.
         newCard = setDataForCard(newCard, background);
 
@@ -187,7 +181,6 @@ public class Card : ScriptableObject
 
         // Creates description
         newCard.AddComponent<CardDescriptionHelper>();
-        newCard.GetComponent<CardDescriptionHelper>().startingScripts = scripts;
 
         //sets values to all card's fields
         newCard = setDataForCard(newCard, background);
