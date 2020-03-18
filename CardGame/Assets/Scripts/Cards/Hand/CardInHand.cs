@@ -87,15 +87,44 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler
             //If the ray cast hits a board element.
             if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.name == "Board")
             {
-                GameObject[] networkPlayers = GameObject.FindGameObjectsWithTag("Player");
-               
-                foreach (GameObject player in networkPlayers)
+                if(GameObject.Find("NetworkManager") == null)
                 {
-                    player.GetComponent<NetworkPlayer>().spawnGameObject(this.transform.GetChild(0).Find("Name").GetComponent<TextMeshProUGUI>().text);
+                    if (transform.GetChild(0).Find("Type").GetComponent<TextMeshProUGUI>().text.ToLower().Contains("spell"))
+                    {
+                        //Changes the parent of the card to spells.
+                        GameObject spells = GameObject.Find("Spells");
+                        this.transform.SetParent(spells.transform);
+                        this.transform.localScale = Vector3.one;
+                    }
+                    else
+                    {
+                        //Changes the parent of the card to player board.
+                        GameObject playerBoard = GameObject.Find("Board/PlayerBoard");
+                        this.transform.SetParent(playerBoard.transform);
+                        this.transform.localScale = Vector3.one;
+                    }
+
+
+                    // Enables all attached scripts.
+                    foreach (MonoBehaviour script in gameObject.GetComponents<MonoBehaviour>())
+                        script.enabled = true;
+
+                    //Removes this script from the component
+                    Destroy(this);
+                }
+                else
+                {
+                    GameObject[] networkPlayers = GameObject.FindGameObjectsWithTag("Player");
+               
+                    foreach (GameObject player in networkPlayers)
+                    {
+                        player.GetComponent<NetworkPlayer>().spawnGameObject(this.transform.GetChild(0).Find("Name").GetComponent<TextMeshProUGUI>().text);
+                    }
+
+                    //Removes this script from the component
+                    Destroy(gameObject);
                 }
 
-                //Removes this script from the component
-                Destroy(gameObject);
             }
             else
             {
