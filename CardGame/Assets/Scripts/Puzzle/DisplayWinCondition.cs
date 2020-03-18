@@ -26,6 +26,10 @@ public class DisplayWinCondition : MonoBehaviour
         
     }
     
+    /// <summary>
+    /// Displays win condition for set amount of seconds
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator displayWinCondition()
     {
         winCondition.SetActive(true);

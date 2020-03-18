@@ -12,11 +12,15 @@ public class NextLevel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SaveSystem.SaveCompletedPuzzles(SelectedPuzzle.Level);
+
         nextLevel.SetActive(true);
 
+        // Sets next level
         SelectedPuzzle.Level = SelectedPuzzle.Level + 1;
-        Puzzle puzzle = Resources.Load<Puzzle>("Puzzle/CreatedPuzzles/" + SelectedPuzzle.Level);
 
+        // Checks if next level exists
+        Puzzle puzzle = Resources.Load<Puzzle>("Puzzle/CreatedPuzzles/" + SelectedPuzzle.Level);
         if (puzzle == null)
             nextLevelButton.interactable = false;
     }
@@ -27,11 +31,17 @@ public class NextLevel : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Moves to next level
+    /// </summary>
     public void onNextLevelPress()
     {
         SceneManager.LoadScene("Puzzle");
     }
 
+    /// <summary>
+    /// Goes back to menu
+    /// </summary>
     public void onMenuPress()
     {
         SceneManager.LoadScene("Menu");

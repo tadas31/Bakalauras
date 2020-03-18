@@ -5,6 +5,4 @@ using UnityEngine;
 public interface IWinCondition
 {
     string winCondition();
-
-    bool getWon();
 }

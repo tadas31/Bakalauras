@@ -15,12 +15,20 @@ public class PuzzleLevels : MonoBehaviour
     {
         levels = Resources.LoadAll<Puzzle>("Puzzle/CreatedPuzzles").ToList();
 
+        int completedLevels = SaveSystem.LoadCompletedPuzzles() != null ? SaveSystem.LoadCompletedPuzzles().completedPuzzles : 0;
+
         foreach (Puzzle puzzle in levels)
         {
             GameObject newButton = Instantiate(levelButton);
             newButton.transform.name = puzzle.name;
             newButton.GetComponentInChildren<Text>().text = puzzle.name;
             newButton.transform.SetParent(parent, false);
+
+            if (int.Parse(puzzle.name) > completedLevels + 1)
+            {
+                newButton.GetComponent<Button>().interactable = false;
+            }
+
         }
     }
 
