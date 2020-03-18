@@ -26,7 +26,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
     // Start is called before the first frame update
     void Start()
     {
-        speed = 0.18f;
+        speed = 8f;
         attackHelper = GameObject.Find("Board").GetComponent<AttackHelper>();
         attacking = false;
         selectingCardToAttack = false;

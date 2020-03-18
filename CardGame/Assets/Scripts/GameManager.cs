@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public GameObject handCards;
     public GameObject card;
 
+    public GameObject pauze;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +23,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            pauze.SetActive(!pauze.activeSelf);
+        }
     }
 
 
