@@ -16,6 +16,10 @@ public class  NetworkPlayer : NetworkBehaviour
     public GameObject playerBoard;
     public GameObject card;
 
+    [SyncVar]
+    public bool isTurn = false;
+
+
     // Use this for initialization
     void Start()
     {
