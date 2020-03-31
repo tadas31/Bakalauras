@@ -80,6 +80,30 @@ public class AttackHelper : MonoBehaviour
     }
 
     /// <summary>
+    /// Gets defending player
+    /// </summary>
+    /// <returns></returns>
+    public Transform getDefendingPlayer()
+    {
+        // Raycasts all UI elements.
+        PointerEventData pointerData = new PointerEventData(EventSystem.current);
+        pointerData.position = Input.mousePosition;
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerData, results);
+
+        // Gets defending player.
+        foreach (RaycastResult result in results)
+        {
+            if (result.gameObject.transform.name.ToLower() == "enemy")
+            {
+                return result.gameObject.transform;
+            }
+        }
+
+        return null;
+    }
+
+    /// <summary>
     /// Moves card back to hand
     /// </summary>
     /// <param name="defendingCard"></param>
