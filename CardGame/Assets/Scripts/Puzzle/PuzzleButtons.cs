@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PuzzleButtons : MonoBehaviour
 {
+    public LoadScene loadScene;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,6 @@ public class PuzzleButtons : MonoBehaviour
 
     public void onRestartPress()
     {
-        SceneManager.LoadScene("Puzzle");
+        loadScene.LoadNewScene("Puzzle");
     }
 }

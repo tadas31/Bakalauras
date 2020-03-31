@@ -11,6 +11,8 @@ public class MenuButtons : MonoBehaviour
 
     public Options optionsScript;
 
+    public LoadScene loadScene;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +40,7 @@ public class MenuButtons : MonoBehaviour
     // Change scene to deck
     public void onDeckPress()
     {
-        SceneManager.LoadScene("Deck");
+        loadScene.LoadNewScene("Deck");
     }
 
     public void onOptionsPress()

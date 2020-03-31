@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public class DeckSceneButtons : MonoBehaviour
 {
     public DisplayAllCards displayAllCards;     // Reference to display all cards script.
-    public Text inputField;
+    public InputField inputField;
+
+    public LoadScene loadScene;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +26,7 @@ public class DeckSceneButtons : MonoBehaviour
     // Returns back to menu.
     public void onBackPress()
     {
-        SceneManager.LoadScene("Menu");
+        loadScene.LoadNewScene("Menu");
     }
 
     //-----------------------------------------------------------
@@ -99,7 +101,7 @@ public class DeckSceneButtons : MonoBehaviour
     //-----------------------------------------------------------
 
     // Performs search by inputted card name.
-    public void onSearchPress()
+    public void onSearchInputChange()
     {
         displayAllCards.inputInSeachField = inputField.text.ToString();
         displayAllCards.displayAllCards();

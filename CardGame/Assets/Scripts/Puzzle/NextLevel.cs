@@ -8,6 +8,7 @@ public class NextLevel : MonoBehaviour
 {
     public GameObject nextLevel;
     public Button nextLevelButton;
+    public LoadScene loadScene;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +37,7 @@ public class NextLevel : MonoBehaviour
     /// </summary>
     public void onNextLevelPress()
     {
-        SceneManager.LoadScene("Puzzle");
+        loadScene.LoadNewScene("Puzzle");
     }
 
     /// <summary>
@@ -44,6 +45,6 @@ public class NextLevel : MonoBehaviour
     /// </summary>
     public void onMenuPress()
     {
-        SceneManager.LoadScene("Menu");
+        loadScene.LoadNewScene("Menu");
     }
 }

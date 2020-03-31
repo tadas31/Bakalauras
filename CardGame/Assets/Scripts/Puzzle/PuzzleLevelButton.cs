@@ -5,6 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class PuzzleLevelButton : MonoBehaviour
 {
+    private LoadScene loadScene;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        loadScene = GameObject.Find("Transition").GetComponent<LoadScene>();
+    }
+
     // Loads Level on button press
     public void onLevelPress()
     {
@@ -17,7 +25,7 @@ public class PuzzleLevelButton : MonoBehaviour
         if (scriptType != null)
         {
             SelectedPuzzle.Level = selectedPuzzle;
-            SceneManager.LoadScene("Puzzle");
+            loadScene.LoadNewScene("Puzzle");
         }
         else
         {
