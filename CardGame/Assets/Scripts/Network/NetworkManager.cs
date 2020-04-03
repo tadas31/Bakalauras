@@ -11,9 +11,8 @@ using TMPro;
 //Add comments
 class NetworkManager : UnityEngine.Networking.NetworkManager
 {
-    [SyncVar]
-    public float time = 60;
-
+    List<NetworkConnection> networkConnections = new List<NetworkConnection>();
+    public bool isFliped = false;
     public static NetworkManager Instance;
 
     private void Awake()
@@ -24,24 +23,28 @@ class NetworkManager : UnityEngine.Networking.NetworkManager
         }
     }
 
-    [Server]
-    private void Update()
+    void Update()
     {
-        if (time < 0)
+        if(networkConnections.Count >= 2 && !Instance.isFliped)
         {
-            Debug.Log("Turn ends");
-            return;
+            Instance.coinFlip();
         }
-
-        time -= Time.deltaTime;
-        RpcUpdateTime(time);
+    }
+    // Server callbacks
+    public override void OnServerConnect(NetworkConnection conn)
+    {
+        networkConnections.Add(conn);
     }
 
-    [ClientRpc]
-    public void RpcUpdateTime(float curtime)
+    public void coinFlip()
     {
-        GameObject timerText = GameObject.Find("Canvas/Timer");
-        timerText.GetComponent<TextMeshProUGUI>().text = Mathf.Round(curtime).ToString();
+        isFliped = true;
+        int rand  = UnityEngine.Random.Range(0,2);
+        Debug.Log(rand);
+        //Sets the randoms player to start
+        Instance.networkConnections[rand].playerControllers[0].gameObject.GetComponent<NetworkPlayer>().isTurn = true;
+        Instance.networkConnections[0].playerControllers[0].gameObject.GetComponent<NetworkPlayer>().gameStart = true;
+        Instance.networkConnections[1].playerControllers[0].gameObject.GetComponent<NetworkPlayer>().gameStart = true;
     }
 }
 

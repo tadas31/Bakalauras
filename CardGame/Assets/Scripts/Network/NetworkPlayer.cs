@@ -18,7 +18,14 @@ public class  NetworkPlayer : NetworkBehaviour
 
     [SyncVar]
     public bool isTurn = false;
-
+    [SyncVar]
+    public int maxMana = 1;
+    [SyncVar]
+    public int curMana = 1;
+    [SyncVar (hook = "OnTimeChange")]
+    public float timer = 60;
+    [SyncVar]
+    public bool gameStart = false;
 
     // Use this for initialization
     void Start()
@@ -27,15 +34,73 @@ public class  NetworkPlayer : NetworkBehaviour
         {
             return;
         }
+        GameObject.Find("/Canvas/EndTurn").GetComponent<Button>().onClick.AddListener(ChangeTurns);
         Debug.Log("PlayerConnectionObject::Start -- Spawning my own personal unit.");
     }
 
-    private void Update()
+    public void Update()
     {
-        if (isLocalPlayer == false)
+        if (!isLocalPlayer) 
         {
             return;
         }
+
+        if (gameStart)
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                //CmdChangeTurn();
+            }
+        }
+    }
+
+    void OnTimeChange(float time)
+    {
+        GameObject.Find("/Canvas/Timer").GetComponent<TextMeshProUGUI>().text = time.ToString();
+    }
+    void ChangeTurns()
+    {
+        CmdChangeTurn();
+    }
+
+    [Command]
+    void CmdChangeTurn()
+    {
+        Debug.Log("Changing turns");
+        timer = 60;
+        RpcChangeTurns();
+    }
+
+    [ClientRpc]
+    void RpcChangeTurns()
+    {
+        Debug.Log("Wtf");
+        if (isTurn)
+        {
+            endTurn();
+            isTurn = false;
+        }
+        else
+        {
+            startTurn();
+            isTurn = true;
+        }
+    }
+    
+    public void startTurn() 
+    {
+        if(maxMana < 10)
+        {
+            maxMana++;
+        }
+        curMana = maxMana;
+        isTurn = true;
+    }
+
+    public void endTurn()
+    {
+        
     }
 
     public void spawnGameObject(string name)
