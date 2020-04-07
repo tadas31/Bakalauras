@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class ClientSend : MonoBehaviour
 {
-   private static void SendTCPData(Packet _packet)
+    private static void SendTCPData(Packet _packet)
     {
         _packet.WriteLength();
         Client.instance.tcp.SendData(_packet);
     }
-    #region Packets;
+
+    #region Packets
     public static void WelcomeReceived()
     {
         using (Packet _packet = new Packet((int)ClientPackets.welcomeReceived))
         {
             _packet.Write(Client.instance.myId);
             _packet.Write(UIManager.instance.usernameField.text);
+            _packet.Write(SaveSystem.LoadDeck().ToString());
+
             SendTCPData(_packet);
         }
     }

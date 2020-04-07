@@ -11,6 +11,9 @@ namespace Server
         public static int MaxPlayers { get; private set; }
         public static int Port { get; private set; }
         public static Dictionary<int, Client> clients = new Dictionary<int, Client>();
+        public delegate void PacketHandler(int _fromClient, Packet _packet);
+        public static Dictionary<int, PacketHandler> packetHandlers;
+
         private static TcpListener tcpListener;
 
         public static void Start(int _maxPlayers, int _port)
@@ -24,10 +27,10 @@ namespace Server
             tcpListener = new TcpListener(IPAddress.Any, Port);
             tcpListener.Start();
             tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
+
             Console.WriteLine($"Server started on port {Port}.");
         }
 
-        /// <summary>Handles new TCP connections.</summary>
         private static void TCPConnectCallback(IAsyncResult _result)
         {
             TcpClient _client = tcpListener.EndAcceptTcpClient(_result);
@@ -48,10 +51,16 @@ namespace Server
 
         private static void InitializeServerData()
         {
-            for (int i = 0; i <= MaxPlayers; i++)
+            for (int i = 1; i <= MaxPlayers; i++)
             {
                 clients.Add(i, new Client(i));
             }
+
+            packetHandlers = new Dictionary<int, PacketHandler>()
+            {
+                { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived }
+            };
+            Console.WriteLine("Initialized packets.");
         }
     }
 }

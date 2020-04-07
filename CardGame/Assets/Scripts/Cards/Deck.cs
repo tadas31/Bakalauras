@@ -14,6 +14,32 @@ public class Deck
         this.cardsInDeck = cardsInDeck;
     }
 
+    public override string ToString()
+    {
+        if (cardsInDeck == null)
+        {
+            return "error";
+        }
+
+        string tmp = null;
+
+        foreach(DeckFormat deckFormat in cardsInDeck)
+        {
+            for (int i = 0; i < deckFormat.count; i++)
+            {
+                if (string.IsNullOrEmpty(tmp))
+                {
+                    tmp = deckFormat.name;
+                }
+                else
+                {
+                    tmp += "," + deckFormat.name;
+                }
+            }
+        }
+        return tmp;
+    }
+
     public GameObject pullCard()
     {
         int rand = Random.Range(0,cardsInDeck.Count);

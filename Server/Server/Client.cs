@@ -8,23 +8,27 @@ namespace Server
 {
     class Client
     {
-        public static int dataBuffersize = 4096;
+        public static int dataBufferSize = 4096;
+
         public int id;
+        Player player;
         public TCP tcp;
 
-        public Client(int _clientid)
+        public Client(int _clientId)
         {
-            id = _clientid;
+            id = _clientId;
             tcp = new TCP(id);
         }
 
-        public class TCP{
-            public TcpClient socket; 
-            
+        public class TCP
+        {
+            public TcpClient socket;
+
             private readonly int id;
             private NetworkStream stream;
+            private Packet receivedData;
             private byte[] receiveBuffer;
-           
+
             public TCP(int _id)
             {
                 id = _id;
@@ -33,16 +37,17 @@ namespace Server
             public void Connect(TcpClient _socket)
             {
                 socket = _socket;
-                socket.ReceiveBufferSize = dataBuffersize;
-                socket.SendBufferSize = dataBuffersize;
+                socket.ReceiveBufferSize = dataBufferSize;
+                socket.SendBufferSize = dataBufferSize;
 
                 stream = socket.GetStream();
 
-                receiveBuffer = new byte[dataBuffersize];
+                receivedData = new Packet();
+                receiveBuffer = new byte[dataBufferSize];
 
-                stream.BeginRead(receiveBuffer, 0, dataBuffersize, ReceiveCallback, null);
+                stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
 
-                ServerSend.Welcome(id, "Welcome!!!");
+                ServerSend.Welcome(id, "Welcome to the server!");
             }
 
             public void SendData(Packet _packet)
@@ -60,29 +65,116 @@ namespace Server
                 }
             }
 
-            private void ReceiveCallback(IAsyncResult _results)
+            private void ReceiveCallback(IAsyncResult _result)
             {
                 try
                 {
-                    int _byteLength = stream.EndRead(_results);
+                    int _byteLength = stream.EndRead(_result);
                     if (_byteLength <= 0)
                     {
-                        //TODO: disconnect
+                        Server.clients[id].Disconnect();
                         return;
                     }
 
                     byte[] _data = new byte[_byteLength];
                     Array.Copy(receiveBuffer, _data, _byteLength);
 
-                    //TODO: handle data
-                    stream.BeginRead(receiveBuffer, 0, dataBuffersize, ReceiveCallback, null);  
+                    receivedData.Reset(HandleData(_data));
+                    stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
                 }
                 catch (Exception _ex)
                 {
                     Console.WriteLine($"Error receiving TCP data: {_ex}");
-                    // TODO: disconnect;
+                    Server.clients[id].Disconnect();
                 }
             }
+
+            private bool HandleData(byte[] _data)
+            {
+                int _packetLength = 0;
+
+                receivedData.SetBytes(_data);
+
+                if (receivedData.UnreadLength() >= 4)
+                {
+                    _packetLength = receivedData.ReadInt();
+                    if (_packetLength <= 0)
+                    {
+                        return true;
+                    }
+                }
+
+                while (_packetLength > 0 && _packetLength <= receivedData.UnreadLength())
+                {
+                    byte[] _packetBytes = receivedData.ReadBytes(_packetLength);
+                    ThreadManager.ExecuteOnMainThread(() =>
+                    {
+                        using (Packet _packet = new Packet(_packetBytes))
+                        {
+                            int _packetId = _packet.ReadInt();
+                            Server.packetHandlers[_packetId](id, _packet);
+                        }
+                    });
+
+                    _packetLength = 0;
+                    if (receivedData.UnreadLength() >= 4)
+                    {
+                        _packetLength = receivedData.ReadInt();
+                        if (_packetLength <= 0)
+                        {
+                            return true;
+                        }
+                    }
+                }
+
+                if (_packetLength <= 1)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+
+            public void Disconnect()
+            {
+                socket.Close();
+                stream = null;
+                receivedData = null;
+                receiveBuffer = null;
+                socket = null;
+            }
+        }
+
+        public void SendIntoGame(string _username, string _deck)
+        {
+            player = new Player(id, _username, _deck);
+
+            foreach (Client _client in Server.clients.Values)
+            {
+                if (_client.player != null)
+                {
+                    if (_client.id != id)
+                    {
+                        ServerSend.SpawnPlayer(id, _client.player);
+                    }
+                }
+            }
+
+            foreach (Client _client in Server.clients.Values)
+            {
+                if (_client.player != null)
+                {
+                    ServerSend.SpawnPlayer(_client.id, player);
+                }
+            }
+        }
+
+        public void Disconnect()
+        {
+            Console.WriteLine($"{tcp.socket.Client.RemoteEndPoint} had disconnected.");
+
+            player = null;
+            tcp.Disconnect();
         }
     }
 }
