@@ -11,7 +11,7 @@ namespace Server
         public static int dataBufferSize = 4096;
 
         public int id;
-        Player player;
+        public Player player;
         public TCP tcp;
 
         public Client(int _clientId)
@@ -142,6 +142,7 @@ namespace Server
                 receivedData = null;
                 receiveBuffer = null;
                 socket = null;
+                Server.PlayerCount--;
             }
         }
 
@@ -159,7 +160,6 @@ namespace Server
                     }
                 }
             }
-
             foreach (Client _client in Server.clients.Values)
             {
                 if (_client.player != null)
@@ -167,6 +167,16 @@ namespace Server
                     ServerSend.SpawnPlayer(_client.id, player);
                 }
             }
+        }
+
+        public void SendTurn()
+        {
+            ServerSend.SetTurn(id, player.isTurn);
+        }
+
+        public void SendTimer(float _time)
+        {
+            ServerSend.SetTimer(id, _time);
         }
 
         public void Disconnect()

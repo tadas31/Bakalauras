@@ -17,7 +17,8 @@ namespace Server
 
         public Card(string _cardName)
         {
-            string _path = @"./Card/" + _cardName + ".asset";
+            string curFile = @"c:\temp\test.txt";
+            string _path =  System.IO.Path.GetFullPath(@"..\..\..\Cards\") + _cardName + ".asset";
             if (File.Exists(_path))
             {
                 cardName = _cardName;
@@ -32,7 +33,7 @@ namespace Server
                         {
                             cost = int.Parse(GetLineString(ln));
                         } 
-                        else if (ln.Contains("type"))
+                        else if (ln.Contains("type") && !ln.Contains("m_Script"))
                         {
                             type = GetLineString(ln);
                         }
@@ -56,16 +57,16 @@ namespace Server
                                 scripts.Add(ln);
                             }
                         }
-                        Console.WriteLine(ln);
                         counter++;
                     }
                 }
             }   
         }
 
-        private string GetLineString(string ln)
+        private static string GetLineString(string ln)
         {
-            string tmp = ln.Substring(':');
+            int found = ln.IndexOf(": ");
+            string tmp = ln.Substring(found + 2);
             return tmp;
         }
     }

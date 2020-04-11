@@ -8,13 +8,17 @@ using UnityEngine;
 public enum ServerPackets
 {
     welcome = 1,
-    spawnPlayer
+    spawnPlayer,
+    pullStartingCards,
+    setTurn,
+    setTimer
 }
 
 /// <summary>Sent from client to server.</summary>
 public enum ClientPackets
 {
-    welcomeReceived = 1
+    welcomeReceived = 1,
+    endTurn
 }
 
 public class Packet : IDisposable

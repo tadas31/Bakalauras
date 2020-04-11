@@ -54,6 +54,36 @@ namespace Server
                 SendTCPData(_toClient, _packet);
             }
         }
+
+        public static void PullStartingCards(int _toClient, string _cards)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.pullStartingCards))
+            {
+                _packet.Write(_cards);
+
+                SendTCPData(_toClient, _packet);
+            }
+        }
+
+        public static void SetTurn(int _toClient, bool _isTurn)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.setTurn))
+            {
+                _packet.Write(_isTurn);
+
+                SendTCPData(_toClient, _packet);
+            }
+        }
+
+        public static void SetTimer(int _toClient, float _time)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.setTimer))
+            {
+                _packet.Write(_time);
+
+                SendTCPData(_toClient, _packet);
+            }
+        }
         #endregion
     }
 }

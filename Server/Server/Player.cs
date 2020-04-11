@@ -8,12 +8,37 @@ namespace Server
     {
         public int id;
         public string username;
-        public Deck deck;
+        public bool isTurn;
 
-        public Player(int _id, string _username)
+        public Deck deck;
+        public Deck hand;
+        public Deck graveYard;
+        public Deck table;
+
+        public Player(int _id, string _username, string _dataDeck)
         {
             id = _id;
             username = _username;
+            isTurn = false;
+            deck = new Deck(_dataDeck);
+            hand = new Deck();
+            graveYard = new Deck();
+            table = new Deck();
         }
+
+        public string PullStartingCards()
+        {
+            for (int i = 0; i < Constants.START_CARD_COUNT; i++)
+            {
+                PullCardToHand();
+            }
+            return hand.NamesToString();
+        }
+
+        public void PullCardToHand()
+        {
+            hand.AddToDeck(deck.PullCard());
+        }
+
     }
 }

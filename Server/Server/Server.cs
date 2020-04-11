@@ -9,6 +9,19 @@ namespace Server
     class Server
     {
         public static int MaxPlayers { get; private set; }
+        public static int PlayerCount 
+        { 
+            get {return _playerCount; } 
+            set 
+            {
+                _playerCount = value;
+                if (MaxPlayers == _playerCount)
+                {
+                    GameLogic.StartGame();
+                }
+            }
+        }
+        private static int _playerCount;
         public static int Port { get; private set; }
         public static Dictionary<int, Client> clients = new Dictionary<int, Client>();
         public delegate void PacketHandler(int _fromClient, Packet _packet);
@@ -19,6 +32,7 @@ namespace Server
         public static void Start(int _maxPlayers, int _port)
         {
             MaxPlayers = _maxPlayers;
+            PlayerCount = 0;
             Port = _port;
 
             Console.WriteLine("Starting server...");
@@ -58,7 +72,8 @@ namespace Server
 
             packetHandlers = new Dictionary<int, PacketHandler>()
             {
-                { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived }
+                { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
+                { (int)ClientPackets.endTurn, ServerHandle.EndTurn }
             };
             Console.WriteLine("Initialized packets.");
         }

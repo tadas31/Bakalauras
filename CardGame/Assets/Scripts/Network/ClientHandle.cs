@@ -21,4 +21,28 @@ public class ClientHandle : MonoBehaviour
 
         ClassicGameManager.instance.SpawnPlayer(_id,_username);
     }
+
+    public static void PullStartingCards(Packet _packet)
+    {
+        string _deck = _packet.ReadString();
+        Debug.Log($"Got the hand cards : {_deck}");
+
+        ClassicGameManager.instance.PullStartingCards(_deck);
+    }
+
+    public static void SetTurn(Packet _packet)
+    {
+        bool _isTurn = _packet.ReadBool();
+        Debug.Log($"Turn variable : {_isTurn}");
+
+        ClassicGameManager.instance.SetTurn(_isTurn);
+    }
+
+    public static void SetTimer(Packet _packet)
+    {
+        float _timer = _packet.ReadFloat();
+        Debug.Log($"Reseting the timer to : {_timer}");
+
+        TimerManager.timeLeft = _timer;
+    }
 }
