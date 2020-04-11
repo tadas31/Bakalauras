@@ -15,12 +15,24 @@ namespace Server
         private static void SendTCPDataToAll(Packet _packet)
         {
             _packet.WriteLength();
-            for (int i = 0; i <= Server.MaxPlayers; i++)
+            for (int i = 1; i <= Server.MaxPlayers; i++)
             {
                 Server.clients[i].tcp.SendData(_packet);
             }
         }
+        private static void SendTCPDataToAll(int _exceptClient, Packet _packet)
+        {
+            _packet.WriteLength();
+            for (int i = 1; i <= Server.MaxPlayers; i++)
+            {
+                if (i != _exceptClient)
+                {
+                    Server.clients[i].tcp.SendData(_packet);
+                }
+            }
+        }
 
+        #region packets
         public static void Welcome(int _toClient, string _msg)
         {
             using (Packet _packet = new Packet((int)ServerPackets.welcome))
@@ -31,5 +43,47 @@ namespace Server
                 SendTCPData(_toClient, _packet);
             }
         }
+
+        public static void SpawnPlayer(int _toClient, Player _player)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.spawnPlayer))
+            {
+                _packet.Write(_player.id);
+                _packet.Write(_player.username);
+
+                SendTCPData(_toClient, _packet);
+            }
+        }
+
+        public static void PullStartingCards(int _toClient, string _cards)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.pullStartingCards))
+            {
+                _packet.Write(_cards);
+
+                SendTCPData(_toClient, _packet);
+            }
+        }
+
+        public static void SetTurn(int _toClient, bool _isTurn)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.setTurn))
+            {
+                _packet.Write(_isTurn);
+
+                SendTCPData(_toClient, _packet);
+            }
+        }
+
+        public static void SetTimer(int _toClient, float _time)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.setTimer))
+            {
+                _packet.Write(_time);
+
+                SendTCPData(_toClient, _packet);
+            }
+        }
+        #endregion
     }
 }

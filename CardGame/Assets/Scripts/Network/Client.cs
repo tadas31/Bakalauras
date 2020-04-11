@@ -15,12 +15,13 @@ public class Client : MonoBehaviour
     public int myId = 0;
     public TCP tcp;
 
-    private delegate void PacketHandler(Packet packet);
-    private static Dictionary<int, PacketHandler> packetHandlers; 
+    private bool isConnected = false;
+    private delegate void PacketHandler(Packet _packet);
+    private static Dictionary<int, PacketHandler> packetHandlers;
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
@@ -36,9 +37,16 @@ public class Client : MonoBehaviour
         tcp = new TCP();
     }
 
+    private void OnApplicationQuit()
+    {
+        Disconnect();
+    }
+
     public void ConnectToServer()
     {
         InitializeClientData();
+
+        isConnected = true;
         tcp.Connect();
     }
 
@@ -47,7 +55,7 @@ public class Client : MonoBehaviour
         public TcpClient socket;
 
         private NetworkStream stream;
-        private Packet receiveData;
+        private Packet receivedData;
         private byte[] receiveBuffer;
 
         public void Connect()
@@ -73,54 +81,67 @@ public class Client : MonoBehaviour
 
             stream = socket.GetStream();
 
-            receiveData = new Packet();
+            receivedData = new Packet();
 
             stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
         }
 
-        private void ReceiveCallback(IAsyncResult _results)
+        public void SendData(Packet _packet)
         {
             try
             {
-                int _byteLength = stream.EndRead(_results);
+                if (socket != null)
+                {
+                    stream.BeginWrite(_packet.ToArray(), 0, _packet.Length(), null, null);
+                }
+            }
+            catch (Exception _ex)
+            {
+                Debug.Log($"Error sending data to server via TCP: {_ex}");
+            }
+        }
+
+        private void ReceiveCallback(IAsyncResult _result)
+        {
+            try
+            {
+                int _byteLength = stream.EndRead(_result);
                 if (_byteLength <= 0)
                 {
-                    //TODO: disconnect
+                    instance.Disconnect();
                     return;
                 }
 
                 byte[] _data = new byte[_byteLength];
                 Array.Copy(receiveBuffer, _data, _byteLength);
 
-                receiveData.Reset(HandleData(_data));
-
+                receivedData.Reset(HandleData(_data));
                 stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
             }
-            catch (Exception _ex)
+            catch
             {
-                Console.WriteLine($"Error receiving TCP data: {_ex}");
-                // TODO: disconnect;
+                Disconnect();
             }
         }
 
-        private bool HandleData(byte[] _data) 
+        private bool HandleData(byte[] _data)
         {
             int _packetLength = 0;
 
-            receiveData.SetBytes(_data);
+            receivedData.SetBytes(_data);
 
-            if (receiveData.UnreadLength() >= 4)
+            if (receivedData.UnreadLength() >= 4)
             {
-                _packetLength = receiveData.ReadInt();
+                _packetLength = receivedData.ReadInt();
                 if (_packetLength <= 0)
                 {
                     return true;
                 }
             }
 
-            while(_packetLength > 0 && _packetLength <= receiveData.UnreadLength())
+            while (_packetLength > 0 && _packetLength <= receivedData.UnreadLength())
             {
-                byte[] _packetBytes = receiveData.ReadBytes(_packetLength);
+                byte[] _packetBytes = receivedData.ReadBytes(_packetLength);
                 ThreadManager.ExecuteOnMainThread(() =>
                 {
                     using (Packet _packet = new Packet(_packetBytes))
@@ -131,9 +152,9 @@ public class Client : MonoBehaviour
                 });
 
                 _packetLength = 0;
-                if (receiveData.UnreadLength() >= 4)
+                if (receivedData.UnreadLength() >= 4)
                 {
-                    _packetLength = receiveData.ReadInt();
+                    _packetLength = receivedData.ReadInt();
                     if (_packetLength <= 0)
                     {
                         return true;
@@ -148,14 +169,39 @@ public class Client : MonoBehaviour
 
             return false;
         }
+
+        private void Disconnect()
+        {
+            instance.Disconnect();
+
+            stream = null;
+            receivedData = null;
+            receiveBuffer = null;
+            socket = null;
+        }
     }
 
     private void InitializeClientData()
     {
         packetHandlers = new Dictionary<int, PacketHandler>()
         {
-            { (int)ServerPackets.welcome, ClientHandle.Welcome }
+            { (int)ServerPackets.welcome, ClientHandle.Welcome },
+            { (int)ServerPackets.spawnPlayer, ClientHandle.SpawnPlayer },
+            { (int)ServerPackets.pullStartingCards, ClientHandle.PullStartingCards },
+            { (int)ServerPackets.setTurn, ClientHandle.SetTurn },
+            { (int)ServerPackets.setTimer, ClientHandle.SetTimer }
         };
         Debug.Log("Initialized packets.");
+    }
+
+    private void Disconnect()
+    {
+        if (isConnected)
+        {
+            isConnected = false;
+            tcp.socket.Close();
+
+            Debug.Log("Disconnected from server");
+        }
     }
 }
