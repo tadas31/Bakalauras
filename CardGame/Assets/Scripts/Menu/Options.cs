@@ -10,9 +10,13 @@ public class Options : MonoBehaviour
 
     private const string RESOLUTION_KEY = "resolution";
     private const string WINDOW_MODE_KEY = "windowed";
+    private const string MUSIC_KEY = "music";
+    private const string EFFECTS_KEY = "effects";
 
     public TMP_Dropdown resolutionsDorpdown;
     public Toggle windowModeToggle;
+    public TextMeshProUGUI musicText;
+    public TextMeshProUGUI effectsText;
 
     private List<Resolution> resolutions;
 
@@ -60,6 +64,8 @@ public class Options : MonoBehaviour
     public void onApplyPress()
     {
         PlayerPrefs.SetInt(RESOLUTION_KEY, resolutionsDorpdown.value);
+        PlayerPrefs.SetInt(MUSIC_KEY, int.Parse(musicText.text));
+        PlayerPrefs.SetInt(EFFECTS_KEY, int.Parse(effectsText.text));
 
         if (windowModeToggle.isOn)
             PlayerPrefs.SetInt(WINDOW_MODE_KEY, 1);
@@ -78,6 +84,9 @@ public class Options : MonoBehaviour
     {
         resolutionsDorpdown.value = PlayerPrefs.GetInt(RESOLUTION_KEY, resolutions.Count);
         int togleValue = PlayerPrefs.GetInt(WINDOW_MODE_KEY, 0);
+        musicText.text = PlayerPrefs.GetInt(MUSIC_KEY, 100).ToString();
+        effectsText.text = PlayerPrefs.GetInt(EFFECTS_KEY, 100).ToString();
+
         // Sets resolution
         if (togleValue == 0)
         {

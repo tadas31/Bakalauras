@@ -28,13 +28,15 @@ public class MenuButtons : MonoBehaviour
     // Opens classic scene
     public void onClassicPress()
     {
-        SceneManager.LoadScene("Classic");
+        if (!options.activeSelf && !puzzleLevels.activeSelf)
+            SceneManager.LoadScene("Classic");
     }
 
     // Opens puzzle levels
     public void onPuzzlePerss()
     {
-        puzzleLevels.SetActive(true);
+        if (!options.activeSelf)
+            puzzleLevels.SetActive(true);
     }
 
     // Change scene to deck
@@ -45,8 +47,11 @@ public class MenuButtons : MonoBehaviour
 
     public void onOptionsPress()
     {
-        optionsScript.displaySelectedValues();
-        options.SetActive(true);
+        puzzleLevels.SetActive(false);
+        if (!options.activeSelf)
+            optionsScript.displaySelectedValues();
+
+        options.SetActive(!options.activeSelf);
     }
 
     // Turns off game

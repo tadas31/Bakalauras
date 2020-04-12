@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class ButtonAnimation : MonoBehaviour
 {
+    public GameObject options;                  // Gets options window
+    public GameObject puzzleLevels;             // Gets puzzle levels window
+
     public Button classic;                      //gets classic button
     public Button puzzle;                       //gets puzzle button
     public Button play;                         //gets play button
@@ -12,7 +15,7 @@ public class ButtonAnimation : MonoBehaviour
 
     private float SPEED = 1100.0f;              //buttons movement speed
 
-    private bool isPlayPressed;                 //if play button pressed value is true else false
+    private bool isPlayPressed;                  //if play button pressed value is true else false
     private Vector3 classicTarget;               //target position for classic button
     private Vector3 puzzleTarget;                //target position to puzzle button
 
@@ -25,6 +28,7 @@ public class ButtonAnimation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //displays classic and puzzle buttons
         if (isPlayPressed)
         {
@@ -63,6 +67,9 @@ public class ButtonAnimation : MonoBehaviour
     //afet play button is presed sets objects active and sets destination for buttons
     public void onPlayPress()
     {
+        options.SetActive(false);
+        puzzleLevels.SetActive(false);
+
         //displays classic and puzzle buttons
         if (!isPlayPressed)
         {
@@ -75,7 +82,7 @@ public class ButtonAnimation : MonoBehaviour
 
             //sets position of puzzle button and destination
             puzzle.transform.localPosition = new Vector3(classicTarget.x, classicTarget.y, classicTarget.z);
-            puzzleTarget = new Vector3(classicTarget.x, 60, classicTarget.z);
+            puzzleTarget = new Vector3(classicTarget.x, 53, classicTarget.z);
 
             isPlayPressed = true;
         }

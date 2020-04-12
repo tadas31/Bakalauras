@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PuzzleLevels : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class PuzzleLevels : MonoBehaviour
         {
             GameObject newButton = Instantiate(levelButton);
             newButton.transform.name = puzzle.name;
-            newButton.GetComponentInChildren<Text>().text = puzzle.name;
+            newButton.GetComponentInChildren<TextMeshProUGUI>().text = puzzle.name;
             newButton.transform.SetParent(parent, false);
 
             if (int.Parse(puzzle.name) > completedLevels + 1)

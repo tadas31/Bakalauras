@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 public class OnDeckCardHover : MonoBehaviour, IPointerEnterHandler
      , IPointerExitHandler
 {
-    private float POS_X = 391f;         // Card x position.
+    private float POS_X = 350f;         // Card x position.
     private float POS_Y = 248f;         // Card y position.
 
     private GameObject cardPrefab;      // Card prefab.
