@@ -11,6 +11,9 @@ public class ClassicGameManager : MonoBehaviour
     public GameObject localPlayerPref;
     public GameObject enemyPlayerPref;
     public GameObject handCanvas;
+    //TODO: Maybe change that the localPLayer and enemy prefabs would be spawned as board elements.
+    public GameObject playerBoard;
+    public GameObject enemyBoard;
     private void Awake()
     {
         if (instance == null)
@@ -57,6 +60,23 @@ public class ClassicGameManager : MonoBehaviour
         curPlayer.isTurn = _isTurn;
     }
 
+    public void PutOnTable(string _cardName, bool _isPlayers)
+    {
+        Card card = Resources.Load<Card>("Cards/CreatedCards/" + _cardName);
+        GameObject cardTable = card.spawnCard();
+        if (_isPlayers)
+        {
+            cardTable.transform.SetParent(playerBoard.transform);
+            cardTable.transform.localScale = Vector3.one;
+            RemoveCardFromHand(_cardName);
+        }
+        else
+        {
+            cardTable.transform.SetParent(enemyBoard.transform);
+            cardTable.transform.localScale = Vector3.one;
+        }
+    }
+
     public void AddCardToHand(string cardName)
     {
         Card card = Resources.Load<Card>("Cards/CreatedCards/" + cardName);
@@ -65,6 +85,19 @@ public class ClassicGameManager : MonoBehaviour
         cardHand.transform.localScale = handCanvas.transform.localScale;
         cardHand.AddComponent<CardInHand>();
         cardHand.transform.SetParent(handCanvas.transform);
+        handReorganize();
+    }
+
+    public void RemoveCardFromHand(string cardName)
+    {
+        foreach (Transform child in handCanvas.transform)
+        {
+            if (child.name == cardName)
+            {
+                Destroy(child.gameObject);
+                break;
+            }
+        }
         handReorganize();
     }
 

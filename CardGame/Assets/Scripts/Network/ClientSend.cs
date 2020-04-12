@@ -23,6 +23,16 @@ public class ClientSend : MonoBehaviour
         }
     }
 
+    public static void PutCardOnTable(string _cardName)
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.placeCardToTable))
+        {
+            _packet.Write(_cardName);
+
+            SendTCPData(_packet);
+        }
+    }
+
     public static void EndTurn()
     {
         using (Packet _packet = new Packet((int)ClientPackets.endTurn))

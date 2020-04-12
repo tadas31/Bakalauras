@@ -86,6 +86,8 @@ public class Card : ScriptableObject
         //Creates the game object of the card.
         GameObject newCard = Instantiate(cardPrefab, Vector3.zero, Quaternion.identity);
 
+        newCard.name = cardName;
+
         System.Type scriptType;
         // Gets and adds necessary scripts to card.
         foreach (var script in scripts)

@@ -31,6 +31,18 @@ namespace Server
             deck.RemoveAt(i);
             return value;
         }
+        
+        public Card PullCard(string _cardName)
+        {
+            foreach (Card card in deck)
+            {
+                if (card.cardName == _cardName)
+                {
+                    return card;
+                }
+            }
+            return null;
+        }
 
         public void AddToDeck(Card card)
         {
@@ -52,6 +64,20 @@ namespace Server
                 }
             }
             return tmp;
+        }
+
+        
+
+        public bool isInDeck(string _cardName) 
+        {
+            foreach (Card _card in deck)
+            {
+                if (_card.cardName == _cardName)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

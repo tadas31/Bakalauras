@@ -179,6 +179,27 @@ namespace Server
             ServerSend.SetTimer(id, _time);
         }
 
+        public void PutCardOnTable(string _cardName)
+        {
+            if (player.HasInHand(_cardName));
+            {
+                Console.WriteLine($"Putting a {_cardName} card to player's {id}");
+                player.PutToTable(_cardName);
+                ServerSend.PutCardOnTable(id, true, _cardName);
+                //Putting the card in the enemy side.
+                foreach (Client _client in Server.clients.Values)
+                {
+                    if (_client.player != null)
+                    {
+                        if (_client.id != id)
+                        {
+                            ServerSend.PutCardOnTable(_client.id, false, _cardName);
+                        }
+                    }
+                }
+            }
+        }
+
         public void Disconnect()
         {
             Console.WriteLine($"{tcp.socket.Client.RemoteEndPoint} had disconnected.");

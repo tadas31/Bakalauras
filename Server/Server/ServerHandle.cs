@@ -21,6 +21,13 @@ namespace Server
             Server.PlayerCount++;
         }
 
+        public static void PlaceCardToTable(int _fromClient, Packet _packet)
+        {
+            string _cardName = _packet.ReadString();
+
+            Server.clients[_fromClient].PutCardOnTable(_cardName);
+        }
+
         public static void EndTurn(int _fromClient, Packet _packet)
         {
             if (Server.clients[_fromClient].player.isTurn)

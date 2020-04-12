@@ -84,6 +84,17 @@ namespace Server
                 SendTCPData(_toClient, _packet);
             }
         }
+
+        public static void PutCardOnTable(int _toClient, bool _isPlayers, string _cardName)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.putCardOnTable))
+            {
+                _packet.Write(_isPlayers);
+                _packet.Write(_cardName);
+
+                SendTCPData(_toClient, _packet);
+            }
+        }
         #endregion
     }
 }

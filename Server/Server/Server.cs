@@ -73,7 +73,8 @@ namespace Server
             packetHandlers = new Dictionary<int, PacketHandler>()
             {
                 { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
-                { (int)ClientPackets.endTurn, ServerHandle.EndTurn }
+                { (int)ClientPackets.endTurn, ServerHandle.EndTurn },
+                { (int)ClientPackets.placeCardToTable, ServerHandle.PlaceCardToTable }
             };
             Console.WriteLine("Initialized packets.");
         }

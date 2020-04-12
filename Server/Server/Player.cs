@@ -40,5 +40,14 @@ namespace Server
             hand.AddToDeck(deck.PullCard());
         }
 
+        public bool HasInHand(string _cardName)
+        {
+            return hand.isInDeck(_cardName);
+        }
+
+        public void PutToTable(string _cardName)
+        {
+            table.AddToDeck(hand.PullCard(_cardName));
+        }
     }
 }

@@ -45,4 +45,14 @@ public class ClientHandle : MonoBehaviour
 
         TimerManager.timeLeft = _timer;
     }
+
+    public static void PutCardOnTable(Packet _packet)
+    {
+        bool _isPlayers = _packet.ReadBool();
+        string _cardName = _packet.ReadString();
+
+        Debug.Log($"Putting card on table : {_cardName}, {_isPlayers}");
+
+        ClassicGameManager.instance.PutOnTable(_cardName,_isPlayers);
+    }
 }

@@ -2898,6 +2898,8 @@ MonoBehaviour:
   enemyPlayerPref: {fileID: 5844856336120012303, guid: 86d579cbdec384e43b20f44e8d145882,
     type: 3}
   handCanvas: {fileID: 2039914264}
+  playerBoard: {fileID: 1159243979}
+  enemyBoard: {fileID: 349869466}
 --- !u!4 &1187063741
 Transform:
   m_ObjectHideFlags: 0
