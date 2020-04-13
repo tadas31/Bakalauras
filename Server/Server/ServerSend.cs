@@ -85,6 +85,29 @@ namespace Server
             }
         }
 
+        public static void SetLife(int _toClient, int _life)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.setLife))
+            {
+                _packet.Write(_toClient);
+                _packet.Write(_life);
+
+                SendTCPDataToAll(_packet);
+            }
+        }
+
+        public static void SetMana(int _toClient, int _mana)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.setMana))
+            {
+                _packet.Write(_toClient);
+                _packet.Write(_mana);
+
+                SendTCPDataToAll(_packet);
+            }
+        }
+
+
         public static void PutCardOnTable(int _toClient, bool _isPlayers, string _cardName)
         {
             using (Packet _packet = new Packet((int)ServerPackets.putCardOnTable))

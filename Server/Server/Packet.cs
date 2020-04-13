@@ -12,7 +12,9 @@ namespace Server
         pullStartingCards,
         setTurn,
         setTimer,
-        putCardOnTable
+        putCardOnTable,
+        setLife,
+        setMana
     }
 
     /// <summary>Sent from client to server.</summary>
@@ -20,7 +22,8 @@ namespace Server
     {
         welcomeReceived = 1,
         endTurn,
-        placeCardToTable
+        placeCardToTable,
+        attack
     }
 
     public class Packet : IDisposable

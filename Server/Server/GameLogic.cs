@@ -19,6 +19,8 @@ namespace Server
             SendTurnsForPlayers();
             PullStartingCardsForPlayers();
             StartTimer();
+            SendLifeToPlayers();
+            SendManaToPlayers();
         }
         public static void StartTimer()
         {
@@ -44,6 +46,30 @@ namespace Server
                 if (_client.player != null)
                 {
                     _client.player.isTurn = !_client.player.isTurn;
+                }
+            }
+        }
+
+        public static void SendLifeToPlayers()
+        {
+            foreach (Client _client in Server.clients.Values)
+            {
+                if (_client.player != null)
+                {
+                    Console.WriteLine($"Sending life information to {_client.id}");
+                    _client.SendLife();
+                }
+            }
+        }
+
+        public static void SendManaToPlayers()
+        {
+            foreach (Client _client in Server.clients.Values)
+            {
+                if (_client.player != null)
+                {
+                    Console.WriteLine($"Sending mana information to {_client.id}");
+                    _client.SendMana();
                 }
             }
         }

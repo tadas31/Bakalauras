@@ -9,6 +9,8 @@ namespace Server
         public int id;
         public string username;
         public bool isTurn;
+        public int life;
+        public int mana;
 
         public Deck deck;
         public Deck hand;
@@ -20,6 +22,8 @@ namespace Server
             id = _id;
             username = _username;
             isTurn = false;
+            life = Constants.START_LIFE;
+            mana = 1;
             deck = new Deck(_dataDeck);
             hand = new Deck();
             graveYard = new Deck();
@@ -48,6 +52,14 @@ namespace Server
         public void PutToTable(string _cardName)
         {
             table.AddToDeck(hand.PullCard(_cardName));
+        }
+
+        public void AddMana()
+        {
+            if (mana < Constants.MAX_MANA)
+            {
+                mana++;
+            }
         }
     }
 }

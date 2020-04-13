@@ -12,7 +12,9 @@ public enum ServerPackets
     pullStartingCards,
     setTurn,
     setTimer,
-    putCardOnTable
+    putCardOnTable,
+    setLife,
+    setMana
 }
 
 /// <summary>Sent from client to server.</summary>

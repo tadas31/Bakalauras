@@ -179,6 +179,16 @@ namespace Server
             ServerSend.SetTimer(id, _time);
         }
 
+        public void SendLife()
+        {
+            ServerSend.SetLife(id, player.life);
+        }
+
+        public void SendMana()
+        {
+            ServerSend.SetMana(id, player.mana);
+        }
+
         public void PutCardOnTable(string _cardName)
         {
             if (player.HasInHand(_cardName));
@@ -198,6 +208,76 @@ namespace Server
                     }
                 }
             }
+        }
+
+
+        public void Attack(string _attackFrom, string _attackTo)
+        {
+            //Check if it is your turn
+            if (!player.isTurn)
+            {
+                return;
+            }
+
+            Client enemyClient = null;
+
+            foreach (Client item in Server.clients.Values)
+            {
+                if (item.player != null)
+                {
+                    if (item.id != id)
+                    {
+                        enemyClient = item;
+                    }
+                }
+            }
+
+            if (enemyClient == null)
+            {
+                //Something wrong. Maybe there is no need for this part of the code.
+                return;
+            }
+
+            //Get the card that with the card that you are attacking
+            if (player.table.isInDeck(_attackFrom))
+            {
+                Card _attackFromCard = player.table.GetCard(_attackFrom);
+                int retuneAttack = enemyClient.DealDamageTo(_attackFromCard.attack, _attackTo);
+                //DealDamageTo.
+
+                //Think about this part.
+            }
+            else if (false) //If it is attacking with a spell card
+            {
+
+            }
+            else if (false) //If the player it self is attacking
+            {
+
+            }
+            else
+            {
+                return;
+            }
+            //Get the card that the other player has.
+            //Deal damage to the card
+            //Send the information back to the clients
+
+            //TODO: If the player is attacked
+            //TODO: If the another minion is attacked
+
+        }
+
+        public int DealDamageTo(int _amount, string _to) 
+        {
+            if (player.table.isInDeck(_to))
+            {
+                Card minion = player.table.GetCard(_to);
+                minion.life -= _amount;
+                return minion.attack;
+                //TODO: Maybe need to send to all of the cards that it died.
+            }
+            return 0;
         }
 
         public void Disconnect()

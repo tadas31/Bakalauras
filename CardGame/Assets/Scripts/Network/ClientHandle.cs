@@ -46,6 +46,23 @@ public class ClientHandle : MonoBehaviour
         TimerManager.timeLeft = _timer;
     }
 
+    public static void SetLife(Packet _packet)
+    {
+        int _toClient = _packet.ReadInt();
+        int _life = _packet.ReadInt();
+        Debug.Log($"Setting life to {_toClient} : {_life}");
+
+        ClassicGameManager.instance.SetLife(_toClient, _life);
+    }
+    public static void SetMana(Packet _packet)
+    {
+        int _toClient = _packet.ReadInt();
+        int _mana = _packet.ReadInt();
+        Debug.Log($"Setting mana to {_toClient} : {_mana}");
+
+        ClassicGameManager.instance.SetMana(_toClient, _mana);
+    }
+
     public static void PutCardOnTable(Packet _packet)
     {
         bool _isPlayers = _packet.ReadBool();

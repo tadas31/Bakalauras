@@ -190,7 +190,9 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.pullStartingCards, ClientHandle.PullStartingCards },
             { (int)ServerPackets.setTurn, ClientHandle.SetTurn },
             { (int)ServerPackets.setTimer, ClientHandle.SetTimer },
-            { (int)ServerPackets.putCardOnTable, ClientHandle.PutCardOnTable }
+            { (int)ServerPackets.putCardOnTable, ClientHandle.PutCardOnTable },
+            { (int)ServerPackets.setLife, ClientHandle.SetLife },
+            { (int)ServerPackets.setMana, ClientHandle.SetMana }
         };
         Debug.Log("Initialized packets.");
     }

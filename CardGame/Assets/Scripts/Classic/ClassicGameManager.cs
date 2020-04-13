@@ -32,7 +32,7 @@ public class ClassicGameManager : MonoBehaviour
         GameObject _player;
         if (_id == Client.instance.myId)
         {
-            _player = Instantiate(localPlayerPref);
+            _player = localPlayerPref;
             curPlayer = _player.GetComponent<PlayerManager>() ;
         }
         else
@@ -58,6 +58,28 @@ public class ClassicGameManager : MonoBehaviour
     public void SetTurn(bool _isTurn)
     {
         curPlayer.isTurn = _isTurn;
+    }
+
+    public void SetLife(int _clientId, int _amount)
+    {
+        foreach (PlayerManager item in players.Values)
+        {
+            if (_clientId == item.id)
+            {
+                item.life = _amount;
+            }
+        }
+    }
+
+    public void SetMana(int _clientId, int _amount)
+    {
+        foreach (PlayerManager item in players.Values)
+        {
+            if (_clientId == item.id)
+            {
+                item.mana = _amount;
+            }
+        }
     }
 
     public void PutOnTable(string _cardName, bool _isPlayers)

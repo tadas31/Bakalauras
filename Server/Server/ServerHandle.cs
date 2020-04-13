@@ -28,6 +28,14 @@ namespace Server
             Server.clients[_fromClient].PutCardOnTable(_cardName);
         }
 
+        public static void Attack(int _fromClient, Packet _packet)
+        {
+            string _attackFrom = _packet.ReadString();
+            string _attackTo = _packet.ReadString();
+
+            Server.clients[_fromClient].Attack(_attackFrom,_attackTo);
+        }
+
         public static void EndTurn(int _fromClient, Packet _packet)
         {
             if (Server.clients[_fromClient].player.isTurn)

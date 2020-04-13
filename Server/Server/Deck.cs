@@ -24,6 +24,27 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Gets the card from the array.
+        /// </summary>
+        /// <param name="_cardName">The name of the card</param>
+        /// <returns>The reference to the cards</returns>
+        public Card GetCard(string _cardName)
+        {
+            foreach (Card item in deck)
+            {
+                if (_cardName == item.cardName)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Pulls and removes the card from the card array.
+        /// </summary>
+        /// <returns>The card.</returns>
         public Card PullCard()
         {
             int i = rand.Next(0, deck.Count);
@@ -31,7 +52,12 @@ namespace Server
             deck.RemoveAt(i);
             return value;
         }
-        
+
+        /// <summary>
+        /// Gets the card form the made card list and removes it.
+        /// </summary>
+        /// <param name="_cardName">The name of the pulled card.</param>
+        /// <returns>The card that was pulled from the list array.</returns>
         public Card PullCard(string _cardName)
         {
             foreach (Card card in deck)
