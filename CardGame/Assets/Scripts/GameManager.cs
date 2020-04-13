@@ -57,4 +57,9 @@ public class GameManager : MonoBehaviour
             positionX += spacing;
         }
     }
+
+    public void onResumePress()
+    {
+        pauze.SetActive(false);
+    }
 }

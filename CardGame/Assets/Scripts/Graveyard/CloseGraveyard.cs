@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class CloseGraveyard : MonoBehaviour
+public class CloseGraveyard : MonoBehaviour, IPointerClickHandler
 {
+    public GameObject garveyard;     // Gets graveyard window
+
     // Closes graveyard
-    public void onCLosePress()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        gameObject.SetActive(false);
+        garveyard.SetActive(false);
     }
 }
