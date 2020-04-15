@@ -11,6 +11,7 @@ namespace Server
         public bool isTurn;
         public int life;
         public int mana;
+        public int maxMana;
 
         public Deck deck;
         public Deck hand;
@@ -24,6 +25,7 @@ namespace Server
             isTurn = false;
             life = Constants.START_LIFE;
             mana = 1;
+            maxMana = 1;
             deck = new Deck(_dataDeck);
             hand = new Deck();
             graveYard = new Deck();
@@ -49,17 +51,34 @@ namespace Server
             return hand.isInDeck(_cardName);
         }
 
-        public void PutToTable(string _cardName)
+        public bool HasEnoughMana(string _cardName)
         {
-            table.AddToDeck(hand.PullCard(_cardName));
+            Card _card = hand.GetCard(_cardName);
+            if (_card.cost <= mana)
+            {
+                return true;
+            }
+            return false;
         }
 
-        public void AddMana()
+        public void PutOnTable(string _cardName)
         {
-            if (mana < Constants.MAX_MANA)
+            Card _card = hand.PullCard(_cardName);
+            mana -= _card.cost;
+            table.AddToDeck(_card);
+        }
+
+        public void AddMaxMana()
+        {
+            if (maxMana < Constants.MAX_MANA)
             {
-                mana++;
+                maxMana++;
             }
+        }
+
+        public void ResetMana()
+        {
+            mana = maxMana;
         }
     }
 }

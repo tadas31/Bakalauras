@@ -188,14 +188,20 @@ namespace Server
         {
             ServerSend.SetMana(id, player.mana);
         }
+        
+        public void SendMaxMana()
+        {
+            ServerSend.SetMaxMana(id, player.maxMana);
+        }
 
         public void PutCardOnTable(string _cardName)
         {
-            if (player.HasInHand(_cardName));
+            if (player.HasInHand(_cardName) && player.HasEnoughMana(_cardName) && player.isTurn)
             {
                 Console.WriteLine($"Putting a {_cardName} card to player's {id}");
-                player.PutToTable(_cardName);
+                player.PutOnTable(_cardName);
                 ServerSend.PutCardOnTable(id, true, _cardName);
+                ServerSend.SetMana(id, player.mana);
                 //Putting the card in the enemy side.
                 foreach (Client _client in Server.clients.Values)
                 {
@@ -208,6 +214,7 @@ namespace Server
                     }
                 }
             }
+            //TODO: Can be that it is returned to the client that something is not okey. ???
         }
 
 

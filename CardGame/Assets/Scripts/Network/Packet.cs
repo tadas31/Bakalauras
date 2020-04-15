@@ -15,6 +15,7 @@ public enum ServerPackets
     putCardOnTable,
     setLife,
     setMana,
+    setMaxMana,
     attack
 }
 

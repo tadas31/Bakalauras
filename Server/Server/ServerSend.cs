@@ -107,6 +107,17 @@ namespace Server
             }
         }
 
+        public static void SetMaxMana(int _toClient, int _maxMana)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.setMaxMana))
+            {
+                _packet.Write(_toClient);
+                _packet.Write(_maxMana);
+
+                SendTCPDataToAll(_packet);
+            }
+        }
+
         public static void Attack(int _clientId, string _from, int _lifeFrom, string _to, int _lifeTo)
         {
             using (Packet _packet = new Packet((int)ServerPackets.attack))

@@ -15,6 +15,7 @@ namespace Server
         putCardOnTable,
         setLife,
         setMana,
+        setMaxMana,
         attack
     }
 

@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
 
     public GameObject startMenu;
     public GameObject pauze;
+    public GameObject timer;
+    public GameObject endTurn;
     public TextMeshProUGUI usernameField;
 
     private void Awake()
@@ -38,6 +40,16 @@ public class UIManager : MonoBehaviour
     {
         startMenu.SetActive(false);
         Client.instance.ConnectToServer();
+    }
+
+    public void ActivateTimer()
+    {
+        timer.SetActive(true);
+    }
+
+    public void ActivateEndTurn()
+    {
+        endTurn.SetActive(true);
     }
 
     public void OnReturn() 

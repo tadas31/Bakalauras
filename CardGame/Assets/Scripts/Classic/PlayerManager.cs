@@ -23,9 +23,24 @@ public class PlayerManager : MonoBehaviour
         set
         {
             _mana = value;
-            transform.Find("Mana/ValueBackground/Value").GetComponent<TextMeshProUGUI>().text = _mana.ToString();
+            SetManaToUI();
         }
     }
     private int _mana;
+    public int maxMana
+    {
+        get { return _maxMana; }
+        set
+        {
+            _maxMana = value;
+            SetManaToUI();
+        }
+    }
+    private int _maxMana;
     public bool isTurn;
+
+    private void SetManaToUI()
+    {
+        transform.Find("Mana/ValueBackground/Value").GetComponent<TextMeshProUGUI>().text = _mana + "/" + _maxMana;
+    }
 }

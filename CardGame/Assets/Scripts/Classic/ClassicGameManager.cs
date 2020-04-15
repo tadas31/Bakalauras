@@ -14,7 +14,6 @@ public class ClassicGameManager : MonoBehaviour
     //TODO: Maybe change that the localPLayer and enemy prefabs would be spawned as board elements.
     public GameObject playerBoard;
     public GameObject enemyBoard;
-    public GameObject pauze;
     private void Awake()
     {
         if (instance == null)
@@ -39,8 +38,8 @@ public class ClassicGameManager : MonoBehaviour
         else
         {
             _player = enemyPlayer;
-            GameObject.Find("Canvas/EndTurn").SetActive(true);
-            GameObject.Find("Canvas/Timer").SetActive(true);
+            UIManager.instance.ActivateEndTurn();
+            UIManager.instance.ActivateTimer();
         }
 
         _player.SetActive(true);
@@ -82,6 +81,17 @@ public class ClassicGameManager : MonoBehaviour
             if (_clientId == item.id)
             {
                 item.mana = _amount;
+            }
+        }
+    }
+
+    public void SetMaxMana(int _clientId, int _amount)
+    {
+        foreach (PlayerManager item in players.Values)
+        {
+            if (_clientId == item.id)
+            {
+                item.maxMana = _amount;
             }
         }
     }

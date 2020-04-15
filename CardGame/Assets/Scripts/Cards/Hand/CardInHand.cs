@@ -79,6 +79,8 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler
             {
                 Debug.Log("Putting card on the table");
                 ClientSend.PutCardOnTable(this.gameObject.name);
+                isDragged = false;
+                this.transform.localPosition = getLastPosition();
                 //if(GameObject.Find("NetworkManager") == null)
                 //{
                 //    if (transform.GetChild(0).Find("Type").GetComponent<TextMeshProUGUI>().text.ToLower().Contains("spell"))
@@ -106,15 +108,15 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler
                 //}
                 //else
                 //{
-                    //GameObject[] networkPlayers = GameObject.FindGameObjectsWithTag("Player");
-               
-                    //foreach (GameObject player in networkPlayers)
-                    //{
-                    //    player.GetComponent<NetworkPlayer>().spawnGameObject(this.transform.GetChild(0).Find("Name").GetComponent<TextMeshProUGUI>().text);
-                    //}
+                //GameObject[] networkPlayers = GameObject.FindGameObjectsWithTag("Player");
 
-                    ////Removes this script from the component
-                    //Destroy(gameObject);
+                //foreach (GameObject player in networkPlayers)
+                //{
+                //    player.GetComponent<NetworkPlayer>().spawnGameObject(this.transform.GetChild(0).Find("Name").GetComponent<TextMeshProUGUI>().text);
+                //}
+
+                ////Removes this script from the component
+                //Destroy(gameObject);
                 //}
 
             }

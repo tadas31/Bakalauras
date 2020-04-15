@@ -63,6 +63,15 @@ public class ClientHandle : MonoBehaviour
         ClassicGameManager.instance.SetMana(_toClient, _mana);
     }
 
+    public static void SetMaxMana(Packet _packet)
+    {
+        int _toClient = _packet.ReadInt();
+        int _maxMana = _packet.ReadInt();
+        Debug.Log($"Setting max mana to {_toClient} : {_maxMana}");
+
+        ClassicGameManager.instance.SetMaxMana(_toClient, _maxMana);
+    }
+
     public static void PutCardOnTable(Packet _packet)
     {
         bool _isPlayers = _packet.ReadBool();
