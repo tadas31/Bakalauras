@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
 
     public GameObject startMenu;
+    public GameObject pauze;
     public TextMeshProUGUI usernameField;
 
     private void Awake()
@@ -25,13 +26,26 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            pauze.SetActive(!pauze.activeSelf);
+        }
+    }
+
     public void ConnectToServer()
     {
         startMenu.SetActive(false);
         Client.instance.ConnectToServer();
     }
+
+    public void OnReturn() 
+    {
+        pauze.SetActive(!pauze.activeSelf);
+    }
     
-    public void Exit()
+    public void OnExit()
     {
         SceneManager.LoadScene("Menu");
     }

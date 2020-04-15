@@ -107,18 +107,6 @@ namespace Server
             }
         }
 
-        //public static void SetLifeCard(int _toClient, string _cardName, int _lifeCard)
-        //{
-        //    using (Packet _packet = new Packet((int)ServerPackets.setCardLife))
-        //    {
-        //        _packet.Write(_toClient);
-        //        _packet.Write(_cardName);
-        //        _packet.Write(_lifeCard);
-
-        //        SendTCPDataToAll(_packet);
-        //    }
-        //}
-
         public static void Attack(int _clientId, string _from, int _lifeFrom, string _to, int _lifeTo)
         {
             using (Packet _packet = new Packet((int)ServerPackets.attack))

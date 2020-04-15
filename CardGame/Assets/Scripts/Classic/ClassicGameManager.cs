@@ -14,6 +14,7 @@ public class ClassicGameManager : MonoBehaviour
     //TODO: Maybe change that the localPLayer and enemy prefabs would be spawned as board elements.
     public GameObject playerBoard;
     public GameObject enemyBoard;
+    public GameObject pauze;
     private void Awake()
     {
         if (instance == null)
