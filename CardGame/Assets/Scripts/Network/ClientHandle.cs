@@ -82,6 +82,15 @@ public class ClientHandle : MonoBehaviour
         ClassicGameManager.instance.PutOnTable(_cardName,_isPlayers);
     }
 
+    public static void SetEnemyCardCount(Packet _packet)
+    {
+        int _cardCount = _packet.ReadInt();
+
+        Debug.Log($"Setting enemy card count {_cardCount}");
+
+        EnemyHand.instance.SetCardCount(_cardCount);
+    }
+
     public static void Attack(Packet _packet)
     {
         int _clientFrom = _packet.ReadInt();

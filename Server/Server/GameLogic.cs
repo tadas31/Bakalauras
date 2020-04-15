@@ -22,6 +22,7 @@ namespace Server
             SendLifeToPlayers();
             SendManaToPlayers();
             SendMaxManaToPlayers();
+            SetEnemyCardCountToPlayers();
         }
         public static void StartTimer()
         {
@@ -120,6 +121,18 @@ namespace Server
                 {
                     Console.WriteLine($"Sending message to add cards to hand for {_client.id}.");
                     ServerSend.PullStartingCards(_client.id, _client.player.PullStartingCards());
+                }
+            }
+        }
+
+        public static void SetEnemyCardCountToPlayers()
+        {
+            Console.WriteLine("Sending the starting cards to all of the players.");
+            foreach (Client _client in Server.clients.Values)
+            {
+                if (_client.player != null)
+                {
+                    _client.SetEnemyCardCount();
                 }
             }
         }

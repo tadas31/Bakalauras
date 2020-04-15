@@ -48,7 +48,7 @@ namespace Server
 
         public bool HasInHand(string _cardName)
         {
-            return hand.isInDeck(_cardName);
+            return hand.IsInDeck(_cardName);
         }
 
         public bool HasEnoughMana(string _cardName)
@@ -79,6 +79,11 @@ namespace Server
         public void ResetMana()
         {
             mana = maxMana;
+        }
+
+        public int CardCountInHand()
+        {
+            return hand.CardCount();
         }
     }
 }

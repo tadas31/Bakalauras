@@ -188,7 +188,7 @@ namespace Server
         {
             ServerSend.SetMana(id, player.mana);
         }
-        
+
         public void SendMaxMana()
         {
             ServerSend.SetMaxMana(id, player.maxMana);
@@ -210,6 +210,7 @@ namespace Server
                         if (_client.id != id)
                         {
                             ServerSend.PutCardOnTable(_client.id, false, _cardName);
+                            ServerSend.SetEnemyCardCount(_client.id, player.CardCountInHand());
                         }
                     }
                 }
@@ -246,7 +247,7 @@ namespace Server
             }
 
             //Get the card that with the card that you are attacking
-            if (player.table.isInDeck(_attackFrom))
+            if (player.table.IsInDeck(_attackFrom))
             {
                 Card _attackFromCard = player.table.GetCard(_attackFrom);
                 Card _attackToCard = enemyClient.DealDamageTo(_attackFromCard.attack, _attackTo);
@@ -275,9 +276,9 @@ namespace Server
 
         }
 
-        public Card DealDamageTo(int _amount, string _to) 
+        public Card DealDamageTo(int _amount, string _to)
         {
-            if (player.table.isInDeck(_to))
+            if (player.table.IsInDeck(_to))
             {
                 Card minion = player.table.GetCard(_to);
                 minion.life -= _amount;
@@ -285,6 +286,20 @@ namespace Server
                 //TODO: Maybe need to send to all of the cards that it died.
             }
             return null;
+        }
+
+        public void SetEnemyCardCount()
+        {
+            foreach (Client item in Server.clients.Values)
+            {
+                if (item.player != null)
+                {
+                    if (item.id != id)
+                    {
+                        ServerSend.SetEnemyCardCount(id, item.player.CardCountInHand());
+                    }
+                }
+            }
         }
 
         public void Disconnect()

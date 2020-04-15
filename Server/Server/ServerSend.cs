@@ -144,6 +144,16 @@ namespace Server
                 SendTCPData(_toClient, _packet);
             }
         }
+
+        public static void SetEnemyCardCount(int _toClient, int _count)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.setEnemyCardCount))
+            {
+                _packet.Write(_count);
+
+                SendTCPData(_toClient, _packet);
+            }
+        }
         #endregion
     }
 }
