@@ -11,14 +11,20 @@ namespace Server
         spawnPlayer,
         pullStartingCards,
         setTurn,
-        setTimer
+        setTimer,
+        putCardOnTable,
+        setLife,
+        setMana,
+        attack
     }
 
     /// <summary>Sent from client to server.</summary>
     public enum ClientPackets
     {
         welcomeReceived = 1,
-        endTurn
+        endTurn,
+        placeCardToTable,
+        attack
     }
 
     public class Packet : IDisposable

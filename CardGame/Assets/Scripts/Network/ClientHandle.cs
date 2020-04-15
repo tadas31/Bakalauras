@@ -45,4 +45,44 @@ public class ClientHandle : MonoBehaviour
 
         TimerManager.timeLeft = _timer;
     }
+
+    public static void SetLife(Packet _packet)
+    {
+        int _toClient = _packet.ReadInt();
+        int _life = _packet.ReadInt();
+        Debug.Log($"Setting life to {_toClient} : {_life}");
+
+        ClassicGameManager.instance.SetLife(_toClient, _life);
+    }
+    public static void SetMana(Packet _packet)
+    {
+        int _toClient = _packet.ReadInt();
+        int _mana = _packet.ReadInt();
+        Debug.Log($"Setting mana to {_toClient} : {_mana}");
+
+        ClassicGameManager.instance.SetMana(_toClient, _mana);
+    }
+
+    public static void PutCardOnTable(Packet _packet)
+    {
+        bool _isPlayers = _packet.ReadBool();
+        string _cardName = _packet.ReadString();
+
+        Debug.Log($"Putting card on table : {_cardName}, {_isPlayers}");
+
+        ClassicGameManager.instance.PutOnTable(_cardName,_isPlayers);
+    }
+
+    public static void Attack(Packet _packet)
+    {
+        int _clientFrom = _packet.ReadInt();
+        string _from = _packet.ReadString();
+        int _fromLife = _packet.ReadInt();
+        string _to = _packet.ReadString();
+        int _toLife = _packet.ReadInt();
+
+        Debug.Log($"Attacking from client {_clientFrom} {_from} to {_to}");
+
+        ClassicGameManager.instance.Attack(_clientFrom, _from, _fromLife, _to, _toLife);
+    }
 }

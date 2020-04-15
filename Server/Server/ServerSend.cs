@@ -84,6 +84,67 @@ namespace Server
                 SendTCPData(_toClient, _packet);
             }
         }
+
+        public static void SetLife(int _toClient, int _life)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.setLife))
+            {
+                _packet.Write(_toClient);
+                _packet.Write(_life);
+
+                SendTCPDataToAll(_packet);
+            }
+        }
+
+        public static void SetMana(int _toClient, int _mana)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.setMana))
+            {
+                _packet.Write(_toClient);
+                _packet.Write(_mana);
+
+                SendTCPDataToAll(_packet);
+            }
+        }
+
+        //public static void SetLifeCard(int _toClient, string _cardName, int _lifeCard)
+        //{
+        //    using (Packet _packet = new Packet((int)ServerPackets.setCardLife))
+        //    {
+        //        _packet.Write(_toClient);
+        //        _packet.Write(_cardName);
+        //        _packet.Write(_lifeCard);
+
+        //        SendTCPDataToAll(_packet);
+        //    }
+        //}
+
+        public static void Attack(int _clientId, string _from, int _lifeFrom, string _to, int _lifeTo)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.attack))
+            {
+                _packet.Write(_clientId);
+                _packet.Write(_from);
+                _packet.Write(_lifeFrom);
+                _packet.Write(_to);
+                _packet.Write(_lifeTo);
+
+                Console.WriteLine($"Sending attack information form {_clientId} to all clients to attack from {_from} to {_to}");
+
+                SendTCPDataToAll(_packet);
+            }
+        }
+
+        public static void PutCardOnTable(int _toClient, bool _isPlayers, string _cardName)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.putCardOnTable))
+            {
+                _packet.Write(_isPlayers);
+                _packet.Write(_cardName);
+
+                SendTCPData(_toClient, _packet);
+            }
+        }
         #endregion
     }
 }

@@ -33,16 +33,6 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler
     }
 
     /// <summary>
-    /// If the card in hand is clicked by pointer this method is called.
-    /// </summary>
-    /// <param name="eventData">Info about the event</param>
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        //The card is set as selected.
-        SelectedCard.Instance.Selected = this.gameObject;
-    }
-
-    /// <summary>
     /// If the card is beginning to be dragged this method is called.
     /// </summary>
     /// <param name="eventData">Info about the event</param>
@@ -87,33 +77,35 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler
             //If the ray cast hits a board element.
             if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.name == "Board")
             {
-                if(GameObject.Find("NetworkManager") == null)
-                {
-                    if (transform.GetChild(0).Find("Type").GetComponent<TextMeshProUGUI>().text.ToLower().Contains("spell"))
-                    {
-                        //Changes the parent of the card to spells.
-                        GameObject spells = GameObject.Find("Spells");
-                        this.transform.SetParent(spells.transform);
-                        this.transform.localScale = Vector3.one;
-                    }
-                    else
-                    {
-                        //Changes the parent of the card to player board.
-                        GameObject playerBoard = GameObject.Find("Board/PlayerBoard");
-                        this.transform.SetParent(playerBoard.transform);
-                        this.transform.localScale = Vector3.one;
-                    }
+                Debug.Log("Putting card on the table");
+                ClientSend.PutCardOnTable(this.gameObject.name);
+                //if(GameObject.Find("NetworkManager") == null)
+                //{
+                //    if (transform.GetChild(0).Find("Type").GetComponent<TextMeshProUGUI>().text.ToLower().Contains("spell"))
+                //    {
+                //        Changes the parent of the card to spells.
+                //        GameObject spells = GameObject.Find("Spells");
+                //        this.transform.SetParent(spells.transform);
+                //        this.transform.localScale = Vector3.one;
+                //    }
+                //    else
+                //    {
+                //        Changes the parent of the card to player board.
+                //        GameObject playerBoard = GameObject.Find("Board/PlayerBoard");
+                //        this.transform.SetParent(playerBoard.transform);
+                //        this.transform.localScale = Vector3.one;
+                //    }
 
 
-                    // Enables all attached scripts.
-                    foreach (MonoBehaviour script in gameObject.GetComponents<MonoBehaviour>())
-                        script.enabled = true;
+                //     Enables all attached scripts.
+                //    foreach (MonoBehaviour script in gameObject.GetComponents<MonoBehaviour>())
+                //        script.enabled = true;
 
-                    //Removes this script from the component
-                    Destroy(this);
-                }
-                else
-                {
+                //    Removes this script from the component
+                //    Destroy(this);
+                //}
+                //else
+                //{
                     //GameObject[] networkPlayers = GameObject.FindGameObjectsWithTag("Player");
                
                     //foreach (GameObject player in networkPlayers)
@@ -123,7 +115,7 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler
 
                     ////Removes this script from the component
                     //Destroy(gameObject);
-                }
+                //}
 
             }
             else
@@ -187,5 +179,10 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler
             setLastPos = false;
         }
         return lastPosition;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        //throw new System.NotImplementedException();
     }
 }

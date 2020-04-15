@@ -11,6 +11,9 @@ public class ClassicGameManager : MonoBehaviour
     public GameObject localPlayerPref;
     public GameObject enemyPlayerPref;
     public GameObject handCanvas;
+    //TODO: Maybe change that the localPLayer and enemy prefabs would be spawned as board elements.
+    public GameObject playerBoard;
+    public GameObject enemyBoard;
     private void Awake()
     {
         if (instance == null)
@@ -29,7 +32,7 @@ public class ClassicGameManager : MonoBehaviour
         GameObject _player;
         if (_id == Client.instance.myId)
         {
-            _player = Instantiate(localPlayerPref);
+            _player = localPlayerPref;
             curPlayer = _player.GetComponent<PlayerManager>() ;
         }
         else
@@ -57,6 +60,70 @@ public class ClassicGameManager : MonoBehaviour
         curPlayer.isTurn = _isTurn;
     }
 
+    public void SetLife(int _clientId, int _amount)
+    {
+        foreach (PlayerManager item in players.Values)
+        {
+            if (_clientId == item.id)
+            {
+                item.life = _amount;
+            }
+        }
+    }
+
+    public void SetMana(int _clientId, int _amount)
+    {
+        foreach (PlayerManager item in players.Values)
+        {
+            if (_clientId == item.id)
+            {
+                item.mana = _amount;
+            }
+        }
+    }
+
+    public void Attack(int _clientFrom, string _from, int _fromLife, string _to, int _toLife)
+    {
+        Transform attackingCard;
+        Transform defendingCard;
+        Debug.Log(_from);
+        if (Client.instance.myId == _clientFrom)
+        {
+            attackingCard = playerBoard.transform.Find(_from);
+            defendingCard = enemyBoard.transform.Find(_to);
+        }
+        else
+        {
+            attackingCard = enemyBoard.transform.Find(_from);
+            defendingCard = playerBoard.transform.Find(_to);
+        }
+        Debug.Log(attackingCard);
+        Debug.Log(defendingCard);
+
+        attackingCard.GetComponent<Attack>().AttackAnimation(defendingCard);
+    }
+
+    public void PutOnTable(string _cardName, bool _isPlayers)
+    {
+        Card card = Resources.Load<Card>("Cards/CreatedCards/" + _cardName);
+        GameObject cardTable = card.spawnCard();
+        if (_isPlayers)
+        {
+            cardTable.transform.SetParent(playerBoard.transform);
+            cardTable.transform.localScale = Vector3.one;
+            cardTable.GetComponent<Attack>().enabled = true;
+            cardTable.GetComponent<CardStatsHelper>().enabled = true;
+            RemoveCardFromHand(_cardName);
+        }
+        else
+        {
+            cardTable.transform.SetParent(enemyBoard.transform);
+            cardTable.GetComponent<Attack>().enabled = true;
+            cardTable.GetComponent<CardStatsHelper>().enabled = true;
+            cardTable.transform.localScale = Vector3.one;
+        }
+    }
+
     public void AddCardToHand(string cardName)
     {
         Card card = Resources.Load<Card>("Cards/CreatedCards/" + cardName);
@@ -65,6 +132,19 @@ public class ClassicGameManager : MonoBehaviour
         cardHand.transform.localScale = handCanvas.transform.localScale;
         cardHand.AddComponent<CardInHand>();
         cardHand.transform.SetParent(handCanvas.transform);
+        handReorganize();
+    }
+
+    public void RemoveCardFromHand(string cardName)
+    {
+        foreach (Transform child in handCanvas.transform)
+        {
+            if (child.name == cardName)
+            {
+                Destroy(child.gameObject);
+                break;
+            }
+        }
         handReorganize();
     }
 

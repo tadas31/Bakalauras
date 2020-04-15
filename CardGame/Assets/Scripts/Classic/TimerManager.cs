@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class TimerManager : MonoBehaviour
         if (timeLeft > 0)
         {
             timeLeft -= Time.deltaTime;
-            this.GetComponent<TextMeshProUGUI>().text = timeLeft.ToString();
+            this.GetComponent<TextMeshProUGUI>().text = Math.Round(timeLeft).ToString();
         }
     }
 }

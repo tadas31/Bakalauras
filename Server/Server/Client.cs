@@ -179,6 +179,107 @@ namespace Server
             ServerSend.SetTimer(id, _time);
         }
 
+        public void SendLife()
+        {
+            ServerSend.SetLife(id, player.life);
+        }
+
+        public void SendMana()
+        {
+            ServerSend.SetMana(id, player.mana);
+        }
+
+        public void PutCardOnTable(string _cardName)
+        {
+            if (player.HasInHand(_cardName));
+            {
+                Console.WriteLine($"Putting a {_cardName} card to player's {id}");
+                player.PutToTable(_cardName);
+                ServerSend.PutCardOnTable(id, true, _cardName);
+                //Putting the card in the enemy side.
+                foreach (Client _client in Server.clients.Values)
+                {
+                    if (_client.player != null)
+                    {
+                        if (_client.id != id)
+                        {
+                            ServerSend.PutCardOnTable(_client.id, false, _cardName);
+                        }
+                    }
+                }
+            }
+        }
+
+
+        public void Attack(string _attackFrom, string _attackTo)
+        {
+            //Check if it is your turn
+            if (!player.isTurn)
+            {
+                return;
+            }
+
+            Client enemyClient = null;
+
+            foreach (Client item in Server.clients.Values)
+            {
+                if (item.player != null)
+                {
+                    if (item.id != id)
+                    {
+                        enemyClient = item;
+                    }
+                }
+            }
+
+            if (enemyClient == null)
+            {
+                //Something wrong. Maybe there is no need for this part of the code.
+                return;
+            }
+
+            //Get the card that with the card that you are attacking
+            if (player.table.isInDeck(_attackFrom))
+            {
+                Card _attackFromCard = player.table.GetCard(_attackFrom);
+                Card _attackToCard = enemyClient.DealDamageTo(_attackFromCard.attack, _attackTo);
+                DealDamageTo(_attackToCard.attack, _attackFrom);
+                ServerSend.Attack(id, _attackFrom, _attackFromCard.life, _attackTo, _attackToCard.life);
+                //Think about this part.
+            }
+            else if (false) //If it is attacking with a spell card
+            {
+
+            }
+            else if (false) //If the player it self is attacking
+            {
+
+            }
+            else
+            {
+                return;
+            }
+            //Get the card that the other player has.
+            //Deal damage to the card
+            //Send the information back to the clients
+
+            //TODO: If the player is attacked
+            //TODO: If the another minion is attacked
+
+        }
+
+        public Card DealDamageTo(int _amount, string _to) 
+        {
+            if (player.table.isInDeck(_to))
+            {
+                Card minion = player.table.GetCard(_to);
+                minion.life -= _amount;
+                return minion;
+                //TODO: Maybe need to send to all of the cards that it died.
+            }
+            return null;
+        }
+
         public void Disconnect()
         {
             Console.WriteLine($"{tcp.socket.Client.RemoteEndPoint} had disconnected.");
