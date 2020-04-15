@@ -4702,7 +4702,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55e68041c043c0f4ca74b8b6a25a2d64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handCards: {fileID: 0}
+  handCards: {fileID: 5488471150605511127}
   card: {fileID: 2382603466189886817, guid: 5487001392c301e4dbfb3109cb33548e, type: 3}
   pauze: {fileID: 16895749}
 --- !u!4 &1187063741
@@ -8456,3 +8456,9 @@ PrefabInstance:
     - {fileID: -5982999196245769637, guid: aba8ac83e7cef0e459f89b73838a6fd4, type: 3}
     - {fileID: -2168828501235260499, guid: aba8ac83e7cef0e459f89b73838a6fd4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: aba8ac83e7cef0e459f89b73838a6fd4, type: 3}
+--- !u!1 &5488471150605511127 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4395139451212582441, guid: aba8ac83e7cef0e459f89b73838a6fd4,
+    type: 3}
+  m_PrefabInstance: {fileID: 5488471150605511126}
+  m_PrefabAsset: {fileID: 0}
