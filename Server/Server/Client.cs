@@ -242,9 +242,9 @@ namespace Server
             if (player.table.isInDeck(_attackFrom))
             {
                 Card _attackFromCard = player.table.GetCard(_attackFrom);
-                int retuneAttack = enemyClient.DealDamageTo(_attackFromCard.attack, _attackTo);
-                //DealDamageTo.
-
+                Card _attackToCard = enemyClient.DealDamageTo(_attackFromCard.attack, _attackTo);
+                DealDamageTo(_attackToCard.attack, _attackFrom);
+                ServerSend.Attack(id, _attackFrom, _attackFromCard.life, _attackTo, _attackToCard.life);
                 //Think about this part.
             }
             else if (false) //If it is attacking with a spell card
@@ -268,16 +268,16 @@ namespace Server
 
         }
 
-        public int DealDamageTo(int _amount, string _to) 
+        public Card DealDamageTo(int _amount, string _to) 
         {
             if (player.table.isInDeck(_to))
             {
                 Card minion = player.table.GetCard(_to);
                 minion.life -= _amount;
-                return minion.attack;
+                return minion;
                 //TODO: Maybe need to send to all of the cards that it died.
             }
-            return 0;
+            return null;
         }
 
         public void Disconnect()

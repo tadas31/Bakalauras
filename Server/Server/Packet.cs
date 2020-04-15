@@ -14,7 +14,8 @@ namespace Server
         setTimer,
         putCardOnTable,
         setLife,
-        setMana
+        setMana,
+        attack
     }
 
     /// <summary>Sent from client to server.</summary>

@@ -51,7 +51,8 @@ public class Attack : MonoBehaviour, IPointerClickHandler
 
             if (Input.GetMouseButtonUp(0) && selectingCardToAttack && !attackStarted)
             {
-                StartCoroutine("attack");
+                ClientSend.Attack(this.gameObject.name, attackHelper.getDefendingCard(attackingCard).parent.gameObject.name);
+                //StartCoroutine("attack");
             }
             selectingCardToAttack = true;
         }
@@ -82,6 +83,71 @@ public class Attack : MonoBehaviour, IPointerClickHandler
 
             // Prevents defending card from being selected for attacking.
             attackHelper.isAttacking = true;
+        }
+    }
+
+    public void AttackAnimation(Transform defendingCard)
+    {
+        IEnumerator corountine = attackAnimation(defendingCard.GetChild(0));
+        StartCoroutine(corountine);
+    }
+
+    private IEnumerator attackAnimation(Transform defendingCard)
+    {
+        Debug.Log("Animation started");
+        // Deals and receives damage.
+        if (defendingCard != null)
+        {
+            attackingCard = transform.GetChild(0);
+            this.defendingCard = defendingCard;
+            startPos = this.transform.position;
+
+            attackStarted = true;
+
+            if (attackHelper != null)
+            {
+                attackHelper.cachedLineRenderer.enabled = false;
+            }
+
+            // Waits for attacking card to move to defending card.
+            moveForward = true;
+            while (moveForward)
+                yield return null;
+
+            // Gets card stats handlers
+            CardStatsHelper attackingCardStats = GetComponent<CardStatsHelper>();
+            CardStatsHelper defendingCardStats = defendingCard.GetComponentInParent<CardStatsHelper>();
+
+            // Deals damage and updates life's
+            attackingCardStats.takeDamage(defendingCardStats.getAttack());
+            defendingCardStats.takeDamage(attackingCardStats.getAttack());
+
+
+            TextMeshProUGUI attackingCardDamageTaken = attackingCard.transform.Find("Image").transform.Find("DamageTaken").GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI defendingCardDamageTaken = defendingCard.transform.Find("Image").transform.Find("DamageTaken").GetComponent<TextMeshProUGUI>();
+
+            attackingCardDamageTaken.text = "-" + defendingCardStats.getAttack();
+            defendingCardDamageTaken.text = "-" + attackingCardStats.getAttack();
+
+            yield return new WaitForSeconds(0.1f);
+
+            // Waits for card to get back to it's position.
+            moveBack = true;
+            while (moveBack)
+            {
+                yield return null;
+            }
+
+            attackingCardDamageTaken.text = null;
+            defendingCardDamageTaken.text = null;
+
+            // Destroys dead cards
+            attackingCardStats.checkIfSitllAlive();
+            defendingCardStats.checkIfSitllAlive();
+
+            // Marks card as attacked this turn
+            attacked = true;
+            attackStarted = false;
         }
     }
 

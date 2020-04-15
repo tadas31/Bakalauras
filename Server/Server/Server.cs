@@ -74,7 +74,8 @@ namespace Server
             {
                 { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
                 { (int)ClientPackets.endTurn, ServerHandle.EndTurn },
-                { (int)ClientPackets.placeCardToTable, ServerHandle.PlaceCardToTable }
+                { (int)ClientPackets.placeCardToTable, ServerHandle.PlaceCardToTable },
+                { (int)ClientPackets.attack, ServerHandle.Attack }
             };
             Console.WriteLine("Initialized packets.");
         }

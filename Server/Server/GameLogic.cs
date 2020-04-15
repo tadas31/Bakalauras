@@ -111,8 +111,27 @@ namespace Server
             }
         }
 
+        public static void AddManaToCurrentTurnPlayer()
+        {
+            foreach (Client _client in Server.clients.Values)
+            {
+                if (_client.player != null)
+                {
+                    if (_client.player.isTurn)
+                    {
+                        Console.WriteLine($"Adding to the {_client.id} player mana.");
+                        _client.player.AddMana();
+                        _client.SendMana();
+                        return;
+                    }
+                    
+                }
+            }
+        }
+
         public static void EndTurn()
         {
+            AddManaToCurrentTurnPlayer();
             ChangeTurns();
             SendTurnsForPlayers();
             SendTimerInfoForPlayers(Constants.TURN_TIME_SECONDS);

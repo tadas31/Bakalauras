@@ -72,4 +72,17 @@ public class ClientHandle : MonoBehaviour
 
         ClassicGameManager.instance.PutOnTable(_cardName,_isPlayers);
     }
+
+    public static void Attack(Packet _packet)
+    {
+        int _clientFrom = _packet.ReadInt();
+        string _from = _packet.ReadString();
+        int _fromLife = _packet.ReadInt();
+        string _to = _packet.ReadString();
+        int _toLife = _packet.ReadInt();
+
+        Debug.Log($"Attacking from client {_clientFrom} {_from} to {_to}");
+
+        ClassicGameManager.instance.Attack(_clientFrom, _from, _fromLife, _to, _toLife);
+    }
 }

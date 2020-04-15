@@ -82,6 +82,27 @@ public class ClassicGameManager : MonoBehaviour
         }
     }
 
+    public void Attack(int _clientFrom, string _from, int _fromLife, string _to, int _toLife)
+    {
+        Transform attackingCard;
+        Transform defendingCard;
+        Debug.Log(_from);
+        if (Client.instance.myId == _clientFrom)
+        {
+            attackingCard = playerBoard.transform.Find(_from);
+            defendingCard = enemyBoard.transform.Find(_to);
+        }
+        else
+        {
+            attackingCard = enemyBoard.transform.Find(_from);
+            defendingCard = playerBoard.transform.Find(_to);
+        }
+        Debug.Log(attackingCard);
+        Debug.Log(defendingCard);
+
+        attackingCard.GetComponent<Attack>().AttackAnimation(defendingCard);
+    }
+
     public void PutOnTable(string _cardName, bool _isPlayers)
     {
         Card card = Resources.Load<Card>("Cards/CreatedCards/" + _cardName);
@@ -90,11 +111,15 @@ public class ClassicGameManager : MonoBehaviour
         {
             cardTable.transform.SetParent(playerBoard.transform);
             cardTable.transform.localScale = Vector3.one;
+            cardTable.GetComponent<Attack>().enabled = true;
+            cardTable.GetComponent<CardStatsHelper>().enabled = true;
             RemoveCardFromHand(_cardName);
         }
         else
         {
             cardTable.transform.SetParent(enemyBoard.transform);
+            cardTable.GetComponent<Attack>().enabled = true;
+            cardTable.GetComponent<CardStatsHelper>().enabled = true;
             cardTable.transform.localScale = Vector3.one;
         }
     }

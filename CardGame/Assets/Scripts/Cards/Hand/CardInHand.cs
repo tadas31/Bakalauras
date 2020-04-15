@@ -33,16 +33,6 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler
     }
 
     /// <summary>
-    /// If the card in hand is clicked by pointer this method is called.
-    /// </summary>
-    /// <param name="eventData">Info about the event</param>
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        //The card is set as selected.
-        SelectedCard.Instance.Selected = this.gameObject;
-    }
-
-    /// <summary>
     /// If the card is beginning to be dragged this method is called.
     /// </summary>
     /// <param name="eventData">Info about the event</param>
@@ -189,5 +179,10 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler
             setLastPos = false;
         }
         return lastPosition;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        //throw new System.NotImplementedException();
     }
 }

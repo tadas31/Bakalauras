@@ -14,7 +14,8 @@ public enum ServerPackets
     setTimer,
     putCardOnTable,
     setLife,
-    setMana
+    setMana,
+    attack
 }
 
 /// <summary>Sent from client to server.</summary>
@@ -22,7 +23,8 @@ public enum ClientPackets
 {
     welcomeReceived = 1,
     endTurn,
-    placeCardToTable
+    placeCardToTable,
+    attack
 }
 
 public class Packet : IDisposable

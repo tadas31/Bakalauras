@@ -40,5 +40,17 @@ public class ClientSend : MonoBehaviour
             SendTCPData(_packet);
         }
     }
+
+    public static void Attack(string _attackFrom, string _attackTo)
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.attack))
+        {
+            Debug.Log($"Attacking from {_attackFrom} to {_attackTo}.");
+            _packet.Write(_attackFrom);
+            _packet.Write(_attackTo);
+
+            SendTCPData(_packet);
+        }
+    }
     #endregion
 }
