@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,7 +10,7 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
 
     public GameObject startMenu;
-    public InputField usernameField;
+    public TextMeshProUGUI usernameField;
 
     private void Awake()
     {
@@ -27,7 +28,6 @@ public class UIManager : MonoBehaviour
     public void ConnectToServer()
     {
         startMenu.SetActive(false);
-        usernameField.interactable = false;
         Client.instance.ConnectToServer();
     }
     

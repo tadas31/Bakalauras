@@ -13,7 +13,7 @@ public class PlayerManager : MonoBehaviour
         set 
         {
             _life = value;
-            transform.Find("Life").GetComponent<TextMeshProUGUI>().text = _life.ToString();
+            transform.Find("Health/ValueBackground/Value").GetComponent<TextMeshProUGUI>().text = _life.ToString();
         } 
     }
     private int _life;
@@ -23,7 +23,7 @@ public class PlayerManager : MonoBehaviour
         set
         {
             _mana = value;
-            transform.Find("Mana").GetComponent<TextMeshProUGUI>().text = _mana.ToString();
+            transform.Find("Mana/ValueBackground/Value").GetComponent<TextMeshProUGUI>().text = _mana.ToString();
         }
     }
     private int _mana;
