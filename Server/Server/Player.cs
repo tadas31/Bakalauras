@@ -41,9 +41,11 @@ namespace Server
             return hand.NamesToString();
         }
 
-        public void PullCardToHand()
+        public Card PullCardToHand()
         {
-            hand.AddToDeck(deck.PullCard());
+            Card _card = deck.PullCard();
+            hand.AddToDeck(_card);
+            return _card;
         }
 
         public bool HasInHand(string _cardName)

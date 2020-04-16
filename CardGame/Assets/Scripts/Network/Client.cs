@@ -195,7 +195,8 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.setMana, ClientHandle.SetMana },
             { (int)ServerPackets.setMaxMana, ClientHandle.SetMaxMana },
             { (int)ServerPackets.setEnemyCardCount, ClientHandle.SetEnemyCardCount },
-            { (int)ServerPackets.attack, ClientHandle.Attack }
+            { (int)ServerPackets.attack, ClientHandle.Attack },
+            { (int)ServerPackets.pulledCard, ClientHandle.PulledCard }
         };
         Debug.Log("Initialized packets.");
     }

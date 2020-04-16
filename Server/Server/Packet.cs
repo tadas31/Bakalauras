@@ -17,7 +17,8 @@ namespace Server
         setMana,
         setMaxMana,
         attack,
-        setEnemyCardCount
+        setEnemyCardCount,
+        pulledCard
     }
 
     /// <summary>Sent from client to server.</summary>

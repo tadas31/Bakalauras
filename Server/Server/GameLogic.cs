@@ -88,7 +88,7 @@ namespace Server
             }
         }
 
-        public static void SendTurnsForPlayers() 
+        public static void SendTurnsForPlayers()
         {
             foreach (Client _client in Server.clients.Values)
             {
@@ -150,7 +150,24 @@ namespace Server
                         _client.player.ResetMana();
                         return;
                     }
-                    
+
+                }
+            }
+        }
+
+        public static void SendPulledCardToCurrentTurn()
+        {
+            foreach (Client _client in Server.clients.Values)
+            {
+                if (_client.player != null)
+                {
+                    if (_client.player.isTurn)
+                    {
+                        _client.SendPulledCard();
+                        _client.SetEnemyCardCount();
+                        return;
+                    }
+
                 }
             }
         }
@@ -162,6 +179,7 @@ namespace Server
             SendMaxManaToPlayers();
             ChangeTurns();
             SendTurnsForPlayers();
+            SendPulledCardToCurrentTurn();
             SendTimerInfoForPlayers(Constants.TURN_TIME_SECONDS);
             timer.Stop();
             timer.Start();

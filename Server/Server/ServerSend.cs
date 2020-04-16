@@ -118,6 +118,16 @@ namespace Server
             }
         }
 
+        public static void PulledCard(int _toClient, string _cardName)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.pulledCard))
+            {
+                _packet.Write(_cardName);
+
+                SendTCPData(_toClient, _packet);
+            }
+        }
+
         public static void Attack(int _clientId, string _from, int _lifeFrom, string _to, int _lifeTo)
         {
             using (Packet _packet = new Packet((int)ServerPackets.attack))

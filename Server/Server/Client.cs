@@ -194,6 +194,11 @@ namespace Server
             ServerSend.SetMaxMana(id, player.maxMana);
         }
 
+        public void SendPulledCard()
+        {
+            ServerSend.PulledCard(id, player.PullCardToHand().cardName);
+        }
+
         public void PutCardOnTable(string _cardName)
         {
             if (player.HasInHand(_cardName) && player.HasEnoughMana(_cardName) && player.isTurn)

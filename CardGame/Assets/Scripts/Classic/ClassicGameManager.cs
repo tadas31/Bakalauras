@@ -128,6 +128,7 @@ public class ClassicGameManager : MonoBehaviour
             cardTable.GetComponent<Attack>().enabled = true;
             cardTable.GetComponent<CardStatsHelper>().enabled = true;
             RemoveCardFromHand(_cardName);
+            HandReorganize();
         }
         else
         {
@@ -146,7 +147,7 @@ public class ClassicGameManager : MonoBehaviour
         cardHand.transform.localScale = handCanvas.transform.localScale;
         cardHand.AddComponent<CardInHand>();
         cardHand.transform.SetParent(handCanvas.transform);
-        handReorganize();
+        HandReorganize();
     }
 
     public void RemoveCardFromHand(string cardName)
@@ -159,13 +160,13 @@ public class ClassicGameManager : MonoBehaviour
                 break;
             }
         }
-        handReorganize();
+        HandReorganize();
     }
 
     /// <summary>
     /// Reorganizes the had by the cards in hand
     /// </summary>
-    public void handReorganize()
+    public void HandReorganize()
     {
         //Spacing between cards
         float spacing = 100f;
