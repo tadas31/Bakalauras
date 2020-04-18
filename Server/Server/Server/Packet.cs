@@ -15,7 +15,11 @@ namespace Server
         putCardOnTable,
         setLife,
         setMana,
-        attack
+        setMaxMana,
+        attack,
+        setEnemyCardCount,
+        pulledCard,
+        attackPlayer
     }
 
     /// <summary>Sent from client to server.</summary>

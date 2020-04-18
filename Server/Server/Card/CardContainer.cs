@@ -4,17 +4,17 @@ using System.Text;
 
 namespace Server
 {
-    class Deck
+    class CardContainer
     {
         private static Random rand = new Random();
         private List<Card> deck;
 
-        public Deck()
+        public CardContainer()
         {
             deck = new List<Card>();
         }
 
-        public Deck(string data)
+        public CardContainer(string data)
         {
             deck = new List<Card>();
             string[] values = data.Split(',');
@@ -64,6 +64,7 @@ namespace Server
             {
                 if (card.cardName == _cardName)
                 {
+                    deck.Remove(card);
                     return card;
                 }
             }
@@ -94,7 +95,7 @@ namespace Server
 
         
 
-        public bool isInDeck(string _cardName) 
+        public bool IsInDeck(string _cardName) 
         {
             foreach (Card _card in deck)
             {
@@ -104,6 +105,11 @@ namespace Server
                 }
             }
             return false;
+        }
+
+        public int CardCount()
+        {
+            return deck.Count;
         }
     }
 }

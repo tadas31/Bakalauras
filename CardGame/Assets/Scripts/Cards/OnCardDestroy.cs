@@ -19,5 +19,10 @@ public class OnCardDestroy : MonoBehaviour
     {
         if (parent != null && parent.name.Contains("Hand"))
             graveyard.graveyardCards.Add(transform.GetChild(0).Find("Name").GetComponent<TextMeshProUGUI>().text);
+        
+        if (ClassicGameManager.instance != null)
+        {
+            ClassicGameManager.instance.HandReorganize();
+        }
     }
 }

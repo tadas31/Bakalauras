@@ -8,8 +8,8 @@ public class ClassicGameManager : MonoBehaviour
     public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
     public static PlayerManager curPlayer;
 
-    public GameObject localPlayerPref;
-    public GameObject enemyPlayerPref;
+    public GameObject localPlayer;
+    public GameObject enemyPlayer;
     public GameObject handCanvas;
     //TODO: Maybe change that the localPLayer and enemy prefabs would be spawned as board elements.
     public GameObject playerBoard;
@@ -32,14 +32,17 @@ public class ClassicGameManager : MonoBehaviour
         GameObject _player;
         if (_id == Client.instance.myId)
         {
-            _player = localPlayerPref;
+            _player = localPlayer;
             curPlayer = _player.GetComponent<PlayerManager>() ;
         }
         else
         {
-            _player = Instantiate(enemyPlayerPref);
+            _player = enemyPlayer;
+            UIManager.instance.ActivateEndTurn();
+            UIManager.instance.ActivateTimer();
         }
 
+        _player.SetActive(true);
         _player.GetComponent<PlayerManager>().id = _id;
         _player.GetComponent<PlayerManager>().username = _username;
 
@@ -78,6 +81,17 @@ public class ClassicGameManager : MonoBehaviour
             if (_clientId == item.id)
             {
                 item.mana = _amount;
+            }
+        }
+    }
+
+    public void SetMaxMana(int _clientId, int _amount)
+    {
+        foreach (PlayerManager item in players.Values)
+        {
+            if (_clientId == item.id)
+            {
+                item.maxMana = _amount;
             }
         }
     }
@@ -132,7 +146,7 @@ public class ClassicGameManager : MonoBehaviour
         cardHand.transform.localScale = handCanvas.transform.localScale;
         cardHand.AddComponent<CardInHand>();
         cardHand.transform.SetParent(handCanvas.transform);
-        handReorganize();
+        HandReorganize();
     }
 
     public void RemoveCardFromHand(string cardName)
@@ -145,14 +159,15 @@ public class ClassicGameManager : MonoBehaviour
                 break;
             }
         }
-        handReorganize();
+        HandReorganize();
     }
 
     /// <summary>
     /// Reorganizes the had by the cards in hand
     /// </summary>
-    public void handReorganize()
+    public void HandReorganize()
     {
+        Debug.Log("Reorganizing hand");
         //Spacing between cards
         float spacing = 100f;
         //The count of cards in the hand

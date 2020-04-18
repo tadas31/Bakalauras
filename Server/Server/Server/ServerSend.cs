@@ -107,17 +107,26 @@ namespace Server
             }
         }
 
-        //public static void SetLifeCard(int _toClient, string _cardName, int _lifeCard)
-        //{
-        //    using (Packet _packet = new Packet((int)ServerPackets.setCardLife))
-        //    {
-        //        _packet.Write(_toClient);
-        //        _packet.Write(_cardName);
-        //        _packet.Write(_lifeCard);
+        public static void SetMaxMana(int _toClient, int _maxMana)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.setMaxMana))
+            {
+                _packet.Write(_toClient);
+                _packet.Write(_maxMana);
 
-        //        SendTCPDataToAll(_packet);
-        //    }
-        //}
+                SendTCPDataToAll(_packet);
+            }
+        }
+
+        public static void PulledCard(int _toClient, string _cardName)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.pulledCard))
+            {
+                _packet.Write(_cardName);
+
+                SendTCPData(_toClient, _packet);
+            }
+        }
 
         public static void Attack(int _clientId, string _from, int _lifeFrom, string _to, int _lifeTo)
         {
@@ -135,12 +144,37 @@ namespace Server
             }
         }
 
+        public static void AttackPlayer(int _clientId,int _toClient, string _from,  int _lifeTo)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.attackPlayer))
+            {
+                _packet.Write(_clientId);
+                _packet.Write(_toClient);
+                _packet.Write(_from);
+                _packet.Write(_lifeTo);
+
+                Console.WriteLine($"Sending attack information form {_clientId} to all clients to attack player from {_from}");
+
+                SendTCPDataToAll(_packet);
+            }
+        }
+
         public static void PutCardOnTable(int _toClient, bool _isPlayers, string _cardName)
         {
             using (Packet _packet = new Packet((int)ServerPackets.putCardOnTable))
             {
                 _packet.Write(_isPlayers);
                 _packet.Write(_cardName);
+
+                SendTCPData(_toClient, _packet);
+            }
+        }
+
+        public static void SetEnemyCardCount(int _toClient, int _count)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.setEnemyCardCount))
+            {
+                _packet.Write(_count);
 
                 SendTCPData(_toClient, _packet);
             }

@@ -21,6 +21,8 @@ namespace Server
             StartTimer();
             SendLifeToPlayers();
             SendManaToPlayers();
+            SendMaxManaToPlayers();
+            SetEnemyCardCountToPlayers();
         }
         public static void StartTimer()
         {
@@ -74,7 +76,19 @@ namespace Server
             }
         }
 
-        public static void SendTurnsForPlayers() 
+        public static void SendMaxManaToPlayers()
+        {
+            foreach (Client _client in Server.clients.Values)
+            {
+                if (_client.player != null)
+                {
+                    Console.WriteLine($"Sending max mana information to {_client.id}");
+                    _client.SendMaxMana();
+                }
+            }
+        }
+
+        public static void SendTurnsForPlayers()
         {
             foreach (Client _client in Server.clients.Values)
             {
@@ -111,6 +125,18 @@ namespace Server
             }
         }
 
+        public static void SetEnemyCardCountToPlayers()
+        {
+            Console.WriteLine("Sending the starting cards to all of the players.");
+            foreach (Client _client in Server.clients.Values)
+            {
+                if (_client.player != null)
+                {
+                    _client.SetEnemyCardCount();
+                }
+            }
+        }
+
         public static void AddManaToCurrentTurnPlayer()
         {
             foreach (Client _client in Server.clients.Values)
@@ -120,11 +146,28 @@ namespace Server
                     if (_client.player.isTurn)
                     {
                         Console.WriteLine($"Adding to the {_client.id} player mana.");
-                        _client.player.AddMana();
-                        _client.SendMana();
+                        _client.player.AddMaxMana();
+                        _client.player.ResetMana();
                         return;
                     }
-                    
+
+                }
+            }
+        }
+
+        public static void SendPulledCardToCurrentTurn()
+        {
+            foreach (Client _client in Server.clients.Values)
+            {
+                if (_client.player != null)
+                {
+                    if (_client.player.isTurn)
+                    {
+                        _client.SendPulledCard();
+                        _client.SetEnemyCardCount();
+                        return;
+                    }
+
                 }
             }
         }
@@ -132,8 +175,11 @@ namespace Server
         public static void EndTurn()
         {
             AddManaToCurrentTurnPlayer();
+            SendManaToPlayers();
+            SendMaxManaToPlayers();
             ChangeTurns();
             SendTurnsForPlayers();
+            SendPulledCardToCurrentTurn();
             SendTimerInfoForPlayers(Constants.TURN_TIME_SECONDS);
             timer.Stop();
             timer.Start();

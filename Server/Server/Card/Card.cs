@@ -18,7 +18,7 @@ namespace Server
         public Card(string _cardName)
         {
             string curFile = @"c:\temp\test.txt";
-            string _path =  System.IO.Path.GetFullPath(@"..\..\..\Cards\") + _cardName + ".asset";
+            string _path =  System.IO.Path.GetFullPath(@"..\..\..\CardAssets\") + _cardName + ".asset";
             if (File.Exists(_path))
             {
                 cardName = _cardName;

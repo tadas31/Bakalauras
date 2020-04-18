@@ -51,7 +51,16 @@ public class Attack : MonoBehaviour, IPointerClickHandler
 
             if (Input.GetMouseButtonUp(0) && selectingCardToAttack && !attackStarted)
             {
-                ClientSend.Attack(this.gameObject.name, attackHelper.getDefendingCard(attackingCard).parent.gameObject.name);
+                Transform defending = attackHelper.getDefendingCard(attackingCard);
+                if (defending.gameObject.name == "AttackPlayer")
+                {
+                    int id = defending.parent.GetComponent<PlayerManager>().id;
+                    ClientSend.Attack(this.gameObject.name, id.ToString());
+                }
+                else 
+                { 
+                    ClientSend.Attack(this.gameObject.name, defending.parent.gameObject.name);
+                }
                 //StartCoroutine("attack");
             }
             selectingCardToAttack = true;

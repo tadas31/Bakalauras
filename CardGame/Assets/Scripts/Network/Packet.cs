@@ -15,7 +15,10 @@ public enum ServerPackets
     putCardOnTable,
     setLife,
     setMana,
-    attack
+    setMaxMana,
+    attack,
+    setEnemyCardCount,
+    pulledCard
 }
 
 /// <summary>Sent from client to server.</summary>

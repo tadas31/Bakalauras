@@ -13,6 +13,7 @@ namespace Server
         public int id;
         public Player player;
         public TCP tcp;
+        public Client enemyClient;
 
         public Client(int _clientId)
         {
@@ -156,6 +157,7 @@ namespace Server
                 {
                     if (_client.id != id)
                     {
+                        enemyClient = _client;
                         ServerSend.SpawnPlayer(id, _client.player);
                     }
                 }
@@ -189,13 +191,24 @@ namespace Server
             ServerSend.SetMana(id, player.mana);
         }
 
+        public void SendMaxMana()
+        {
+            ServerSend.SetMaxMana(id, player.maxMana);
+        }
+
+        public void SendPulledCard()
+        {
+            ServerSend.PulledCard(id, player.PullCardToHand().cardName);
+        }
+
         public void PutCardOnTable(string _cardName)
         {
-            if (player.HasInHand(_cardName));
+            if (player.HasInHand(_cardName) && player.HasEnoughMana(_cardName) && player.isTurn)
             {
                 Console.WriteLine($"Putting a {_cardName} card to player's {id}");
-                player.PutToTable(_cardName);
+                player.PutOnTable(_cardName);
                 ServerSend.PutCardOnTable(id, true, _cardName);
+                ServerSend.SetMana(id, player.mana);
                 //Putting the card in the enemy side.
                 foreach (Client _client in Server.clients.Values)
                 {
@@ -204,10 +217,12 @@ namespace Server
                         if (_client.id != id)
                         {
                             ServerSend.PutCardOnTable(_client.id, false, _cardName);
+                            ServerSend.SetEnemyCardCount(_client.id, player.CardCountInHand());
                         }
                     }
                 }
             }
+            //TODO: Can be that it is returned to the client that something is not okey. ???
         }
 
 
@@ -219,19 +234,6 @@ namespace Server
                 return;
             }
 
-            Client enemyClient = null;
-
-            foreach (Client item in Server.clients.Values)
-            {
-                if (item.player != null)
-                {
-                    if (item.id != id)
-                    {
-                        enemyClient = item;
-                    }
-                }
-            }
-
             if (enemyClient == null)
             {
                 //Something wrong. Maybe there is no need for this part of the code.
@@ -239,13 +241,9 @@ namespace Server
             }
 
             //Get the card that with the card that you are attacking
-            if (player.table.isInDeck(_attackFrom))
+            if (player.table.IsInDeck(_attackFrom))
             {
-                Card _attackFromCard = player.table.GetCard(_attackFrom);
-                Card _attackToCard = enemyClient.DealDamageTo(_attackFromCard.attack, _attackTo);
-                DealDamageTo(_attackToCard.attack, _attackFrom);
-                ServerSend.Attack(id, _attackFrom, _attackFromCard.life, _attackTo, _attackToCard.life);
-                //Think about this part.
+                CardAttack(_attackFrom, _attackTo);
             }
             else if (false) //If it is attacking with a spell card
             {
@@ -268,9 +266,34 @@ namespace Server
 
         }
 
-        public Card DealDamageTo(int _amount, string _to) 
+        /// <summary>
+        /// Card attack to an object
+        /// </summary>
+        /// <param name="_attackFrom">Attack cards name</param>
+        /// <param name="_attackTo">The object that is attacked from</param>
+        public void CardAttack( string _attackFrom, string _attackTo) 
+        { 
+           
+            int n = -1;
+            bool isNumeric = int.TryParse(_attackTo, out n);
+            Card _attackFromCard = player.table.GetCard(_attackFrom);
+            //If the card is attacking players health points
+            if (isNumeric && enemyClient.id == n)
+            {
+                enemyClient.player.life -= _attackFromCard.attack;
+                ServerSend.AttackPlayer(id, enemyClient.id, _attackFrom, enemyClient.player.life);
+            }
+            else
+            {
+                Card _attackToCard = enemyClient.DealDamageTo(_attackFromCard.attack, _attackTo);
+                DealDamageTo(_attackToCard.attack, _attackFrom);
+                ServerSend.Attack(id, _attackFrom, _attackFromCard.life, _attackTo, _attackToCard.life);
+            }
+        }
+
+        public Card DealDamageTo(int _amount, string _to)
         {
-            if (player.table.isInDeck(_to))
+            if (player.table.IsInDeck(_to))
             {
                 Card minion = player.table.GetCard(_to);
                 minion.life -= _amount;
@@ -278,6 +301,20 @@ namespace Server
                 //TODO: Maybe need to send to all of the cards that it died.
             }
             return null;
+        }
+
+        public void SetEnemyCardCount()
+        {
+            foreach (Client item in Server.clients.Values)
+            {
+                if (item.player != null)
+                {
+                    if (item.id != id)
+                    {
+                        ServerSend.SetEnemyCardCount(id, item.player.CardCountInHand());
+                    }
+                }
+            }
         }
 
         public void Disconnect()
