@@ -37,7 +37,16 @@ public class PlayerManager : MonoBehaviour
         }
     }
     private int _maxMana;
-    public bool isTurn;
+    public bool isTurn
+    {
+        get { return _isTurn; }
+        set
+        {
+            _isTurn = value;
+            UIManager.instance.endTurn.SetActive(_isTurn);
+        }
+    }
+    private bool _isTurn;
 
     private void SetManaToUI()
     {

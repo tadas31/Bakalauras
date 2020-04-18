@@ -13,6 +13,7 @@ namespace Server
         public int id;
         public Player player;
         public TCP tcp;
+        public Client enemyClient;
 
         public Client(int _clientId)
         {
@@ -156,6 +157,7 @@ namespace Server
                 {
                     if (_client.id != id)
                     {
+                        enemyClient = _client;
                         ServerSend.SpawnPlayer(id, _client.player);
                     }
                 }
@@ -232,19 +234,6 @@ namespace Server
                 return;
             }
 
-            Client enemyClient = null;
-
-            foreach (Client item in Server.clients.Values)
-            {
-                if (item.player != null)
-                {
-                    if (item.id != id)
-                    {
-                        enemyClient = item;
-                    }
-                }
-            }
-
             if (enemyClient == null)
             {
                 //Something wrong. Maybe there is no need for this part of the code.
@@ -254,11 +243,7 @@ namespace Server
             //Get the card that with the card that you are attacking
             if (player.table.IsInDeck(_attackFrom))
             {
-                Card _attackFromCard = player.table.GetCard(_attackFrom);
-                Card _attackToCard = enemyClient.DealDamageTo(_attackFromCard.attack, _attackTo);
-                DealDamageTo(_attackToCard.attack, _attackFrom);
-                ServerSend.Attack(id, _attackFrom, _attackFromCard.life, _attackTo, _attackToCard.life);
-                //Think about this part.
+                CardAttack(_attackFrom, _attackTo);
             }
             else if (false) //If it is attacking with a spell card
             {
@@ -279,6 +264,31 @@ namespace Server
             //TODO: If the player is attacked
             //TODO: If the another minion is attacked
 
+        }
+
+        /// <summary>
+        /// Card attack to an object
+        /// </summary>
+        /// <param name="_attackFrom">Attack cards name</param>
+        /// <param name="_attackTo">The object that is attacked from</param>
+        public void CardAttack( string _attackFrom, string _attackTo) 
+        { 
+           
+            int n = -1;
+            bool isNumeric = int.TryParse(_attackTo, out n);
+            Card _attackFromCard = player.table.GetCard(_attackFrom);
+            //If the card is attacking players health points
+            if (isNumeric && enemyClient.id == n)
+            {
+                enemyClient.player.life -= _attackFromCard.attack;
+                ServerSend.AttackPlayer(id, enemyClient.id, _attackFrom, enemyClient.player.life);
+            }
+            else
+            {
+                Card _attackToCard = enemyClient.DealDamageTo(_attackFromCard.attack, _attackTo);
+                DealDamageTo(_attackToCard.attack, _attackFrom);
+                ServerSend.Attack(id, _attackFrom, _attackFromCard.life, _attackTo, _attackToCard.life);
+            }
         }
 
         public Card DealDamageTo(int _amount, string _to)

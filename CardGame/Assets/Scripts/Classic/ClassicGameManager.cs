@@ -128,7 +128,6 @@ public class ClassicGameManager : MonoBehaviour
             cardTable.GetComponent<Attack>().enabled = true;
             cardTable.GetComponent<CardStatsHelper>().enabled = true;
             RemoveCardFromHand(_cardName);
-            HandReorganize();
         }
         else
         {
@@ -168,6 +167,7 @@ public class ClassicGameManager : MonoBehaviour
     /// </summary>
     public void HandReorganize()
     {
+        Debug.Log("Reorganizing hand");
         //Spacing between cards
         float spacing = 100f;
         //The count of cards in the hand

@@ -4,17 +4,17 @@ using System.Text;
 
 namespace Server
 {
-    class Deck
+    class CardContainer
     {
         private static Random rand = new Random();
         private List<Card> deck;
 
-        public Deck()
+        public CardContainer()
         {
             deck = new List<Card>();
         }
 
-        public Deck(string data)
+        public CardContainer(string data)
         {
             deck = new List<Card>();
             string[] values = data.Split(',');

@@ -13,10 +13,10 @@ namespace Server
         public int mana;
         public int maxMana;
 
-        public Deck deck;
-        public Deck hand;
-        public Deck graveYard;
-        public Deck table;
+        public CardContainer deck;
+        public CardContainer hand;
+        public CardContainer graveYard;
+        public CardContainer table;
 
         public Player(int _id, string _username, string _dataDeck)
         {
@@ -26,10 +26,10 @@ namespace Server
             life = Constants.START_LIFE;
             mana = 1;
             maxMana = 1;
-            deck = new Deck(_dataDeck);
-            hand = new Deck();
-            graveYard = new Deck();
-            table = new Deck();
+            deck = new CardContainer(_dataDeck);
+            hand = new CardContainer();
+            graveYard = new CardContainer();
+            table = new CardContainer();
         }
 
         public string PullStartingCards()

@@ -144,6 +144,21 @@ namespace Server
             }
         }
 
+        public static void AttackPlayer(int _clientId,int _toClient, string _from,  int _lifeTo)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.attackPlayer))
+            {
+                _packet.Write(_clientId);
+                _packet.Write(_toClient);
+                _packet.Write(_from);
+                _packet.Write(_lifeTo);
+
+                Console.WriteLine($"Sending attack information form {_clientId} to all clients to attack player from {_from}");
+
+                SendTCPDataToAll(_packet);
+            }
+        }
+
         public static void PutCardOnTable(int _toClient, bool _isPlayers, string _cardName)
         {
             using (Packet _packet = new Packet((int)ServerPackets.putCardOnTable))

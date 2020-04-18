@@ -74,6 +74,13 @@ public class AttackHelper : MonoBehaviour
                 defendingCard = result.gameObject.transform;
                 return defendingCard;
             }
+            if (result.gameObject.name == "AttackPlayer")
+            {
+                Debug.Log("AttackPlayer has been hit");
+                defendingCard = result.gameObject.transform;
+                Debug.Log(defendingCard);
+                return defendingCard;
+            }
         }
 
         return null;
