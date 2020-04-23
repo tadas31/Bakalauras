@@ -29,7 +29,7 @@ public class MenuButtons : MonoBehaviour
     public void onClassicPress()
     {
         if (!options.activeSelf && !puzzleLevels.activeSelf)
-            SceneManager.LoadScene("Classic");
+            loadScene.LoadNewScene("Classic");
     }
 
     // Opens puzzle levels

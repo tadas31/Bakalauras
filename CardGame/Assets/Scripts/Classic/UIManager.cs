@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     public GameObject timer;
     public GameObject endTurn;
     public TextMeshProUGUI usernameField;
+    public LoadScene loadScene;
 
     private void Awake()
     {
@@ -59,7 +60,7 @@ public class UIManager : MonoBehaviour
     
     public void OnExit()
     {
-        SceneManager.LoadScene("Menu");
+        loadScene.LoadNewScene("Menu");
     }
 
     public void EndTurn()

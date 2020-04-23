@@ -2670,7 +2670,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   username: 
-  isTurn: 0
 --- !u!1 &560024117
 GameObject:
   m_ObjectHideFlags: 0
@@ -5716,7 +5715,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   username: 
-  isTurn: 0
 --- !u!1 &1757428432
 GameObject:
   m_ObjectHideFlags: 0
@@ -6382,6 +6380,18 @@ RectTransform:
   m_AnchoredPosition: {x: -633.8, y: -617.9}
   m_SizeDelta: {x: 171, y: 384.75}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1994266868 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6747171597770249184, guid: dd55158498ff5834d9ba97ed5fb2fe0c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1321381358}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2a75ceb30a7b114b8e7521eb52de2fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2000390686
 GameObject:
   m_ObjectHideFlags: 0
@@ -6929,6 +6939,11 @@ PrefabInstance:
       propertyPath: endTurn
       value: 
       objectReference: {fileID: 275284489}
+    - target: {fileID: 4414926484969292010, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
+        type: 3}
+      propertyPath: loadScene
+      value: 
+      objectReference: {fileID: 1994266868}
     - target: {fileID: 4414926485519862019, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
         type: 3}
       propertyPath: content
