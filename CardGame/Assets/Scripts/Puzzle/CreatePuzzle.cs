@@ -29,7 +29,7 @@ public class CreatePuzzle : MonoBehaviour
         {
             Card c = Resources.Load<Card>("Cards/CreatedCards/" + card);
             GameObject newCard = c.spawnCard();
-            GetComponent<GameManager>().addCardToHand(newCard);
+            GetComponent<PuzzleGameManager>().addCardToHand(newCard);
         }
 
         // Get's script type and adds it to game manager.

@@ -14,11 +14,11 @@ public class AttackHelper : MonoBehaviour
 
     public bool isAttacking;                    // Prevents defending card from being selected for attacking used in Attack script.
 
-    private GameManager gameManager;
+    private PuzzleGameManager gameManager;
 
     void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<PuzzleGameManager>();
 
         isAttacking = false;
 

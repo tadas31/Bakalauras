@@ -80,25 +80,27 @@ public class CardInHand : MonoBehaviour, IPointerClickHandler
 
                 if (GameObject.Find("ClientManager") == null)
                 {
-                    if (transform.GetChild(0).Find("Type").GetComponent<TextMeshProUGUI>().text.ToLower().Contains("spell"))
-                    {
-                        //Changes the parent of the card to spells.
-                        GameObject spells = GameObject.Find("Spells");
-                        this.transform.SetParent(spells.transform);
-                        this.transform.localScale = Vector3.one;
-                    }
-                    else
-                    {
-                        //Changes the parent of the card to player board.
-                        GameObject playerBoard = GameObject.Find("Board/PlayerBoard");
-                        this.transform.SetParent(playerBoard.transform);
-                        this.transform.localScale = Vector3.one;
-                    }
+                    PuzzleGameManager.instance.PutOnTable(gameObject);
+
+                    //if (transform.GetChild(0).Find("Type").GetComponent<TextMeshProUGUI>().text.ToLower().Contains("spell"))
+                    //{
+                    //    //Changes the parent of the card to spells.
+                    //    GameObject spells = GameObject.Find("Spells");
+                    //    this.transform.SetParent(spells.transform);
+                    //    this.transform.localScale = Vector3.one;
+                    //}
+                    //else
+                    //{
+                    //    //Changes the parent of the card to player board.
+                    //    GameObject playerBoard = GameObject.Find("Board/PlayerBoard");
+                    //    this.transform.SetParent(playerBoard.transform);
+                    //    this.transform.localScale = Vector3.one;
+                    //}
 
 
-                    //Enables all attached scripts.
-                    foreach (MonoBehaviour script in gameObject.GetComponents<MonoBehaviour>())
-                        script.enabled = true;
+                    ////Enables all attached scripts.
+                    //foreach (MonoBehaviour script in gameObject.GetComponents<MonoBehaviour>())
+                    //    script.enabled = true;
 
                     //Removes this script from the component
                     Destroy(this);
