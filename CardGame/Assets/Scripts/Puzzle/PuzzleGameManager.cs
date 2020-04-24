@@ -29,11 +29,7 @@ public class PuzzleGameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Deck deck = SaveSystem.LoadDeck();
-        for (int i = 0; i < 8; i++)
-        {
-            addCardToHand(deck.pullCard());
-        }
+
     }
 
     // Update is called once per frame

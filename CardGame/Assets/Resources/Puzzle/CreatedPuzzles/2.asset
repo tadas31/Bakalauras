@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 2
   m_EditorClassIdentifier: 
   winCondition: KillEnemyPlayer
-  enemyLife: 15
+  enemyLife: 10
   playerLife: 30
   playerMana: 5
   enemyCards:

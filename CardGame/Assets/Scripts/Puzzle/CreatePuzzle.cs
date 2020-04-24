@@ -7,7 +7,8 @@ public class CreatePuzzle : MonoBehaviour
 {
     private Puzzle puzzle;              // Puzzle to load.
     public GameObject enemyBoard;       // Parent to enemy cards.
-    public GameObject handCanvas;       // Parent to player cards.
+    public Health playerHealth;         // Reference to health class for player.
+    public Health enemyHealth;          // Reference to health class for enemy.
 
     // Start is called before the first frame update
     void Start()
@@ -15,7 +16,15 @@ public class CreatePuzzle : MonoBehaviour
         // Get's selected level
         puzzle = Resources.Load<Puzzle>("Puzzle/CreatedPuzzles/" + SelectedPuzzle.Level);
 
+        // Set player health.
+        playerHealth.health = puzzle.playerLife;
+        playerHealth.displayHealth();
 
+        // Set enemy health.
+        enemyHealth.health = puzzle.enemyLife;
+        enemyHealth.displayHealth();
+
+        // Places enemy cards
         foreach (string card in puzzle.enemyCards)
         {
             Card c = Resources.Load<Card>("Cards/CreatedCards/" + card);
@@ -25,6 +34,7 @@ public class CreatePuzzle : MonoBehaviour
             newCard.transform.localScale = Vector3.one;
         }
 
+        // Gets user cards
         foreach (string card in puzzle.playerCards)
         {
             Card c = Resources.Load<Card>("Cards/CreatedCards/" + card);
