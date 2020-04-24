@@ -11,6 +11,7 @@ public class AttackHelper : MonoBehaviour
     public Vector3 arrowOrigin;                 // Star position of arrow.
     public Vector3 arrowTarget;                 // End position of arrow.
     public LineRenderer cachedLineRenderer;     // Line renderer.
+    public GameObject returnToHand;             // Game object that returns card to hand on hover.
 
     public bool isAttacking;                    // Prevents defending card from being selected for attacking used in Attack script.
 
@@ -27,6 +28,8 @@ public class AttackHelper : MonoBehaviour
     private void Update()
     {
         updateArrow();
+        
+        returnToHand.SetActive(isAttacking);
     }
 
     // Draws arrow.
@@ -60,8 +63,8 @@ public class AttackHelper : MonoBehaviour
         // Gets defending card.
         foreach (RaycastResult result in results)
         {
-
-            if (attackingCard == null && result.gameObject.transform.GetComponentInParent<Canvas>().name.ToLower().Contains("handcanvas"))
+            
+            if (attackingCard == null && result.gameObject == returnToHand)
             {
                 Transform transform = new GameObject().transform;
                 transform.position = new Vector3(2000, 2000, 2000);
