@@ -39,17 +39,6 @@ public class OnDeathRestoreHealth : MonoBehaviour, IDescription, ISpellDamage
         }
     }
 
-    //private IEnumerator onDeath(Health health)
-    //{
-    //    restoring = true;
-
-    //    TextMeshProUGUI displayRestoredAmount = health.transform.Find("Health/ValueBackground/Restore").GetComponent<TextMeshProUGUI>();
-    //    displayRestoredAmount.text = "+" + amountToRestore;
-    //    yield return new WaitForSeconds(attackHelper.TIME_TO_SHOW_DAMAGE_FROM_SPELLS);
-    //    displayRestoredAmount.text = null;
-
-    //}
-
     // Returns description of effect granted by this script
     public string getDescription()
     {

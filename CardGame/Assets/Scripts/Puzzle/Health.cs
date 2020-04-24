@@ -7,12 +7,6 @@ public class Health : MonoBehaviour
 {
     private AttackHelper attackHelper;      // Reference to attack helper.
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        attackHelper = GameObject.Find("Board").GetComponent<AttackHelper>();
-    }
-
     public int health
     {
         get { return _health; }
@@ -21,6 +15,14 @@ public class Health : MonoBehaviour
     private int _health;
 
     public TextMeshProUGUI healthText;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        attackHelper = GameObject.Find("Board").GetComponent<AttackHelper>();
+    }
+
+
 
     public void displayHealth()
     {
