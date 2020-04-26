@@ -2597,6 +2597,7 @@ GameObject:
   m_Component:
   - component: {fileID: 485625479}
   - component: {fileID: 485625480}
+  - component: {fileID: 485625481}
   m_Layer: 5
   m_Name: Player
   m_TagString: Untagged
@@ -2641,6 +2642,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthText: {fileID: 1840879752}
+--- !u!114 &485625481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485625478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 646fcc994cb4990429df4ece49af5e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manaText: {fileID: 204749976}
 --- !u!1 &516185182
 GameObject:
   m_ObjectHideFlags: 0
@@ -5061,6 +5075,7 @@ MonoBehaviour:
   enemyBoard: {fileID: 349869466}
   playerHealth: {fileID: 485625480}
   enemyHealth: {fileID: 473855494}
+  playerMana: {fileID: 485625481}
 --- !u!114 &1187063743
 MonoBehaviour:
   m_ObjectHideFlags: 0

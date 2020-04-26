@@ -9,6 +9,7 @@ public class CreatePuzzle : MonoBehaviour
     public GameObject enemyBoard;       // Parent to enemy cards.
     public Health playerHealth;         // Reference to health class for player.
     public Health enemyHealth;          // Reference to health class for enemy.
+    public Mana playerMana;             // Reference to mana class for player.
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,11 @@ public class CreatePuzzle : MonoBehaviour
         // Set player health.
         playerHealth.health = puzzle.playerLife;
         playerHealth.displayHealth();
+
+        // Set's player mana.
+        playerMana.maxMana = puzzle.playerMana;
+        playerMana.currentMana = puzzle.playerMana;
+        playerMana.displayMana();
 
         // Set enemy health.
         enemyHealth.health = puzzle.enemyLife;
