@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 2
   m_EditorClassIdentifier: 
   winCondition: KillEnemyPlayer
-  enemyLife: 10
+  enemyLife: 6
   playerLife: 30
-  playerMana: 7
+  playerMana: 9
   enemyCards:
-  - Goblin 1
-  - Goblin 1
+  - Goblin
+  - Goblin
   - Goblin 5
   playerCards:
   - Arcane explosion
