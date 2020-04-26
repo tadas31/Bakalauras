@@ -11,8 +11,6 @@ public class BattlecryDamageSingleTarget : MonoBehaviour, IDescription, ISpellDa
     private int damage;                     // Amount of damage to deal.
     private bool attacking;                 // Prevents battlecry from activating multiple times.
 
-    private Transform defendingCard;        // Defending card.
-
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +20,6 @@ public class BattlecryDamageSingleTarget : MonoBehaviour, IDescription, ISpellDa
     private void OnEnable()
     {
         attackHelper = GameObject.Find("Board").GetComponent<AttackHelper>();
-        defendingCard = null;
 
         // Enables arrow drawing and sets coordinates.
         float xPos = transform.position.x < 0 ? transform.position.x / 1.14f : transform.position.x / 1.1f;
@@ -52,12 +49,22 @@ public class BattlecryDamageSingleTarget : MonoBehaviour, IDescription, ISpellDa
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(screenPoint);
         attackHelper.arrowTarget = new Vector3(mousePos.x, mousePos.y, 6);
 
-        defendingCard = attackHelper.getDefendingCard(transform.GetChild(0));
+        Transform defendingCard = attackHelper.getDefendingCard(transform.GetChild(0));
+        Transform defendingPlayer = attackHelper.getDefendingPlayer();
 
-        if (Input.GetMouseButtonUp(0) && !attacking && defendingCard != null)
+        if (Input.GetMouseButtonUp(0) && !attacking)
         {
-            StartCoroutine("battlecry");
-            attacking = true;
+            if (defendingCard != null)
+            {
+                StartCoroutine( battlecry(defendingCard, "card") );
+                attacking = true;
+            }
+            else if (defendingPlayer != null)
+            {
+                StartCoroutine( battlecry(defendingPlayer, "player") );
+                attacking = true;
+            }
+            
         }
            
     }
@@ -66,25 +73,30 @@ public class BattlecryDamageSingleTarget : MonoBehaviour, IDescription, ISpellDa
     /// Deals damage.
     /// </summary>
     /// <returns></returns>
-    private IEnumerator battlecry()
+    private IEnumerator battlecry(Transform defending, string defenderType)
     {
         attackHelper.cachedLineRenderer.enabled = false;
+        if (defenderType == "card")
+        {
+            CardStatsHelper defendingCardStats = defending.GetComponentInParent<CardStatsHelper>();
+            defendingCardStats.takeDamage(damage);
 
-        CardStatsHelper defendingCardStats = defendingCard.GetComponentInParent<CardStatsHelper>();
-        defendingCardStats.takeDamage(damage);
+            // Displays damage dealt to defending card
+            TextMeshProUGUI defendingCardDamageTaken = defending.transform.Find("Image").transform.Find("DamageTaken").GetComponent<TextMeshProUGUI>();
+            defendingCardDamageTaken.text = "-" + damage;
+            yield return new WaitForSeconds(attackHelper.TIME_TO_SHOW_DAMAGE_FROM_SPELLS);
+            defendingCardDamageTaken.text = null;
 
-        // Displays damage dealt to defending card
-        TextMeshProUGUI defendingCardDamageTaken = defendingCard.transform.Find("Image").transform.Find("DamageTaken").GetComponent<TextMeshProUGUI>();
-        defendingCardDamageTaken.text = "-" + damage;
-        yield return new WaitForSeconds(attackHelper.TIME_TO_SHOW_DAMAGE_FROM_SPELLS);
-        defendingCardDamageTaken.text = null;
-
-        // Destroys card if its dead
-        defendingCardStats.checkIfSitllAlive();
-
+            // Destroys card if its dead
+            defendingCardStats.checkIfSitllAlive();
+        }
+        else
+        {
+            Health playerHealth = GameObject.Find("Canvas/Enemy").GetComponent<Health>();
+            playerHealth.takeDamage(damage);
+        }
 
         GetComponent<BattlecryDamageSingleTarget>().enabled = false;
-
     }
 
     // Returns description of effect granted by this script

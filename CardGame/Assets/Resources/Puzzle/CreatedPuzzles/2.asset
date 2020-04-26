@@ -15,7 +15,7 @@ MonoBehaviour:
   winCondition: KillEnemyPlayer
   enemyLife: 10
   playerLife: 30
-  playerMana: 5
+  playerMana: 7
   enemyCards:
   - Goblin 1
   - Goblin 1

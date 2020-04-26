@@ -15,10 +15,10 @@ MonoBehaviour:
   winCondition: DestroyAllEnemyCards
   enemyLife: 15
   playerLife: 30
-  playerMana: 5
+  playerMana: 20
   enemyCards:
   - Goblin
-  - Goblin 1
+  - Goblin
   - Goblin 8
   playerCards:
   - Arcane explosion

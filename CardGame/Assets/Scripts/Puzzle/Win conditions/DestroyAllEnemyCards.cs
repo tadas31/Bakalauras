@@ -28,9 +28,9 @@ public class DestroyAllEnemyCards : MonoBehaviour, IWinCondition
     }
 
     /// <summary>
-    /// returns win condition
+    /// Returns win condition.
     /// </summary>
-    /// <returns> win condition </returns>
+    /// <returns> Win condition. </returns>
     public string winCondition()
     {
         return "Destroy all enemy cards in one turn";

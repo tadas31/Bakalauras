@@ -15,11 +15,11 @@ public class AttackHelper : MonoBehaviour
 
     public bool isAttacking;                    // Prevents defending card from being selected for attacking used in Attack script.
 
-    private PuzzleGameManager gameManager;
+    private PuzzleGameManager puzzleGameManager;
 
     void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<PuzzleGameManager>();
+        puzzleGameManager = GameObject.Find("GameManager").GetComponent<PuzzleGameManager>();
 
         isAttacking = false;
 
@@ -77,13 +77,13 @@ public class AttackHelper : MonoBehaviour
                 defendingCard = result.gameObject.transform;
                 return defendingCard;
             }
-            if (result.gameObject.name == "AttackPlayer")
-            {
-                Debug.Log("AttackPlayer has been hit");
-                defendingCard = result.gameObject.transform;
-                Debug.Log(defendingCard);
-                return defendingCard;
-            }
+            //if (result.gameObject.name == "AttackPlayer")
+            //{
+            //    Debug.Log("AttackPlayer has been hit");
+            //    defendingCard = result.gameObject.transform;
+            //    Debug.Log(defendingCard);
+            //    return defendingCard;
+            //}
         }
 
         return null;
@@ -104,7 +104,7 @@ public class AttackHelper : MonoBehaviour
         // Gets defending player.
         foreach (RaycastResult result in results)
         {
-            if (result.gameObject.transform.name.ToLower() == "enemy")
+            if (result.gameObject.transform.name.ToLower() == "attackplayer")
             {
                 return result.gameObject.transform;
             }
@@ -123,7 +123,10 @@ public class AttackHelper : MonoBehaviour
             script.enabled = false;
 
         spell.transform.localPosition = Vector3.zero;
-        gameManager.addCardToHand(spell);
+        puzzleGameManager.addCardToHand(spell);
+
+        Mana mana = GameObject.Find("Canvas/Player").GetComponent<Mana>();
+        mana.useMana( -spell.GetComponent<CardCostHelper>().getCost() );
 
         isAttacking = false;
         cachedLineRenderer.enabled = false;

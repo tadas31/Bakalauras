@@ -21,7 +21,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
     private Vector3 startPos;               // Cards starting position.
 
     Transform attackingCard;                // Transform of attacking card.
-    Transform defendingCard;                // Transform of defending card.
+    Transform defending;                // Transform of defending card.
 
     // Start is called before the first frame update
     void Start()
@@ -52,16 +52,27 @@ public class Attack : MonoBehaviour, IPointerClickHandler
             if (Input.GetMouseButtonUp(0) && selectingCardToAttack && !attackStarted)
             {
                 Transform defending = attackHelper.getDefendingCard(attackingCard);
-                if (defending.gameObject.name == "AttackPlayer")
+                Transform defendingPlayer = attackHelper.getDefendingPlayer();
+
+                if (GameObject.Find("ClientManager") == null)
                 {
-                    int id = defending.parent.GetComponent<PlayerManager>().id;
-                    ClientSend.Attack(this.gameObject.name, id.ToString());
+                    if (defending != null)
+                        StartCoroutine( attack(defending, "card") );
+                    else if ( defendingPlayer != null)
+                        StartCoroutine( attack(defendingPlayer, "player") );
                 }
-                else 
-                { 
-                    ClientSend.Attack(this.gameObject.name, defending.parent.gameObject.name);
+                else
+                {
+                    if (defending.gameObject.name == "AttackPlayer")
+                    {
+                        int id = defending.parent.GetComponent<PlayerManager>().id;
+                        ClientSend.Attack(this.gameObject.name, id.ToString());
+                    }
+                    else
+                    {
+                        ClientSend.Attack(this.gameObject.name, defending.parent.gameObject.name);
+                    }
                 }
-                //StartCoroutine("attack");
             }
             selectingCardToAttack = true;
         }
@@ -108,7 +119,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
         if (defendingCard != null)
         {
             attackingCard = transform.GetChild(0);
-            this.defendingCard = defendingCard;
+            this.defending = defendingCard;
             startPos = this.transform.position;
 
             attackStarted = true;
@@ -163,7 +174,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// Gets card that was pressed and attacks it
     /// </summary>
-    private IEnumerator attack()
+    private IEnumerator attack(Transform defending, string defenderType)
     {
         List<Transform> allEnemyCards = attackHelper.getAllEnemyCards();
 
@@ -183,14 +194,14 @@ public class Attack : MonoBehaviour, IPointerClickHandler
         attackingCard = transform.GetChild(0);
 
         // Get defending card.
-        defendingCard = attackHelper.getDefendingCard(attackingCard);
+        this.defending = defending;
 
-        // If enemy has taunts and selected card is not attack gets canceled
-        if (hasTaunt && defendingCard.GetComponentInParent<Taunt>() == null)
+        // If enemy has taunts and selected card is not or selected target is player attack gets canceled
+        if (hasTaunt && (this.defending.GetComponentInParent<Taunt>() == null || defenderType == "player"))
             canAttack = false;
 
         // Deals and receives damage.
-        if (defendingCard != null && canAttack)
+        if (this.defending != null && canAttack)
         {
             startPos = attackingCard.position;
 
@@ -202,36 +213,54 @@ public class Attack : MonoBehaviour, IPointerClickHandler
             while (moveForward)
                 yield return null;
 
-            // Gets card stats handlers
-            CardStatsHelper attackingCardStats = GetComponent<CardStatsHelper>();
-            CardStatsHelper defendingCardStats = defendingCard.GetComponentInParent<CardStatsHelper>();
-
-            // Deals damage and updates life's
-            attackingCardStats.takeDamage( defendingCardStats.getAttack() );
-            defendingCardStats.takeDamage( attackingCardStats.getAttack() );
-
-
-            TextMeshProUGUI attackingCardDamageTaken = attackingCard.transform.Find("Image").transform.Find("DamageTaken").GetComponent<TextMeshProUGUI>();
-            TextMeshProUGUI defendingCardDamageTaken = defendingCard.transform.Find("Image").transform.Find("DamageTaken").GetComponent<TextMeshProUGUI>();
-
-            attackingCardDamageTaken.text = "-" + defendingCardStats.getAttack();
-            defendingCardDamageTaken.text = "-" + attackingCardStats.getAttack();
-
-            yield return new WaitForSeconds(0.1f);
-            
-            // Waits for card to get back to it's position.
-            moveBack = true;
-            while (moveBack)
+            if (defenderType == "card")
             {
-                yield return null;
+                // Gets card stats handlers
+                CardStatsHelper attackingCardStats = GetComponent<CardStatsHelper>();
+                CardStatsHelper defendingCardStats = this.defending.GetComponentInParent<CardStatsHelper>();
+
+                // Deals damage and updates life's
+                attackingCardStats.takeDamage(defendingCardStats.getAttack());
+                defendingCardStats.takeDamage(attackingCardStats.getAttack());
+
+
+                TextMeshProUGUI attackingCardDamageTaken = attackingCard.transform.Find("Image").transform.Find("DamageTaken").GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI defendingCardDamageTaken = this.defending.transform.Find("Image").transform.Find("DamageTaken").GetComponent<TextMeshProUGUI>();
+
+                attackingCardDamageTaken.text = "-" + defendingCardStats.getAttack();
+                defendingCardDamageTaken.text = "-" + attackingCardStats.getAttack();
+
+                yield return new WaitForSeconds(0.1f);
+
+                // Waits for card to get back to it's position.
+                moveBack = true;
+                while (moveBack)
+                {
+                    yield return null;
+                }
+
+                attackingCardDamageTaken.text = null;
+                defendingCardDamageTaken.text = null;
+
+                // Destroys dead cards
+                attackingCardStats.checkIfSitllAlive();
+                defendingCardStats.checkIfSitllAlive();
+            }
+            else
+            {
+                Health playerHealth = GameObject.Find("Canvas/Enemy").GetComponent<Health>();
+                CardStatsHelper attackingCardStats = GetComponent<CardStatsHelper>();
+                playerHealth.takeDamage(attackingCardStats.getAttack());
+
+                moveBack = true;
+                while (moveBack)
+                {
+                    yield return null;
+                }
             }
 
-            attackingCardDamageTaken.text = null;
-            defendingCardDamageTaken.text = null;
-
-            // Destroys dead cards
-            attackingCardStats.checkIfSitllAlive();
-            defendingCardStats.checkIfSitllAlive();
+            
+           
 
             // Marks card as attacked this turn
             attacked = true;
@@ -254,8 +283,8 @@ public class Attack : MonoBehaviour, IPointerClickHandler
         // Moves to attacking card to defending card.
         if (moveForward)
         {
-            attackingCard.position = Vector3.MoveTowards(attackingCard.position, defendingCard.position, speed * Time.deltaTime);
-            if (Vector3.Distance(attackingCard.position, defendingCard.position) < 2f)
+            attackingCard.position = Vector3.MoveTowards(attackingCard.position, defending.position, speed * Time.deltaTime);
+            if (Vector3.Distance(attackingCard.position, defending.position) < 2f)
             {
                 moveForward = false;
             }
