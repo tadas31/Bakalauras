@@ -18,6 +18,6 @@ MonoBehaviour:
   type: goblin
   spellDamage: 0
   attack: 1
-  life: 2
+  life: 4
   scripts:
   - BattlecrySummonCopy

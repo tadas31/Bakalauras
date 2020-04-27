@@ -49,11 +49,14 @@ public class SingleTargetDamage : MonoBehaviour, IDescription, ISpellDamage
         {
             Transform defendingCard = attackHelper.getDefendingCard(null);
             Transform defendingPlayer = attackHelper.getDefendingPlayer();
+            
 
             // If player hovers over cards in hand spell returns to hand
             if (defendingCard != null && defendingCard.position == new Vector3(2000, 2000, 2000) && defendingPlayer == null)
             {
                 attackHelper.moveCardBackToHand(gameObject);
+                attacking = false;
+                attackHelper.isAttacking = false;
                 Destroy(defendingCard.gameObject);
             }
 
@@ -64,10 +67,14 @@ public class SingleTargetDamage : MonoBehaviour, IDescription, ISpellDamage
                     StartCoroutine(castSpell(defendingCard, "card") );
                 else if (defendingPlayer != null)
                     StartCoroutine(castSpell(defendingPlayer, "player"));
+                else
+                {
+                    attackHelper.moveCardBackToHand(gameObject);
+                    attacking = false;
+                    attackHelper.isAttacking = false;
+                }
             }
         }
-
-       
     }
 
     /// <summary>
@@ -75,45 +82,34 @@ public class SingleTargetDamage : MonoBehaviour, IDescription, ISpellDamage
     /// </summary>
     private IEnumerator castSpell(Transform defending, string defenderType)
     {
-        //Transform defendingCard = attackHelper.getDefendingCard(null);
+        attackHelper.cachedLineRenderer.enabled = false;
 
-        if (defending != null)
+        if (defenderType == "card")
         {
-            attackHelper.cachedLineRenderer.enabled = false;
+            CardStatsHelper defendingCardStats = defending.GetComponentInParent<CardStatsHelper>();
 
-            if (defenderType == "card")
-            {
-                CardStatsHelper defendingCardStats = defending.GetComponentInParent<CardStatsHelper>();
+            // Deals damage to defending card
+            defendingCardStats.takeDamage(damage);
 
-                // Deals damage to defending card
-                defendingCardStats.takeDamage(damage);
+            // Displays damage dealt to defending card
+            TextMeshProUGUI defendingCardDamageTaken = defending.transform.Find("Image").transform.Find("DamageTaken").GetComponent<TextMeshProUGUI>();
+            defendingCardDamageTaken.text = "-" + damage;
+            yield return new WaitForSeconds(attackHelper.TIME_TO_SHOW_DAMAGE_FROM_SPELLS);
+            defendingCardDamageTaken.text = null;
 
-                // Displays damage dealt to defending card
-                TextMeshProUGUI defendingCardDamageTaken = defending.transform.Find("Image").transform.Find("DamageTaken").GetComponent<TextMeshProUGUI>();
-                defendingCardDamageTaken.text = "-" + damage;
-                yield return new WaitForSeconds(attackHelper.TIME_TO_SHOW_DAMAGE_FROM_SPELLS);
-                defendingCardDamageTaken.text = null;
-
-                // Destroys card if its dead
-                defendingCardStats.checkIfSitllAlive();
-            }
-            else
-            {
-                Health playerHealth = GameObject.Find("Canvas/Enemy").GetComponent<Health>();
-                playerHealth.takeDamage(damage);
-            }
-
-            // Resets all booleans to allow attack with another card
-            attacking = false;
-            attackHelper.isAttacking = false;
-            Destroy(gameObject);
-
+            // Destroys card if its dead
+            defendingCardStats.checkIfSitllAlive();
         }
         else
         {
-            attackHelper.moveCardBackToHand(gameObject);
-            attacking = false;
+            Health playerHealth = GameObject.Find("Canvas/Enemy").GetComponent<Health>();
+            playerHealth.takeDamage(damage);
         }
+
+        // Resets all booleans to allow attack with another card
+        attacking = false;
+        attackHelper.isAttacking = false;
+        Destroy(gameObject);
     }
 
     // Returns description of effect granted by this script

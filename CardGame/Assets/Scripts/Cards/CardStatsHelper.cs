@@ -13,7 +13,8 @@ public class CardStatsHelper : MonoBehaviour
 
     private TextMeshProUGUI statsText;  // Game object to display card stats.
 
-    private void OnEnable()
+    // Start is called before the first frame update
+    void Start()
     {
         attack = startingAttack;
         life = startingLife;
@@ -71,4 +72,15 @@ public class CardStatsHelper : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    /// <summary>
+    /// Resets card stats to default values.
+    /// </summary>
+    public void ResetStats()
+    {
+        attack = startingAttack;
+        life = startingLife;
+        changeText();
+    }
+
 }

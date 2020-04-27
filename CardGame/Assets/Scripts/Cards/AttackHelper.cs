@@ -120,7 +120,15 @@ public class AttackHelper : MonoBehaviour
     public void moveCardBackToHand(GameObject spell)
     {
         foreach (MonoBehaviour script in spell.GetComponents<MonoBehaviour>())
-            script.enabled = false;
+        {
+            if ( script.GetType().Name.ToLower().Contains("helper") ||
+                 script.GetType().Name == "OnCardDestroy" ||
+                 script.GetType().Name == "OnCardHoverInGame" )
+                script.enabled = true;
+            else
+                script.enabled = false;
+        }
+            
 
         spell.transform.localPosition = Vector3.zero;
         puzzleGameManager.addCardToHand(spell);

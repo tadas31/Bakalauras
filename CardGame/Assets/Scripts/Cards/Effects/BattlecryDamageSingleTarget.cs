@@ -11,34 +11,37 @@ public class BattlecryDamageSingleTarget : MonoBehaviour, IDescription, ISpellDa
     private int damage;                     // Amount of damage to deal.
     private bool attacking;                 // Prevents battlecry from activating multiple times.
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     private void OnEnable()
     {
-        attackHelper = GameObject.Find("Board").GetComponent<AttackHelper>();
+        if (transform.parent != null)
+        {
+            attackHelper = GameObject.Find("Board").GetComponent<AttackHelper>();
 
-        // Enables arrow drawing and sets coordinates.
-        float xPos = transform.position.x < 0 ? transform.position.x / 1.14f : transform.position.x / 1.1f;
-        float yPos = transform.position.y < 0 ? -0.6f : 3.45f;
-        attackHelper.arrowOrigin = new Vector3(xPos, yPos, 6);
-        attackHelper.arrowTarget = new Vector3(xPos, yPos, 6);
-        attackHelper.cachedLineRenderer.enabled = true;
+            // Enables arrow drawing and sets coordinates.
+            float xPos = transform.position.x < 0 ? transform.position.x / 1.14f : transform.position.x / 1.1f;
+            float yPos = transform.position.y < 0 ? -0.6f : 3.45f;
+            attackHelper.arrowOrigin = new Vector3(xPos, yPos, 6);
+            attackHelper.arrowTarget = new Vector3(xPos, yPos, 6);
+            attackHelper.cachedLineRenderer.enabled = true;
 
-        // Prevents another card to be selected to attack
-        attackHelper.isAttacking = true;
-       
-        attacking = false;
+            // Prevents another card to be selected to attack
+            attackHelper.isAttacking = true;
+
+            attacking = false;
+        }
+           
     }
 
     private void OnDisable()
     {
-        attackHelper.cachedLineRenderer.enabled = false;
-        attackHelper.isAttacking = false;
-        attacking = false;
+        if (transform.parent != null)
+        {
+            attackHelper.cachedLineRenderer.enabled = false;
+            attackHelper.isAttacking = false;
+            attacking = false;
+        }
+       
     }
 
     // Update is called once per frame
@@ -49,11 +52,11 @@ public class BattlecryDamageSingleTarget : MonoBehaviour, IDescription, ISpellDa
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(screenPoint);
         attackHelper.arrowTarget = new Vector3(mousePos.x, mousePos.y, 6);
 
-        Transform defendingCard = attackHelper.getDefendingCard(transform.GetChild(0));
-        Transform defendingPlayer = attackHelper.getDefendingPlayer();
-
         if (Input.GetMouseButtonUp(0) && !attacking)
         {
+            Transform defendingCard = attackHelper.getDefendingCard(transform.GetChild(0));
+            Transform defendingPlayer = attackHelper.getDefendingPlayer();
+
             if (defendingCard != null)
             {
                 StartCoroutine( battlecry(defendingCard, "card") );
