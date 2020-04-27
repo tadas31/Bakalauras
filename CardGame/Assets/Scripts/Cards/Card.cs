@@ -132,6 +132,7 @@ public class Card : ScriptableObject
         newCard.AddComponent<OnCardDestroy>();
         newCard.AddComponent<CardCostHelper>();
         newCard.AddComponent<CardDescriptionHelper>();
+        newCard.AddComponent<OnCardHoverInGame>();
 
         // Set starting cost
         newCard.GetComponent<CardCostHelper>().startingCost = cost;
