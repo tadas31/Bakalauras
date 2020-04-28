@@ -17,7 +17,7 @@ public class OnCardDestroy : MonoBehaviour
     // Add card to graveyard.
     private void OnDestroy()
     {
-        if (parent != null && parent.name.Contains("Hand"))
+        if (parent != null && ( parent.name.Contains("Hand") || parent.name.Contains("Player") ))
             graveyard.graveyardCards.Add(transform.GetChild(0).Find("Name").GetComponent<TextMeshProUGUI>().text);
         
         if (ClassicGameManager.instance != null)

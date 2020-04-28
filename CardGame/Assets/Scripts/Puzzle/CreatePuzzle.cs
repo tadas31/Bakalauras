@@ -37,6 +37,7 @@ public class CreatePuzzle : MonoBehaviour
             GameObject newCard = c.spawnCard();
             newCard.transform.SetParent(enemyBoard.transform);
             newCard.GetComponent<CardStatsHelper>().enabled = true;
+            newCard.GetComponent<OnCardDestroy>().enabled = false;
             newCard.transform.localScale = Vector3.one;
         }
 
