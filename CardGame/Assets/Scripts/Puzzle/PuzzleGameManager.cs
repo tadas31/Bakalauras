@@ -112,5 +112,7 @@ public class PuzzleGameManager : MonoBehaviour
         //Enables all attached scripts.
         foreach (MonoBehaviour script in card.GetComponents<MonoBehaviour>())
             script.enabled = true;
+
+        handReorganize();
     }
 }

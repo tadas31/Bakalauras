@@ -24,5 +24,7 @@ public class OnCardDestroy : MonoBehaviour
         {
             ClassicGameManager.instance.HandReorganize();
         }
+
+        OpenGraveyard.instance.UpdateCardNumberInGraveyard();
     }
 }

@@ -1,30 +1,40 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class OpenGraveyard : MonoBehaviour, IPointerClickHandler
 {
+    public static OpenGraveyard instance;
+
     public GameObject cardPrefab;               // Card prefab.
     public Sprite minionBackground;             // Minion card background.
     public Sprite spellBackground;              // Spell card background.
+    public TextMeshProUGUI cardNumberText;      // Displays number of cards in graveyard.
 
     public List<string> graveyardCards;         // List of cards in graveyard.
     public RectTransform content;               // Parent for cards in graveyard
 
     public Canvas cardsInGraveyard;             // Canvas for cards in graveyard
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(this);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         graveyardCards = new List<string>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     // Display cards in graveyard.
@@ -40,7 +50,7 @@ public class OpenGraveyard : MonoBehaviour, IPointerClickHandler
             cards.Add(Resources.Load<Card>("Cards/CreatedCards/" + c));
 
         //calculates height of content game object
-        float rows = (float)Math.Ceiling(cards.Count / 5f);
+        float rows = (float)Math.Ceiling(cards.Count / 4f);
         float height = rows == 1 ? 24 * 2 + 455 : (24 * rows + 24) + (455 * rows);
         content.sizeDelta = new Vector2(0, height);
 
@@ -59,5 +69,11 @@ public class OpenGraveyard : MonoBehaviour, IPointerClickHandler
     {
         displayCardsInGraveyard();
         cardsInGraveyard.gameObject.SetActive(true);
+    }
+
+    // Updates amount of cards in graveyard.
+    public void UpdateCardNumberInGraveyard()
+    {
+        cardNumberText.text = graveyardCards.Count.ToString();
     }
 }
