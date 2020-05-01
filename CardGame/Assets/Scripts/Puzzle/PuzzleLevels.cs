@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Assertions.Must;
 
 public class PuzzleLevels : MonoBehaviour
 {
@@ -11,8 +12,9 @@ public class PuzzleLevels : MonoBehaviour
 
     public GameObject levelButton;      // Level button prefab.
     public Transform parent;            // Parent for all buttons.
-    // Start is called before the first frame update
-    void Start()
+
+
+    void OnEnable()
     {
         levels = Resources.LoadAll<Puzzle>("Puzzle/CreatedPuzzles").ToList();
 
@@ -31,6 +33,12 @@ public class PuzzleLevels : MonoBehaviour
             }
 
         }
+    }
+
+    void OnDisable()
+    {
+        foreach (Transform level in parent.GetComponentInChildren<Transform>())
+            Destroy(level.gameObject);
     }
 
     // Update is called once per frame

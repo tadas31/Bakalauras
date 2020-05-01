@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 public static class SaveSystem
 {
-    private static readonly string DECK_PATH = Application.persistentDataPath + "/deck.dt";
-    private static readonly string PUZZLE_PATH = Application.persistentDataPath + "/puzzle.dt";
+    public static readonly string DECK_PATH = Application.persistentDataPath + "/deck.dt";
+    public static readonly string PUZZLE_PATH = Application.persistentDataPath + "/puzzle.dt";
 
     // Saves cards in deck
     public static void SaveDeck(List<DeckFormat> cardsInDeck)

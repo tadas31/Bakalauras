@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -17,6 +18,8 @@ public class Options : MonoBehaviour
     public Toggle windowModeToggle;
     public TextMeshProUGUI musicText;
     public TextMeshProUGUI effectsText;
+
+    public GameObject resetConfirmationWindow;
 
     private List<Resolution> resolutions;
 
@@ -97,5 +100,44 @@ public class Options : MonoBehaviour
         {
             windowModeToggle.isOn = true;
         }
+    }
+
+    /// <summary>
+    /// Displays confirmation window to reset deck.
+    /// </summary>
+    public void OnDeckResetPress()
+    {
+        resetConfirmationWindow.SetActive(true);
+        resetConfirmationWindow.transform.Find("ResetSaveBackground/Title").GetComponent<TextMeshProUGUI>().text = "Reset deck?";
+    }
+
+    /// <summary>
+    /// Displays confirmation window to reset puzzle levels.
+    /// </summary>
+    public void OnLevelResetPress()
+    {
+        resetConfirmationWindow.SetActive(true);
+        resetConfirmationWindow.transform.Find("ResetSaveBackground/Title").GetComponent<TextMeshProUGUI>().text = "Reset levels?";
+    }
+
+    /// <summary>
+    /// Resets selected data.
+    /// </summary>
+    public void OnResetConfirmPress()
+    {
+        if (resetConfirmationWindow.transform.Find("ResetSaveBackground/Title").GetComponent<TextMeshProUGUI>().text.ToLower().Contains("deck"))
+            File.Delete(SaveSystem.DECK_PATH);
+        else
+            File.Delete(SaveSystem.PUZZLE_PATH);
+
+        resetConfirmationWindow.SetActive(false);
+    }
+
+    /// <summary>
+    /// Cancels data reset.
+    /// </summary>
+    public void OnResetCancellPress()
+    {
+        resetConfirmationWindow.SetActive(false);
     }
 }
