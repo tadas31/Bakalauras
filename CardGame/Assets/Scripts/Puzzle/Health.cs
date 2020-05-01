@@ -10,7 +10,7 @@ public class Health : MonoBehaviour
     public int health
     {
         get { return _health; }
-        set { _health = value; }
+        set { _health = value; displayHealth(); }
     }
     private int _health;
 

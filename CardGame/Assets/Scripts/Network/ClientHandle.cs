@@ -112,4 +112,20 @@ public class ClientHandle : MonoBehaviour
 
         ClassicGameManager.instance.Attack(_clientFrom, _from, _fromLife, _to, _toLife);
     }
+    
+    /// <summary>
+    /// Reads attack player package and calls the appropriate method.
+    /// </summary>
+    public static void AttackPlayer(Packet _packet)
+    {
+
+        int _clientFrom = _packet.ReadInt();
+        int _clientTo = _packet.ReadInt();
+        string _from = _packet.ReadString();
+        int _toLife = _packet.ReadInt();
+
+        Debug.Log($"Attacking from client {_clientFrom} {_from} to {_clientTo}");
+
+        ClassicGameManager.instance.AttackPlayer(_clientFrom, _clientFrom, _from, _toLife);
+    }
 }

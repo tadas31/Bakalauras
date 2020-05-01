@@ -18,7 +18,8 @@ public enum ServerPackets
     setMaxMana,
     attack,
     setEnemyCardCount,
-    pulledCard
+    pulledCard,
+    attackPlayer
 }
 
 /// <summary>Sent from client to server.</summary>

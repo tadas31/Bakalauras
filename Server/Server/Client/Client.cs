@@ -150,7 +150,7 @@ namespace Server
         public void SendIntoGame(string _username, string _deck)
         {
             player = new Player(id, _username, _deck);
-
+            //Send the player to all other players to be spawned.
             foreach (Client _client in Server.clients.Values)
             {
                 if (_client.player != null)
@@ -162,10 +162,14 @@ namespace Server
                     }
                 }
             }
+            //Spawn all of the players to newly connected player.
             foreach (Client _client in Server.clients.Values)
             {
                 if (_client.player != null)
                 {
+                    //Add enemy client if it is not this instance.
+                    if(_client.id != id)
+                        _client.enemyClient = this;
                     ServerSend.SpawnPlayer(_client.id, player);
                 }
             }
@@ -234,12 +238,6 @@ namespace Server
                 return;
             }
 
-            if (enemyClient == null)
-            {
-                //Something wrong. Maybe there is no need for this part of the code.
-                return;
-            }
-
             //Get the card that with the card that you are attacking
             if (player.table.IsInDeck(_attackFrom))
             {
@@ -273,10 +271,12 @@ namespace Server
         /// <param name="_attackTo">The object that is attacked from</param>
         public void CardAttack( string _attackFrom, string _attackTo) 
         { 
-           
+           //Check is it id.
             int n = -1;
             bool isNumeric = int.TryParse(_attackTo, out n);
+            //Get the card form which the player is attacking.
             Card _attackFromCard = player.table.GetCard(_attackFrom);
+
             //If the card is attacking players health points
             if (isNumeric && enemyClient.id == n)
             {
