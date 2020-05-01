@@ -9,14 +9,12 @@ public class PlayerManager : MonoBehaviour
     public string username;
     public int life 
     { 
-        get { return _life; } 
+        get { return this.GetComponent<Health>().health; } 
         set 
         {
-            _life = value;
-            transform.Find("Health/ValueBackground/Value").GetComponent<TextMeshProUGUI>().text = _life.ToString();
+            this.GetComponent<Health>().health = value;
         } 
     }
-    private int _life;
     public int mana
     {
         get { return _mana; }

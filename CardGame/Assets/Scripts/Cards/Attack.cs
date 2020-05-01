@@ -51,9 +51,11 @@ public class Attack : MonoBehaviour, IPointerClickHandler
 
             if (Input.GetMouseButtonUp(0) && selectingCardToAttack && !attackStarted)
             {
+                attackingCard = transform.GetChild(0);
                 Transform defending = attackHelper.getDefendingCard(attackingCard);
                 Transform defendingPlayer = attackHelper.getDefendingPlayer();
 
+                //If it is in puzzle game mode.
                 if (GameObject.Find("ClientManager") == null)
                 {
                     if (defending != null)
@@ -61,16 +63,17 @@ public class Attack : MonoBehaviour, IPointerClickHandler
                     else if ( defendingPlayer != null)
                         StartCoroutine( attack(defendingPlayer, "player") );
                 }
+                //If it is classic game mode.
                 else
                 {
-                    if (defending.gameObject.name == "AttackPlayer")
-                    {
-                        int id = defending.parent.GetComponent<PlayerManager>().id;
-                        ClientSend.Attack(this.gameObject.name, id.ToString());
-                    }
-                    else
-                    {
+                    //If the card is attacking another card.
+                    if (defending != null)
                         ClientSend.Attack(this.gameObject.name, defending.parent.gameObject.name);
+                    //If the player is attacking player.
+                    else if (defendingPlayer != null)
+                    {
+                        int id = defendingPlayer.parent.GetComponent<PlayerManager>().id;
+                        ClientSend.Attack(this.gameObject.name, id.ToString());
                     }
                 }
             }
@@ -106,7 +109,49 @@ public class Attack : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void AttackAnimation(Transform defendingCard)
+    public void AttackAnimationToPlayer(Health playerHealth)
+    {
+        IEnumerator corountine = attackAnimationToPlayer(playerHealth);
+        StartCoroutine(corountine);
+    }
+
+    private IEnumerator attackAnimationToPlayer(Health playerHealth) 
+    {
+        startPos = this.transform.position;
+        attackingCard = this.transform;
+        //If the player health was taken.
+        if (playerHealth.transform.name == "Player")
+        {
+            this.defending = GameObject.Find("Board/AttackPlayer/Player").transform;
+        }
+        //If enemy health was taken.
+        else
+        {
+            this.defending = GameObject.Find("Board/AttackPlayer/Enemy").transform;
+        }
+        
+        attackStarted = true;
+        attackHelper.cachedLineRenderer.enabled = false;
+
+        // Waits for attacking card to move to defending card.
+        moveForward = true;
+        while (moveForward)
+            yield return null;
+
+        CardStatsHelper attackingCardStats = GetComponent<CardStatsHelper>();
+        playerHealth.takeDamage(attackingCardStats.getAttack());
+
+        moveBack = true;
+        while (moveBack)
+        {
+            yield return null;
+        }
+        // Marks card as attacked this turn
+        attacked = true;
+        attackStarted = false;
+    }
+
+    public void AttackAnimationToCard(Transform defendingCard)
     {
         IEnumerator corountine = attackAnimation(defendingCard.GetChild(0));
         StartCoroutine(corountine);
@@ -118,7 +163,6 @@ public class Attack : MonoBehaviour, IPointerClickHandler
         // Deals and receives damage.
         if (defendingCard != null)
         {
-            attackingCard = transform.GetChild(0);
             this.defending = defendingCard;
             startPos = this.transform.position;
 
@@ -190,8 +234,6 @@ public class Attack : MonoBehaviour, IPointerClickHandler
                 break;
             }
         }
-
-        attackingCard = transform.GetChild(0);
 
         // Get defending card.
         this.defending = defending;

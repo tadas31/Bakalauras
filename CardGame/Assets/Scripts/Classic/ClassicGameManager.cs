@@ -114,7 +114,31 @@ public class ClassicGameManager : MonoBehaviour
         Debug.Log(attackingCard);
         Debug.Log(defendingCard);
 
-        attackingCard.GetComponent<Attack>().AttackAnimation(defendingCard);
+        attackingCard.GetComponent<Attack>().AttackAnimationToCard(defendingCard);
+    }
+
+    /// <summary>
+    /// Attacks player with some of the cards.
+    /// </summary>
+    /// <param name="_clientFrom">The client that is attacking.</param>
+    /// <param name="_clientTo">The client that is attacked.</param>
+    /// <param name="_from">With what card is attacked</param>
+    /// <param name="_toLife">The life that is of enemy players</param>
+    public void AttackPlayer(int _clientFrom, int _clientTo, string _from, int _toLife) 
+    {
+        Transform attackingCard;
+        Health playerHealth;
+        if (Client.instance.myId == _clientFrom)
+        {
+            attackingCard = playerBoard.transform.Find(_from);
+            playerHealth = GameObject.Find("Canvas/Enemy").GetComponent<Health>();
+        }
+        else
+        {
+            attackingCard = enemyBoard.transform.Find(_from);
+            playerHealth = GameObject.Find("Canvas/Player").GetComponent<Health>();
+        }
+        attackingCard.GetComponent<Attack>().AttackAnimationToPlayer(playerHealth);
     }
 
     public void PutOnTable(string _cardName, bool _isPlayers)
