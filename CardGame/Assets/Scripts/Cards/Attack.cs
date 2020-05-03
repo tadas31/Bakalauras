@@ -20,14 +20,20 @@ public class Attack : MonoBehaviour, IPointerClickHandler
     private bool moveBack;                  // True when card goes back to it's position
     private Vector3 startPos;               // Cards starting position.
 
+    private GameObject glow;                // Game object that adds glow to the card.
+
     Transform attackingCard;                // Transform of attacking card.
-    Transform defending;                // Transform of defending card.
+    Transform defending;                    // Transform of defending card.
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         speed = 8f;
         attackHelper = GameObject.Find("Board").GetComponent<AttackHelper>();
+        glow = transform.GetChild(0).Find("Glow").gameObject;
+        glow.SetActive(true);
         attacking = false;
         selectingCardToAttack = false;
         attacked = false;
@@ -76,6 +82,15 @@ public class Attack : MonoBehaviour, IPointerClickHandler
                         ClientSend.Attack(this.gameObject.name, id.ToString());
                     }
                 }
+
+                // Cancel attack
+                if (defending == null && defendingPlayer == null)
+                {
+                    attacking = false;
+                    attackHelper.cachedLineRenderer.enabled = false;
+                    attackHelper.isAttacking = false;
+                }
+                    
             }
             selectingCardToAttack = true;
         }
@@ -129,7 +144,9 @@ public class Attack : MonoBehaviour, IPointerClickHandler
         {
             this.defending = GameObject.Find("Board/AttackPlayer/Enemy").transform;
         }
-        
+
+        glow.SetActive(false);
+
         attackStarted = true;
         attackHelper.cachedLineRenderer.enabled = false;
 
@@ -163,6 +180,8 @@ public class Attack : MonoBehaviour, IPointerClickHandler
         // Deals and receives damage.
         if (defendingCard != null)
         {
+            glow.SetActive(false);
+
             this.defending = defendingCard;
             startPos = this.transform.position;
 
@@ -245,6 +264,8 @@ public class Attack : MonoBehaviour, IPointerClickHandler
         // Deals and receives damage.
         if (this.defending != null && canAttack)
         {
+            glow.SetActive(false);
+
             startPos = attackingCard.position;
 
             attackStarted = true;
@@ -300,9 +321,6 @@ public class Attack : MonoBehaviour, IPointerClickHandler
                     yield return null;
                 }
             }
-
-            
-           
 
             // Marks card as attacked this turn
             attacked = true;

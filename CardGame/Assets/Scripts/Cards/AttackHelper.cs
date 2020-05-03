@@ -98,7 +98,6 @@ public class AttackHelper : MonoBehaviour
         foreach (RaycastResult result in results)
         {
             string name = result.gameObject.transform.name.ToLower();
-            Debug.Log(name);
             if (name == "attackplayer")
             {
                 return result.gameObject.transform;
