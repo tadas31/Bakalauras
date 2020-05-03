@@ -17,14 +17,12 @@ MonoBehaviour:
   playerLife: 30
   playerMana: 20
   enemyCards:
-  - Goblin
+  - Protector tree
   - Goblin
   - Goblin 8
   playerCards:
   - Arcane explosion
-  - Spell 1
-  - Fire ball
+  - Rat
+  - Water spirit
   - Goblin
   - Fire storm
-  - Goblin 3
-  - Goblin 2
