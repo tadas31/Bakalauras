@@ -18,6 +18,7 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         string _username = _packet.ReadString();
+        _username = _username.Remove(_username.Length - 1);
 
         ClassicGameManager.instance.SpawnPlayer(_id,_username);
     }
