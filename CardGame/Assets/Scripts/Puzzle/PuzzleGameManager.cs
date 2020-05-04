@@ -41,7 +41,10 @@ public class PuzzleGameManager : MonoBehaviour
         }
     }
 
-
+    public void OnResumePress()
+    {
+        pauze.SetActive(false);
+    }
 
     //Adds card to the hand of the player
     public void addCardToHand(GameObject addedCard) 
