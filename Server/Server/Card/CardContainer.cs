@@ -93,7 +93,6 @@ namespace Server
             return tmp;
         }
 
-        
 
         public bool IsInDeck(string _cardName) 
         {
@@ -110,6 +109,22 @@ namespace Server
         public int CardCount()
         {
             return deck.Count;
+        }
+
+        /// <summary>
+        /// Deals damage to all of the cards in array. If life of the card is 0 or less removes from container.
+        /// </summary>
+        /// <param name="damage">Damage count</param>
+        public void DamageAllCards(int damage)
+        {
+            foreach (Card _card in deck)
+            {
+                _card.life -= damage;
+                if (_card.life <= 0) 
+                {
+                    deck.Remove(_card);
+                }
+            }
         }
     }
 }

@@ -210,6 +210,29 @@ namespace Server
             if (player.HasInHand(_cardName) && player.HasEnoughMana(_cardName) && player.isTurn)
             {
                 Console.WriteLine($"Putting a {_cardName} card to player's {id}");
+                
+                //If the card is a spell.
+                Card _putCard = player.hand.GetCard(_cardName);
+                if (_putCard.type.ToLower().Contains("spell"))
+                {
+                    foreach (string item in _putCard.scripts)
+                    {
+                        if (item.ToLower().Contains("damageallcards"))
+                        {
+                            DamageAllEnemies(_putCard.attack);
+                            DamageAllMyCards(_putCard.attack);
+                        }
+                        else if (item.ToLower().Contains("damageallenemies"))
+                        {
+                            DamageAllEnemies(_putCard.attack);
+                        }
+                        //Add other spells.
+                        else if (false) 
+                        { 
+                        }
+                    }
+                }
+
                 player.PutOnTable(_cardName);
                 ServerSend.PutCardOnTable(id, true, _cardName);
                 ServerSend.SetMana(id, player.mana);
@@ -229,6 +252,15 @@ namespace Server
             //TODO: Can be that it is returned to the client that something is not okey. ???
         }
 
+        public void DamageAllMyCards(int damage) 
+        {
+            player.DamagePlayersTableCards(damage);
+        }
+
+        public void DamageAllEnemies(int damage)
+        {
+            enemyClient.DamageAllMyCards(damage);
+        }
 
         public void Attack(string _attackFrom, string _attackTo)
         {

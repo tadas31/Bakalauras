@@ -87,5 +87,10 @@ namespace Server
         {
             return hand.CardCount();
         }
+
+        public void DamagePlayersTableCards(int damage) 
+        {
+            table.DamageAllCards(damage);
+        }
     }
 }
