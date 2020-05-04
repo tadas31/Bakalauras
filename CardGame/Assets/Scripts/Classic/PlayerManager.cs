@@ -6,7 +6,17 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     public int id;
-    public string username;
+    public string username
+    {
+        get { return _username; }
+        set
+        {
+            _username = value;
+            transform.Find("Username").GetComponent<TextMeshProUGUI>().text = _username;
+        }
+    }
+    private string _username;
+
     public int life 
     { 
         get { return this.GetComponent<Health>().health; } 

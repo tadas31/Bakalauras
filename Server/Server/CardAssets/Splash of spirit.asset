@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8075f5c689ce929458b1aa47046be16b, type: 3}
-  m_Name: Spell 2
+  m_Name: Splash of spirit
   m_EditorClassIdentifier: 
-  cardName: Spell 2
-  description: the new new
+  cardName: Splash of spirit
   cost: 5
-  image: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  image: {fileID: 21300000, guid: 4303db6ee011f444e8ae8635e4dd48e9, type: 3}
   type: Spell
+  spellDamage: 0
   attack: 0
   life: 0
+  scripts:
+  - ResetAttack

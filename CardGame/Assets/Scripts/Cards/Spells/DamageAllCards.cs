@@ -22,12 +22,6 @@ public class DamageAllCards : MonoBehaviour, IDescription, ISpellDamage
         StartCoroutine("castSpell");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     /// <summary>
     /// Casts spell
     /// </summary>

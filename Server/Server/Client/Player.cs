@@ -67,7 +67,10 @@ namespace Server
         {
             Card _card = hand.PullCard(_cardName);
             mana -= _card.cost;
-            table.AddToDeck(_card);
+            if (!_card.type.ToLower().Contains("spell"))
+            {
+                table.AddToDeck(_card);
+            }
         }
 
         public void AddMaxMana()
