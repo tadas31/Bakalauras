@@ -2586,6 +2586,7 @@ MonoBehaviour:
     type: 3}
   minionBackground: {fileID: 21300000, guid: d7970a18efb33c7458a2d219824283ce, type: 3}
   spellBackground: {fileID: 21300000, guid: 46791eb835cc99d47a394086e575cce6, type: 3}
+  cardNumberText: {fileID: 0}
   graveyardCards: []
   content: {fileID: 0}
   cardsInGraveyard: {fileID: 0}
@@ -3454,6 +3455,7 @@ MonoBehaviour:
     type: 3}
   minionBackground: {fileID: 21300000, guid: d7970a18efb33c7458a2d219824283ce, type: 3}
   spellBackground: {fileID: 21300000, guid: 46791eb835cc99d47a394086e575cce6, type: 3}
+  cardNumberText: {fileID: 1558445906}
   graveyardCards: []
   content: {fileID: 0}
   cardsInGraveyard: {fileID: 0}
@@ -4976,6 +4978,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1200715463}
   m_CullTransparentMesh: 0
+--- !u!1 &1238946935
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1238946936}
+  m_Layer: 5
+  m_Name: DisplayHoverCard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1238946936
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238946935}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1652787399}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1261719776
 GameObject:
   m_ObjectHideFlags: 0
