@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Goblin 8
   cost: 8
-  image: {fileID: 21300000, guid: ae7f0d80a6ef7144f8926162c85f7697, type: 3}
+  image: {fileID: 21300000, guid: ba5e96a399f29b94582db096dbb973aa, type: 3}
   type: Minion
   spellDamage: 0
   attack: 1

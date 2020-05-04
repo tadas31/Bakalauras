@@ -12,7 +12,14 @@ public class Attack : MonoBehaviour, IPointerClickHandler
 
     private bool attacking;                 // If card is selected to attack true else false.
     private bool selectingCardToAttack;     // If player is selecting card to attack true else false.
-    private bool attacked;                  // If card has attacked true else false.
+
+    public bool attacked
+    {
+        get { return _attacked; }
+        set { _attacked = value; }
+    }
+    private bool _attacked;                 // If card has attacked true else false.
+
     private bool attackStarted;             // If defending card is found and attacking card started attacking true else false.
     private AttackHelper attackHelper;      // Reference to attack helper script.
 
@@ -33,10 +40,9 @@ public class Attack : MonoBehaviour, IPointerClickHandler
         speed = 8f;
         attackHelper = GameObject.Find("Board").GetComponent<AttackHelper>();
         glow = transform.GetChild(0).Find("Glow").gameObject;
-        glow.SetActive(true);
         attacking = false;
         selectingCardToAttack = false;
-        attacked = false;
+        _attacked = true;
         attackStarted = false;
 
         moveForward = false;
@@ -96,6 +102,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
         }
 
         movement();
+        glow.SetActive(!_attacked);
 
     }
 
@@ -106,7 +113,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
     /// <param name="eventData"></param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!attacked && !attackHelper.isAttacking)
+        if (!_attacked && !attackHelper.isAttacking)
         {
             // Selects card for attacking.
             attacking = true;
@@ -145,8 +152,6 @@ public class Attack : MonoBehaviour, IPointerClickHandler
             this.defending = GameObject.Find("Board/AttackPlayer/Enemy").transform;
         }
 
-        glow.SetActive(false);
-
         attackStarted = true;
         attackHelper.cachedLineRenderer.enabled = false;
 
@@ -164,7 +169,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
             yield return null;
         }
         // Marks card as attacked this turn
-        attacked = true;
+        _attacked = true;
         attackStarted = false;
     }
 
@@ -180,7 +185,6 @@ public class Attack : MonoBehaviour, IPointerClickHandler
         // Deals and receives damage.
         if (defendingCard != null)
         {
-            glow.SetActive(false);
 
             this.defending = defendingCard;
             startPos = this.transform.position;
@@ -229,7 +233,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
             defendingCardStats.checkIfSitllAlive();
 
             // Marks card as attacked this turn
-            attacked = true;
+            _attacked = true;
             attackStarted = false;
         }
     }
@@ -264,7 +268,6 @@ public class Attack : MonoBehaviour, IPointerClickHandler
         // Deals and receives damage.
         if (this.defending != null && canAttack)
         {
-            glow.SetActive(false);
 
             startPos = attackingCard.position;
 
@@ -323,7 +326,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
             }
 
             // Marks card as attacked this turn
-            attacked = true;
+            _attacked = true;
             attackStarted = false;
         }
 
