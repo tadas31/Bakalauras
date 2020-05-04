@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ClassicGameManager : MonoBehaviour
@@ -143,22 +144,49 @@ public class ClassicGameManager : MonoBehaviour
 
     public void PutOnTable(string _cardName, bool _isPlayers)
     {
+
         Card card = Resources.Load<Card>("Cards/CreatedCards/" + _cardName);
         GameObject cardTable = card.spawnCard();
         if (_isPlayers)
         {
-            cardTable.transform.SetParent(playerBoard.transform);
-            cardTable.transform.localScale = Vector3.one;
-            cardTable.GetComponent<Attack>().enabled = true;
-            cardTable.GetComponent<CardStatsHelper>().enabled = true;
+            if (cardTable.transform.GetChild(0).Find("Type").GetComponent<TextMeshProUGUI>().text.ToLower().Contains("spell"))
+            {
+                //Changes the parent of the card to spells.
+                GameObject spells = GameObject.Find("Spells");
+                cardTable.transform.SetParent(spells.transform);
+                cardTable.transform.localScale = Vector3.one;
+            }
+            else
+            {
+                cardTable.transform.SetParent(playerBoard.transform);
+                cardTable.transform.localScale = Vector3.one;
+                cardTable.GetComponent<Attack>().enabled = true;
+                cardTable.GetComponent<CardStatsHelper>().enabled = true;
+            }
             RemoveCardFromHand(_cardName);
+            //Enables all attached scripts.
+            foreach (MonoBehaviour script in cardTable.GetComponents<MonoBehaviour>())
+                script.enabled = true;
         }
         else
         {
-            cardTable.transform.SetParent(enemyBoard.transform);
-            cardTable.GetComponent<Attack>().enabled = true;
-            cardTable.GetComponent<CardStatsHelper>().enabled = true;
-            cardTable.transform.localScale = Vector3.one;
+            if (cardTable.transform.GetChild(0).Find("Type").GetComponent<TextMeshProUGUI>().text.ToLower().Contains("spell"))
+            {
+                //Changes the parent of the card to spells.
+                GameObject spells = GameObject.Find("SpellsEnemy");
+                cardTable.transform.SetParent(spells.transform);
+                cardTable.transform.localScale = Vector3.one;
+                //Enables all attached scripts.
+                foreach (MonoBehaviour script in cardTable.GetComponents<MonoBehaviour>())
+                    script.enabled = true;
+            }
+            else
+            {
+                cardTable.transform.SetParent(enemyBoard.transform);
+                cardTable.GetComponent<Attack>().enabled = true;
+                cardTable.GetComponent<CardStatsHelper>().enabled = true;
+                cardTable.transform.localScale = Vector3.one;
+            }
         }
     }
 

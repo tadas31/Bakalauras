@@ -21,20 +21,21 @@ public class DamageAllEnemies : MonoBehaviour, IDescription, ISpellDamage
         StartCoroutine("castSpell");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-           
-    }
-
     /// <summary>
     /// Casts spell
     /// </summary>
     /// <returns></returns>
     private IEnumerator castSpell()
     {
-
-        List<Transform> enemyCards = attackHelper.getAllEnemyCards();
+        List<Transform> enemyCards;
+        if (transform.parent.name == "Spells")
+        {
+            enemyCards = attackHelper.getAllEnemyCards();
+        }
+        else
+        {
+            enemyCards = attackHelper.getAllPlayerCards();
+        }
 
         foreach (Transform card in enemyCards)
         {
