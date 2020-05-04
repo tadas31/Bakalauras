@@ -15,6 +15,7 @@ public class ClassicGameManager : MonoBehaviour
     //TODO: Maybe change that the localPLayer and enemy prefabs would be spawned as board elements.
     public GameObject playerBoard;
     public GameObject enemyBoard;
+    public TextMeshProUGUI deckCount;
     private void Awake()
     {
         if (instance == null)
@@ -95,6 +96,11 @@ public class ClassicGameManager : MonoBehaviour
                 item.maxMana = _amount;
             }
         }
+    }
+
+    public void SetDeckCardCount(int _count)
+    {
+        deckCount.text = _count.ToString();
     }
 
     public void Attack(int _clientFrom, string _from, int _fromLife, string _to, int _toLife)

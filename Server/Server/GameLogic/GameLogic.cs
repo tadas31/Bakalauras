@@ -121,6 +121,7 @@ namespace Server
                 {
                     Console.WriteLine($"Sending message to add cards to hand for {_client.id}.");
                     ServerSend.PullStartingCards(_client.id, _client.player.PullStartingCards());
+                    _client.SendDeckCount();
                 }
             }
         }

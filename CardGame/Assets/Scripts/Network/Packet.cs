@@ -19,7 +19,8 @@ public enum ServerPackets
     attack,
     setEnemyCardCount,
     pulledCard,
-    attackPlayer
+    attackPlayer,
+    deckCount
 }
 
 /// <summary>Sent from client to server.</summary>

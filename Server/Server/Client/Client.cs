@@ -200,9 +200,15 @@ namespace Server
             ServerSend.SetMaxMana(id, player.maxMana);
         }
 
+        public void SendDeckCount()
+        {
+            ServerSend.SetDeckCount(id, player.deck.CardCount());
+        }
+
         public void SendPulledCard()
         {
             ServerSend.PulledCard(id, player.PullCardToHand().cardName);
+            SendDeckCount();
         }
 
         public void PutCardOnTable(string _cardName)

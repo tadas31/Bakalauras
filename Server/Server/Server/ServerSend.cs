@@ -118,6 +118,21 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Set the remaining cards in the player card.
+        /// </summary>
+        /// <param name="_toClient">The client's id</param>
+        /// <param name="count">The amount of cards</param>
+        public static void SetDeckCount(int _toClient, int _count)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.deckCount))
+            {
+                _packet.Write(_count);
+
+                SendTCPData(_toClient, _packet);
+            }
+        }
+
         public static void PulledCard(int _toClient, string _cardName)
         {
             using (Packet _packet = new Packet((int)ServerPackets.pulledCard))
