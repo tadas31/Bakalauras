@@ -14,6 +14,7 @@ namespace Server
         public int attack;                  // Card's attack.
         public int life;                    // Card's life.
         public List<string> scripts;        // Names list of scripts needed for card.
+        public bool canAttack = false;
 
         public Card(string _cardName)
         {

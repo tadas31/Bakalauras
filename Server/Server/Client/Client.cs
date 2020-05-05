@@ -200,9 +200,15 @@ namespace Server
             ServerSend.SetMaxMana(id, player.maxMana);
         }
 
+        public void SendDeckCount()
+        {
+            ServerSend.SetDeckCount(id, player.deck.CardCount());
+        }
+
         public void SendPulledCard()
         {
             ServerSend.PulledCard(id, player.PullCardToHand().cardName);
+            SendDeckCount();
         }
 
         public void PutCardOnTable(string _cardName)
@@ -250,6 +256,11 @@ namespace Server
                 }
             }
             //TODO: Can be that it is returned to the client that something is not okey. ???
+        }
+
+        public void TableCardsCanAttack(bool _canAttack)
+        {
+            player.TableCardsCanAttack(_canAttack);
         }
 
         public void DamageAllMyCards(int damage) 
@@ -309,6 +320,12 @@ namespace Server
             //Get the card form which the player is attacking.
             Card _attackFromCard = player.table.GetCard(_attackFrom);
 
+            //Can the card attack.
+            if (!_attackFromCard.canAttack)
+            {
+                return;
+            }
+
             //If the card is attacking players health points
             if (isNumeric && enemyClient.id == n)
             {
@@ -321,6 +338,7 @@ namespace Server
                 DealDamageTo(_attackToCard.attack, _attackFrom);
                 ServerSend.Attack(id, _attackFrom, _attackFromCard.life, _attackTo, _attackToCard.life);
             }
+            _attackFromCard.canAttack = false;
         }
 
         public Card DealDamageTo(int _amount, string _to)
@@ -329,8 +347,11 @@ namespace Server
             {
                 Card minion = player.table.GetCard(_to);
                 minion.life -= _amount;
+                if (minion.life <= 0)
+                {
+                    player.graveYard.AddToDeck(player.table.PullCard(minion.cardName));
+                }
                 return minion;
-                //TODO: Maybe need to send to all of the cards that it died.
             }
             return null;
         }

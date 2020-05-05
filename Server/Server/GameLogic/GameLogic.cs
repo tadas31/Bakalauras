@@ -48,6 +48,7 @@ namespace Server
                 if (_client.player != null)
                 {
                     _client.player.isTurn = !_client.player.isTurn;
+                    _client.TableCardsCanAttack(_client.player.isTurn);
                 }
             }
         }
@@ -121,6 +122,7 @@ namespace Server
                 {
                     Console.WriteLine($"Sending message to add cards to hand for {_client.id}.");
                     ServerSend.PullStartingCards(_client.id, _client.player.PullStartingCards());
+                    _client.SendDeckCount();
                 }
             }
         }

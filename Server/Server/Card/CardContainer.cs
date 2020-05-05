@@ -106,6 +106,18 @@ namespace Server
             return false;
         }
 
+        /// <summary>
+        /// Sets cards in this container with a _canAttack variable
+        /// </summary>
+        /// <param name="_canAttack">The value</param>
+        public void SetCardsCanAttack(bool _canAttack)
+        {
+            foreach (Card _card in deck)
+            {
+                _card.canAttack = _canAttack;
+            }
+        }
+
         public int CardCount()
         {
             return deck.Count;

@@ -73,6 +73,14 @@ public class ClientHandle : MonoBehaviour
         ClassicGameManager.instance.SetMaxMana(_toClient, _maxMana);
     }
 
+    public static void SetDeckCount(Packet _packet)
+    {
+        int _deckCount = _packet.ReadInt();
+        Debug.Log($"Setting the card count left in the deck");
+
+        ClassicGameManager.instance.SetDeckCardCount(_deckCount);
+    }
+
     public static void PutCardOnTable(Packet _packet)
     {
         bool _isPlayers = _packet.ReadBool();

@@ -27,6 +27,7 @@ public class OpenGraveyard : MonoBehaviour, IPointerClickHandler
         }
         else if (instance != this)
         {
+            Debug.Log("Destroying opengraveyard class");
             Destroy(this);
         }
     }
@@ -35,6 +36,12 @@ public class OpenGraveyard : MonoBehaviour, IPointerClickHandler
     void Start()
     {
         graveyardCards = new List<string>();
+    }
+
+
+    void OnDestroy()
+    {
+        Debug.Log("Destroyed");
     }
 
     // Display cards in graveyard.
