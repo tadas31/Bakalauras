@@ -99,7 +99,7 @@ public class BattlecryDamageSingleTarget : MonoBehaviour, IDescription, ISpellDa
             playerHealth.takeDamage(damage);
         }
 
-        GetComponent<BattlecryDamageSingleTarget>().enabled = false;
+        enabled = false;
     }
 
     // Returns description of effect granted by this script
