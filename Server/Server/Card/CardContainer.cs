@@ -129,13 +129,19 @@ namespace Server
         /// <param name="damage">Damage count</param>
         public void DamageAllCards(int damage)
         {
+            List<Card> deadCards = new List<Card>();
             foreach (Card _card in deck)
             {
                 _card.life -= damage;
                 if (_card.life <= 0) 
                 {
-                    deck.Remove(_card);
+                    deadCards.Add(_card);
                 }
+            }
+
+            foreach (Card _card in deadCards)
+            {
+                deck.Remove(_card);
             }
         }
     }
