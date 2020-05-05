@@ -73,6 +73,10 @@ namespace Server
             }
         }
 
+        public void TableCardsCanAttack(bool _canAttack)
+        {
+            table.SetCardsCanAttack(_canAttack);
+        }
         public void AddMaxMana()
         {
             if (maxMana < Constants.MAX_MANA)

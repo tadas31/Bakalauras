@@ -2698,7 +2698,6 @@ GameObject:
   - component: {fileID: 437801919}
   - component: {fileID: 437801922}
   - component: {fileID: 437801921}
-  - component: {fileID: 437801920}
   m_Layer: 5
   m_Name: Graveyard
   m_TagString: Untagged
@@ -2725,26 +2724,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.000061035156, y: 0}
   m_SizeDelta: {x: 170.67, y: 237.33}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &437801920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 437801918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62435aecbf9272148af73fb2ad7d463a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardPrefab: {fileID: 2382603466189886817, guid: 5487001392c301e4dbfb3109cb33548e,
-    type: 3}
-  minionBackground: {fileID: 21300000, guid: d7970a18efb33c7458a2d219824283ce, type: 3}
-  spellBackground: {fileID: 21300000, guid: 46791eb835cc99d47a394086e575cce6, type: 3}
-  cardNumberText: {fileID: 0}
-  graveyardCards: []
-  content: {fileID: 0}
-  cardsInGraveyard: {fileID: 0}
 --- !u!114 &437801921
 MonoBehaviour:
   m_ObjectHideFlags: 0

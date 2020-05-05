@@ -188,6 +188,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
 
             this.defending = defendingCard;
             startPos = this.transform.position;
+            attackingCard = this.transform.GetChild(0);
 
             attackStarted = true;
 
@@ -236,6 +237,11 @@ public class Attack : MonoBehaviour, IPointerClickHandler
             _attacked = true;
             attackStarted = false;
         }
+        attacking = false;
+        selectingCardToAttack = false;
+
+        attackHelper.cachedLineRenderer.enabled = false;
+        attackHelper.isAttacking = false;
     }
 
     /// <summary>

@@ -159,4 +159,24 @@ public class AttackHelper : MonoBehaviour
 
         return cards;
     }
+
+    public void SetPlayersCardsToAttack()
+    {
+        List<Transform> cards = getAllPlayerCards();
+        foreach (Transform item in cards)
+        {
+            item.GetComponentInParent<Attack>().attacked = false;
+        }
+    }
+
+    public void SetPlayersCardsToNotAttack()
+    {
+        List<Transform> cards = getAllPlayerCards();
+        foreach (Transform item in cards)
+        {
+            Debug.Log(item.name);
+            item.GetComponentInParent<Attack>().attacked = true;
+        }
+    }
+
 }

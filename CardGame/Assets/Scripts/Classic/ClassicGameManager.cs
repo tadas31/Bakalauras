@@ -63,6 +63,15 @@ public class ClassicGameManager : MonoBehaviour
     public void SetTurn(bool _isTurn)
     {
         curPlayer.isTurn = _isTurn;
+        //Changes if the card can attack or cannot.
+        if (_isTurn)
+        {
+            playerBoard.GetComponentInParent<AttackHelper>().SetPlayersCardsToAttack();
+        }
+        else 
+        {
+            playerBoard.GetComponentInParent<AttackHelper>().SetPlayersCardsToNotAttack();
+        }
     }
 
     public void SetLife(int _clientId, int _amount)

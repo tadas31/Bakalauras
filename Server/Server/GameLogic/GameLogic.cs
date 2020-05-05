@@ -48,6 +48,7 @@ namespace Server
                 if (_client.player != null)
                 {
                     _client.player.isTurn = !_client.player.isTurn;
+                    _client.TableCardsCanAttack(_client.player.isTurn);
                 }
             }
         }
