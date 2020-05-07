@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8075f5c689ce929458b1aa47046be16b, type: 3}
-  m_Name: Spell 4
+  m_Name: Phoenix
   m_EditorClassIdentifier: 
-  cardName: Spell 4
-  description: the new new
-  cost: 1
-  image: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  type: Spell
-  attack: 0
-  life: 0
+  cardName: Phoenix (get copy on death)
+  cost: 3
+  image: {fileID: 21300000, guid: 7134c86e582c5e541b9af349de9534eb, type: 3}
+  type: Minion
+  spellDamage: 0
+  attack: 3
+  life: 4
+  scripts: []

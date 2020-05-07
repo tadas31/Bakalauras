@@ -20,4 +20,4 @@ MonoBehaviour:
   attack: 2
   life: 3
   scripts:
-  - Charge
+  - BattlecrySummonCopy

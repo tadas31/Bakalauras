@@ -115,7 +115,7 @@ public class SingleTargetDamage : MonoBehaviour, IDescription, ISpellDamage
     // Returns description of effect granted by this script
     public string getDescription()
     {
-        string description = "deals " + damage + " damage to one enemy card";
+        string description = "Deals " + damage + " damage to singe target.";
         return description;
     }
 
