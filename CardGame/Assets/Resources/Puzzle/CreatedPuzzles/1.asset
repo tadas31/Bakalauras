@@ -15,17 +15,15 @@ MonoBehaviour:
   winCondition: DestroyAllEnemyCards
   enemyLife: 15
   playerLife: 30
-  playerMana: 20
+  playerMana: 4
   enemyCards:
-  - Protector tree
+  - Dwarf
   - Goblin
-  - Goblin 8
+  - Raider
   playerCards:
-  - Arcane explosion
-  - Rat
-  - Water spirit
-  - Goblin
+  - Fire ball
   - Fire storm
-  - Wolf
-  - Splash of spirit
-  - Two headed giant
+  - Goblin
+  - Lightning strike
+  - Fire storm
+  - Spirit splash

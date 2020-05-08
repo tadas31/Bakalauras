@@ -15,9 +15,13 @@ MonoBehaviour:
   winCondition: DestroyAllEnemyCards
   enemyLife: 15
   playerLife: 30
-  playerMana: 5
+  playerMana: 9
   enemyCards:
-  - Goblin 8
+  - Protector tree
   playerCards:
-  - Arcane explosion
-  - Arcane explosion
+  - Dragon sword
+  - Rat
+  - Dragon sword
+  - Spirit splash
+  - Dwarf
+  - Fire ball

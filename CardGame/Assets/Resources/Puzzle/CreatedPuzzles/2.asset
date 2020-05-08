@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: 2
   m_EditorClassIdentifier: 
   winCondition: KillEnemyPlayer
-  enemyLife: 6
+  enemyLife: 5
   playerLife: 30
-  playerMana: 9
+  playerMana: 10
   enemyCards:
-  - Goblin
-  - Goblin
-  - Goblin 5
+  - Dwarf
+  - Water spirit
+  - Rat
+  - Rat
   playerCards:
   - Arcane explosion
   - Rat
-  - Fire ball
-  - Goblin
+  - Two headed giant
+  - Raider
   - Fire storm
