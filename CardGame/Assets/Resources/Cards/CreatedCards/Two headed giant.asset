@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Two headed giant
   m_EditorClassIdentifier: 
   cardName: Two headed giant
-  cost: 6
+  cost: 9
   image: {fileID: 21300000, guid: 98d11696fd5dfa1419b7950c915d719b, type: 3}
   type: Minion
-  spellDamage: 1
-  attack: 1
-  life: 2
+  spellDamage: 2
+  attack: 6
+  life: 6
   scripts:
   - BattlecryDamageSingleTarget
   - Charge

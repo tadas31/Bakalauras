@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Protector tree
   m_EditorClassIdentifier: 
   cardName: Protector tree
-  cost: 1
+  cost: 8
   image: {fileID: 21300000, guid: b74c8341ac399cc42bb5e89f193b808b, type: 3}
   type: Minion
   spellDamage: 0
-  attack: 1
-  life: 4
+  attack: 4
+  life: 6
   scripts:
   - Taunt

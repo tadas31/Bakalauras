@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mysterious treasure
   m_EditorClassIdentifier: 
   cardName: Mysterious treasure (random card)
-  cost: 1
+  cost: 2
   image: {fileID: 21300000, guid: c371b125f42034d44b1f77d77cb598e3, type: 3}
   type: Spell
   spellDamage: 0

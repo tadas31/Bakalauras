@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Wolf
   m_EditorClassIdentifier: 
   cardName: Wolf
-  cost: 4
+  cost: 5
   image: {fileID: 21300000, guid: a1c1d75299326bc4ab5125bffb2b80e7, type: 3}
   type: Minion
   spellDamage: 0
-  attack: 2
+  attack: 3
   life: 3
   scripts:
   - BattlecrySummonCopy

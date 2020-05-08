@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Raider
   m_EditorClassIdentifier: 
   cardName: Raider
-  cost: 7
+  cost: 4
   image: {fileID: 21300000, guid: 2052e3bf63ee81d469239cb600107084, type: 3}
   type: Minion
   spellDamage: 0
-  attack: 1
-  life: 2
+  attack: 4
+  life: 3
   scripts:
   - Charge

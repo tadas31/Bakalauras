@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Dwarf
   m_EditorClassIdentifier: 
   cardName: Dwarf
-  cost: 8
+  cost: 2
   image: {fileID: 21300000, guid: 182ef4081f338e340944c13fc3fbfb58, type: 3}
   type: Minion
   spellDamage: 0
-  attack: 1
+  attack: 2
   life: 2
   scripts:
   - Taunt
