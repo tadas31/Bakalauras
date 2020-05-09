@@ -19,7 +19,7 @@ public class Client : MonoBehaviour
     private delegate void PacketHandler(Packet _packet);
     private static Dictionary<int, PacketHandler> packetHandlers;
 
-    private void Awake()
+    public void Awake()
     {
         if (instance == null)
         {

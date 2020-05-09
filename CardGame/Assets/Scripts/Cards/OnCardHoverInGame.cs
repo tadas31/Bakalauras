@@ -13,12 +13,6 @@ public class OnCardHoverInGame : MonoBehaviour, IPointerEnterHandler, IPointerEx
         displayHoveredCard = GameObject.Find("Canvas/DisplayHoverCard").GetComponent<Transform>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         // Disables all helper scripts for hovered card.
