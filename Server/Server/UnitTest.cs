@@ -92,10 +92,10 @@ namespace Server
         [Fact]
         public void DamageAllCardsCardContainerTest()
         {
-            CardContainer cards = new CardContainer("goblin,rat");
+            CardContainer cards = new CardContainer("goblin,raider");
             cards.DamageAllCards(1);
             Assert.Equal(1, cards.GetCard("goblin").life);
-            Assert.Equal(3, cards.GetCard("rat").life);
+            Assert.Equal(2, cards.GetCard("raider").life);
         }
 
         [Fact]
@@ -103,7 +103,7 @@ namespace Server
         {
             CardContainer cards = new CardContainer("goblin,rat");
             cards.DamageAllCards(3);
-            Assert.Equal(1, cards.CardCount());
+            Assert.Equal(0, cards.CardCount());
         }
 
 

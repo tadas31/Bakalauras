@@ -1,8 +1,9 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\gaPsa\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\gaPsa\\.nuget\\packages"
+      "C:\\Users\\Tadas\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Tadas\\.nuget\\packages",
+      "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
     ]
   }
 }

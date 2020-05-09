@@ -4,9 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System;
+using System.Diagnostics;
 
 namespace Server
-{ 
+{
     public class IntegratinTest
     {
        
@@ -272,23 +273,8 @@ namespace Server
                 Client.instance.ConnectToServer();
             }
         }
-        [Fact, TestPriority(-2)]
-        public void PlaceCardToTableClient()
-        {
-            StartServerAndConnect();
-            received = false;
-            Server.clients[id].player.mana = 100;
-            using (Packet _packet = new Packet((int)ClientPackets.placeCardToTable))
-            {
-                _packet.Write("goblin");
-
-                SendTCPData(_packet);
-            }
-            System.Threading.Thread.Sleep(500);
-            Assert.True(received);
-        }
         
-        [Fact, TestPriority(0)]
+        [Fact]
         public void WelcomeReceivedClient()
         {
             StartServerAndConnect();
@@ -305,13 +291,30 @@ namespace Server
             Assert.True(received);
         }
 
-        [Fact, TestPriority(-1)]
+        [Fact]
         public void ConnectToServerClient()
         {
             StartServerAndConnect();
             System.Threading.Thread.Sleep(250);
             Assert.True(welcomeReceived);
         }
-       
+
+        [Fact]
+        public void PlaceCardToTableClient()
+        {
+
+            StartServerAndConnect();
+
+            Server.clients[id].player.mana = 100;
+            using (Packet _packet = new Packet((int)ClientPackets.placeCardToTable))
+            {
+                _packet.Write("goblin");
+
+                SendTCPData(_packet);
+            }
+            System.Threading.Thread.Sleep(500);
+            Assert.True(received);
+        }
+
     }
 }

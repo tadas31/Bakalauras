@@ -2237,6 +2237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11041cc834506b74eb7b54083cb68b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackHelper: {fileID: 221149229}
   healthText: {fileID: 1990834039}
 --- !u!1 &485625478
 GameObject:
@@ -2292,6 +2293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11041cc834506b74eb7b54083cb68b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackHelper: {fileID: 221149229}
   healthText: {fileID: 1840879752}
 --- !u!114 &485625481
 MonoBehaviour:
