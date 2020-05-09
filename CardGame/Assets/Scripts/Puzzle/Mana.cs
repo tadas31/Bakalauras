@@ -21,18 +21,6 @@ public class Mana : MonoBehaviour
     private int _maxMana;
 
     public TextMeshProUGUI manaText;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void displayMana()
     {
@@ -56,6 +44,5 @@ public class Mana : MonoBehaviour
         {
             return false;
         }
-        
     }
 }

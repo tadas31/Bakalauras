@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI usernameField;
     public LoadScene loadScene;
 
-    private void Awake()
+    public void Awake()
     {
         if (instance == null)
         {

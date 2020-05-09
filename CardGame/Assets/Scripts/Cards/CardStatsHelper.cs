@@ -14,7 +14,7 @@ public class CardStatsHelper : MonoBehaviour
     private TextMeshProUGUI statsText;  // Game object to display card stats.
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         attack = startingAttack;
         life = startingLife;
