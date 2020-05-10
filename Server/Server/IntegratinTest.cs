@@ -192,29 +192,27 @@ namespace Server
                 {
                     { (int)ServerPackets.welcome,  Welcome},
                     { (int)ServerPackets.spawnPlayer, SpawnPlayer},
-                    { (int)ServerPackets.putCardOnTable, PutCardOnTable}
-        //pullStartingCards,
-        //setTurn,
-        //setTimer,
-        //putCardOnTable,
-        //setLife,
-        //setMana,
-        //setMaxMana,
-        //attack,
-        //setEnemyCardCount,
-        //pulledCard,
-        //attackPlayer,
-        //deckCount
+                    { (int)ServerPackets.putCardOnTable, PutCardOnTable},
+                    { (int)ServerPackets.pullStartingCards, Empty},
+                    { (int)ServerPackets.setTurn, Empty},
+                    { (int)ServerPackets.setTimer, Empty},
+                    { (int)ServerPackets.setLife, Empty},
+                    { (int)ServerPackets.setMana, Empty},
+                    { (int)ServerPackets.setMaxMana, SetMaxMana},
+                    { (int)ServerPackets.attack, Attack},
+                    { (int)ServerPackets.setEnemyCardCount, Empty},
+                    { (int)ServerPackets.pulledCard, Empty},
+                    { (int)ServerPackets.attackPlayer, Empty},
+                    { (int)ServerPackets.deckCount, Empty},
                 };
             }
 
-            private void Disconnect()
+            public void Disconnect()
             {
                 if (isConnected)
                 {
                     isConnected = false;
                     tcp.socket.Close();
-
                 }
             }
         }
@@ -232,16 +230,17 @@ namespace Server
             int _id = _packet.ReadInt();
             if (_msg != null && _id != 0)
             {
+                Client.instance.myId = _id;
                 welcomeReceived = true;
+                WelcomeReceivedSend();
             }
+           
         }
-
-        public static int id;
 
         public static void SpawnPlayer(Packet _packet)
         {
             received = false;
-            id = _packet.ReadInt();
+            Client.instance.myId = _packet.ReadInt();
             string username = _packet.ReadString();
             if (username == "Username")
             {
@@ -260,20 +259,61 @@ namespace Server
             }
         }
 
-        static bool serverStarted = false;
-        void StartServerAndConnect() 
+        public static void Attack(Packet _packet)
         {
-            if (!serverStarted)
+            received = false;
+            int id = _packet.ReadInt();
+            string _cardName = _packet.ReadString();
+            int lifeFrom = _packet.ReadInt();
+            string _cardName1 = _packet.ReadString();
+            int lifeTo = _packet.ReadInt();
+
+            if (_cardName.ToLower() == "goblin" && _cardName1.ToLower() == "goblin")
             {
-                serverStarted = true;
-                Program.Main(new string[1]);
-                Client client = new Client();
-                client.Awake();
-                Client.instance.Start();
-                Client.instance.ConnectToServer();
+                received = true;
             }
         }
+
+        static bool setMana = false;
+
+        public static void SetMaxMana(Packet _packet)
+        {
+            received = false;
+            int id = _packet.ReadInt();
+            int maxMana = _packet.ReadInt();
+
+            if (maxMana > 1)
+            {
+                setMana = true;
+            }
+        }
+
+        public static void Empty(Packet packet)
+        {
+
+        }
+
+        void StartServerAndConnect() 
+        {
+            Program.Main(new string[1]);
+            Client client = new Client();
+            client.Awake();
+            Client.instance.Start();
+            Client.instance.ConnectToServer();
+        }
         
+        static void WelcomeReceivedSend()
+        {
+            using (Packet _packet = new Packet((int)ClientPackets.welcomeReceived))
+            {
+                _packet.Write(Client.instance.myId);
+                _packet.Write("Username");
+                _packet.Write("goblin");
+
+                SendTCPData(_packet);
+            }
+        }
+
         [Fact]
         public void WelcomeReceivedClient()
         {
@@ -281,13 +321,15 @@ namespace Server
             received = false;
             using (Packet _packet = new Packet((int)ClientPackets.welcomeReceived))
             {
-                _packet.Write(id);
+                _packet.Write(Client.instance.myId);
                 _packet.Write("Username");
                 _packet.Write("goblin");
 
                 SendTCPData( _packet);
             }
             System.Threading.Thread.Sleep(250);
+            Client.instance.Disconnect();
+            Program.Stop();
             Assert.True(received);
         }
 
@@ -296,25 +338,82 @@ namespace Server
         {
             StartServerAndConnect();
             System.Threading.Thread.Sleep(250);
+            Client.instance.Disconnect();
+            Program.Stop();
             Assert.True(welcomeReceived);
         }
 
         [Fact]
         public void PlaceCardToTableClient()
         {
-
             StartServerAndConnect();
-
-            Server.clients[id].player.mana = 100;
+            System.Threading.Thread.Sleep(500);
+            Server.clients[Client.instance.myId].player = new Player(1, "Username", "goblin");
+            Server.clients[Client.instance.myId].player.mana = 100;
+            Server.clients[Client.instance.myId].player.isTurn = true;
+            Server.clients[Client.instance.myId].player.hand = new CardContainer("goblin");
             using (Packet _packet = new Packet((int)ClientPackets.placeCardToTable))
             {
                 _packet.Write("goblin");
 
                 SendTCPData(_packet);
             }
-            System.Threading.Thread.Sleep(500);
+            System.Threading.Thread.Sleep(1000);
+            Client.instance.Disconnect();
+            Program.Stop();
             Assert.True(received);
         }
 
+        [Fact]
+        public void AttackClient()
+        {
+            StartServerAndConnect();
+            System.Threading.Thread.Sleep(1000);
+            Server.clients[Client.instance.myId].player = new Player(1, "Username", "goblin");
+            Server.clients[Client.instance.myId].player.mana = 100;
+            Server.clients[Client.instance.myId].player.isTurn = true;
+            Server.clients[Client.instance.myId].player.table = new CardContainer("goblin");
+            Server.clients[Client.instance.myId].player.table.SetCardsCanAttack(true);
+            Server.clients[Client.instance.myId].enemyClient = Server.clients[2];
+            Server.clients[Client.instance.myId].enemyClient.player = new Player(2, "Username", "goblin");
+            Server.clients[Client.instance.myId].enemyClient.player.table = new CardContainer("goblin");
+            using (Packet _packet = new Packet((int)ClientPackets.attack))
+            {
+                _packet.Write("goblin");
+                _packet.Write("goblin");
+                SendTCPData(_packet);
+            }
+            received = false;
+            System.Threading.Thread.Sleep(1000);
+            Client.instance.Disconnect();
+            Program.Stop();
+            Assert.True(received);
+        }
+
+
+        [Fact]
+        public void EndTurnClient()
+        {
+            StartServerAndConnect();
+            System.Threading.Thread.Sleep(1000);
+            GameLogic.StartTimer();
+            Server.clients[Client.instance.myId].player = new Player(1, "Username", "goblin");
+            Server.clients[Client.instance.myId].player.mana = 100;
+            Server.clients[Client.instance.myId].player.isTurn = true;
+            Server.clients[Client.instance.myId].player.table = new CardContainer("goblin");
+            Server.clients[Client.instance.myId].player.table.SetCardsCanAttack(true);
+            Server.clients[Client.instance.myId].enemyClient = Server.clients[2];
+            Server.clients[Client.instance.myId].enemyClient.player = new Player(2, "Username", "goblin");
+            Server.clients[Client.instance.myId].enemyClient.player.table = new CardContainer("goblin");
+            received = false;
+            using (Packet _packet = new Packet((int)ClientPackets.endTurn))
+            {
+                SendTCPData(_packet);
+            }
+            System.Threading.Thread.Sleep(1000);
+            Client.instance.Disconnect();
+            Program.Stop();
+            Assert.True(setMana);
+        }
     }
 }

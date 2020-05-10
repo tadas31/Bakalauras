@@ -45,29 +45,41 @@ namespace Server
             Console.WriteLine($"Server started on port {Port}.");
         }
 
+        public static void Stop()
+        {
+            System.Threading.Thread.Sleep(1000);
+            tcpListener.Stop();
+            clients = new Dictionary<int, Client>();
+        }
+
         private static void TCPConnectCallback(IAsyncResult _result)
         {
-            TcpClient _client = tcpListener.EndAcceptTcpClient(_result);
-            tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
-            Console.WriteLine($"Incoming connection from {_client.Client.RemoteEndPoint}...");
-
-            for (int i = 1; i <= MaxPlayers; i++)
+            try
             {
-                if (clients[i].tcp.socket == null)
-                {
-                    clients[i].tcp.Connect(_client);
-                    return;
-                }
-            }
+                TcpClient _client = tcpListener.EndAcceptTcpClient(_result);
+                tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
+                Console.WriteLine($"Incoming connection from {_client.Client.RemoteEndPoint}...");
 
-            Console.WriteLine($"{_client.Client.RemoteEndPoint} failed to connect: Server full!");
+                for (int i = 1; i <= MaxPlayers; i++)
+                {
+                    if (clients[i].tcp.socket == null)
+                    {
+                        clients[i].tcp.Connect(_client);
+                        return;
+                    }
+                }
+
+                Console.WriteLine($"{_client.Client.RemoteEndPoint} failed to connect: Server full!");
+            }
+            catch (Exception ex)
+            {
+
+                
+            }
         }
 
         private static void InitializeServerData()
         {
-            if (clients.Count >= 1){
-                return;
-            }
 
             for (int i = 1; i <= MaxPlayers; i++)
             {
@@ -83,5 +95,6 @@ namespace Server
             };
             Console.WriteLine("Initialized packets.");
         }
+
     }
 }
