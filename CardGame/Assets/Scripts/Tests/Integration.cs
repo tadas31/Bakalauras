@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.TestTools;
 
@@ -11,6 +12,7 @@ namespace Tests
         [Test]
         public void SpawnPlayerPlayerServer()
         {
+            EditorSceneManager.OpenScene("Assets/Scenes/Classic.unity");
             GameObject managerObject = GameObject.Find("GameManager");
             ClassicGameManager manager = managerObject.GetComponent<ClassicGameManager>();
             manager.Awake();
@@ -33,6 +35,7 @@ namespace Tests
         [Test]
         public void SpawnPlayerEnemyServer()
         {
+                        EditorSceneManager.OpenScene("Assets/Scenes/Classic.unity");
             GameObject managerObject = GameObject.Find("GameManager");
             ClassicGameManager manager = managerObject.GetComponent<ClassicGameManager>();
             manager.Awake();
@@ -57,6 +60,7 @@ namespace Tests
         [Test]
         public void PullStartingCardsServer()
         {
+                        EditorSceneManager.OpenScene("Assets/Scenes/Classic.unity");
             GameObject managerObject = GameObject.Find("GameManager");
             ClassicGameManager manager = managerObject.GetComponent<ClassicGameManager>();
             manager.Awake();
@@ -80,6 +84,7 @@ namespace Tests
         [Test]
         public void SetTurnServer()
         {
+                        EditorSceneManager.OpenScene("Assets/Scenes/Classic.unity");
             GameObject managerObject = GameObject.Find("GameManager");
             ClassicGameManager manager = managerObject.GetComponent<ClassicGameManager>();
             manager.Awake();
@@ -113,6 +118,7 @@ namespace Tests
         [Test]
         public void SetTimerServer()
         {
+                        EditorSceneManager.OpenScene("Assets/Scenes/Classic.unity");
             GameObject managerObject = GameObject.Find("GameManager");
             ClassicGameManager manager = managerObject.GetComponent<ClassicGameManager>();
             manager.Awake();
@@ -137,6 +143,7 @@ namespace Tests
         [Test]
         public void SetLifeServer()
         {
+                        EditorSceneManager.OpenScene("Assets/Scenes/Classic.unity");
             GameObject managerObject = GameObject.Find("GameManager");
             ClassicGameManager manager = managerObject.GetComponent<ClassicGameManager>();
             manager.Awake();
@@ -171,6 +178,7 @@ namespace Tests
         [Test]
         public void SetManaServer()
         {
+                        EditorSceneManager.OpenScene("Assets/Scenes/Classic.unity");
             GameObject managerObject = GameObject.Find("GameManager");
             ClassicGameManager manager = managerObject.GetComponent<ClassicGameManager>();
             manager.Awake();
@@ -205,6 +213,7 @@ namespace Tests
         [Test]
         public void SetMaxServer()
         {
+                        EditorSceneManager.OpenScene("Assets/Scenes/Classic.unity");
             GameObject managerObject = GameObject.Find("GameManager");
             ClassicGameManager manager = managerObject.GetComponent<ClassicGameManager>();
             manager.Awake();
@@ -239,6 +248,7 @@ namespace Tests
         [Test]
         public void PutCardOnTableServer()
         {
+                        EditorSceneManager.OpenScene("Assets/Scenes/Classic.unity");
             GameObject managerObject = GameObject.Find("GameManager");
             ClassicGameManager manager = managerObject.GetComponent<ClassicGameManager>();
             manager.Awake();
@@ -271,6 +281,7 @@ namespace Tests
         [Test]
         public void PulledCardServer()
         {
+                        EditorSceneManager.OpenScene("Assets/Scenes/Classic.unity");
             ClassicGameManager manager = GameObject.Find("GameManager").GetComponent<ClassicGameManager>();
             manager.Awake();
          
@@ -290,6 +301,7 @@ namespace Tests
         [Test]
         public void SetEnemyCardCountServer()
         {
+                        EditorSceneManager.OpenScene("Assets/Scenes/Classic.unity");
             GameObject.Find("GameManager").GetComponent<ClassicGameManager>().enemyPlayer.SetActive(true);
 
             EnemyHand enemyHand = GameObject.Find("/Canvas/Enemy/CardsInHand").GetComponent<EnemyHand>();

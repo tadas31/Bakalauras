@@ -11,7 +11,7 @@ public class NextLevel : MonoBehaviour
     public LoadScene loadScene;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         SaveSystem.SaveCompletedPuzzles(SelectedPuzzle.Level);
 

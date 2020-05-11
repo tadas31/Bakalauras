@@ -10,17 +10,11 @@ public class OnDeathRestoreHealth : MonoBehaviour, IDescription, ISpellDamage
     private int amountToRestore;            // Amount of hp to restore.
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         restoring = false;
-        
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnDestroy()
     {

@@ -11,13 +11,13 @@ public class SingleTargetDamage : MonoBehaviour, IDescription, ISpellDamage
     private bool attacking;                 // If player pressed on card to attack true else false.
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         attacking = false;
     }
 
     // Executes when script is enabled
-    private void OnEnable()
+    public void OnEnable()
     {
         attackHelper = GameObject.Find("Board").GetComponent<AttackHelper>();
         // Enables arrow drawing and sets coordinates.
@@ -30,7 +30,7 @@ public class SingleTargetDamage : MonoBehaviour, IDescription, ISpellDamage
     }
 
     // Executes when script is disabled
-    private void OnDisable()
+    public void OnDisable()
     {
         attackHelper.cachedLineRenderer.enabled = false;
         attackHelper.isAttacking = false;
@@ -38,7 +38,7 @@ public class SingleTargetDamage : MonoBehaviour, IDescription, ISpellDamage
 
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         var screenPoint = Input.mousePosition;
         screenPoint.z = 10.0f; // Distance of the plane from the camera

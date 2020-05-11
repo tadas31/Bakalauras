@@ -10,7 +10,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
 {
     private float speed;                    // Card moving speed.
 
-    private bool attacking;                 // If card is selected to attack true else false.
+    public bool attacking;                 // If card is selected to attack true else false.
     private bool selectingCardToAttack;     // If player is selecting card to attack true else false.
 
     public bool attacked
@@ -35,7 +35,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
 
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         speed = 8f;
         attackHelper = GameObject.Find("Board").GetComponent<AttackHelper>();
@@ -50,7 +50,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         // Attack card
         if (attacking )

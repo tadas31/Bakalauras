@@ -19,11 +19,6 @@ public class TabButton : MonoBehaviour, IPointerClickHandler
     public Color clickedColor = Color.yellow;   // Color of tab when it's clicked.
     public Color notClickedCollor = Color.gray; // Color of tab when it's not clocked
 
-    // Start is called before the first frame update
-    void Start()
-    { 
-
-    }
 
     // On click changes displayed cards according to tab name
     public void OnPointerClick(PointerEventData eventData)

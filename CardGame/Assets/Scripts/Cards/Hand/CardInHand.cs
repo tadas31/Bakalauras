@@ -27,7 +27,7 @@ public class CardInHand : MonoBehaviour
     //Reference to attack helper.
     private AttackHelper attackHelper;
 
-    private void Start()
+    public void Start()
     {
         attackHelper = GameObject.Find("Board").GetComponent<AttackHelper>();
     }
@@ -161,4 +161,5 @@ public class CardInHand : MonoBehaviour
         }
         return lastPosition;
     }
+    
 }

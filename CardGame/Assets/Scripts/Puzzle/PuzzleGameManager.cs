@@ -13,7 +13,7 @@ public class PuzzleGameManager : MonoBehaviour
 
     public GameObject pauze;
 
-    private void Awake()
+    public void Awake()
     {
         if (instance == null)
         {
@@ -27,7 +27,7 @@ public class PuzzleGameManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         if (Input.GetKeyUp(KeyCode.Escape))
         {
