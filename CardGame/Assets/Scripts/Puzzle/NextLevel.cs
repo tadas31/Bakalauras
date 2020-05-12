@@ -26,6 +26,11 @@ public class NextLevel : MonoBehaviour
             nextLevelButton.interactable = false;
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 
     /// <summary>
     /// Moves to next level

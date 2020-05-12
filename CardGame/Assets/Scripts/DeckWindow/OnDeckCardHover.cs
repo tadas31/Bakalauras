@@ -27,6 +27,12 @@ public class OnDeckCardHover : MonoBehaviour, IPointerEnterHandler
         parent = GameObject.Find("DisplayHoveredCard");
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
     /// <summary>
     /// Displays card that is hovered over
     /// </summary>

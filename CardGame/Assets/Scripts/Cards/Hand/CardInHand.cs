@@ -8,7 +8,7 @@ using TMPro;
 /// <summary>
 /// Used for cards in hand to have functionality. Uses interfaces that implement OnPointerClick, OnDrag, OnBeginDrag, OnEndDrag, OnPointerEnter, OnPointerExit.
 /// </summary>
-public class CardInHand : MonoBehaviour   
+public class CardInHand : MonoBehaviour, IPointerClickHandler   
      , IDragHandler 
      , IBeginDragHandler
      , IEndDragHandler
@@ -160,5 +160,10 @@ public class CardInHand : MonoBehaviour
             setLastPos = false;
         }
         return lastPosition;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        //throw new System.NotImplementedException();
     }
 }

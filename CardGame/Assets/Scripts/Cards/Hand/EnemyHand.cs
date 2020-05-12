@@ -6,9 +6,9 @@ public class EnemyHand : MonoBehaviour
 {
     public static EnemyHand instance;
     public GameObject cardDown;
-    public int cardCount;
+    int cardCount;
 
-    public void Awake()
+    private void Awake()
     {
         if (instance == null)
         {

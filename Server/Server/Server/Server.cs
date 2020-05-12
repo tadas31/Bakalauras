@@ -65,10 +65,6 @@ namespace Server
 
         private static void InitializeServerData()
         {
-            if (clients.Count >= 1){
-                return;
-            }
-
             for (int i = 1; i <= MaxPlayers; i++)
             {
                 clients.Add(i, new Client(i));

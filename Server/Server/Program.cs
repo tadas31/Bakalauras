@@ -7,7 +7,7 @@ namespace Server
     {
         private static bool isRunning = false;
 
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
             Console.Title = "Game Server";
             isRunning = true;

@@ -11,6 +11,18 @@ public class DeckSceneButtons : MonoBehaviour
 
     public LoadScene loadScene;
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
     // Returns back to menu.
     public void onBackPress()
     {
