@@ -8,7 +8,7 @@ public class TimerManager : MonoBehaviour
 {
     public static float timeLeft = 0;
     // Update is called once per frame
-    public void Update()
+    void Update()
     {
         if (timeLeft > 0)
         {

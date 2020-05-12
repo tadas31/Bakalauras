@@ -11,12 +11,12 @@ public class IncreaseAttackAndHpToTarget : MonoBehaviour, IDescription, ISpellDa
     private int increaseBy;                 // Amount of health and attack to add.
 
     // Start is called before the first frame update
-    public void Start()
+    void Start()
     {
         upgrading = false;
     }
 
-    public void OnEnable()
+    private void OnEnable()
     {
         attackHelper = GameObject.Find("Board").GetComponent<AttackHelper>();
 
@@ -29,14 +29,14 @@ public class IncreaseAttackAndHpToTarget : MonoBehaviour, IDescription, ISpellDa
         attackHelper.isAttacking = true;
     }
 
-    public void OnDisable()
+    private void OnDisable()
     {
         attackHelper.cachedLineRenderer.enabled = false;
         attackHelper.isAttacking = false;
     }
 
     // Update is called once per frame
-    public void Update()
+    void Update()
     {
         var screenPoint = Input.mousePosition;
         screenPoint.z = 10.0f;      // Distance of the plane form the camera

@@ -29,7 +29,7 @@ public class SelectCards : MonoBehaviour
 
 
     // Start is called before the first frame update
-    public void Start()
+    void Start()
     {
         raycaster = GetComponent<GraphicRaycaster>();
 
@@ -46,7 +46,7 @@ public class SelectCards : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void Update()
+    void Update()
     {
         amountOfCardsInDeck.text = cardsInDeckCount + "/" + maxCountOfCards + "cards"; //displays amount of cards in deck
 

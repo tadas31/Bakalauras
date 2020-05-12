@@ -1,86 +1,86 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CoverageReport scope="Summary">
   <Summary>
-    <Generatedon>2020-05-11 - 22:50:27</Generatedon>
-    <Parser>MultiReportParser (184x CoberturaParser, 1x OpenCoverParser)</Parser>
+    <Generatedon>2020-05-10 - 19:14:25</Generatedon>
+    <Parser>OpenCoverParser</Parser>
     <Assemblies>2</Assemblies>
     <Classes>63</Classes>
     <Files>63</Files>
-    <Coveredlines>2381</Coveredlines>
-    <Uncoveredlines>1311</Uncoveredlines>
-    <Coverablelines>3692</Coverablelines>
-    <Totallines>6572</Totallines>
-    <Linecoverage>64.4</Linecoverage>
+    <Coveredlines>1169</Coveredlines>
+    <Uncoveredlines>2033</Uncoveredlines>
+    <Coverablelines>3202</Coverablelines>
+    <Totallines>5983</Totallines>
+    <Linecoverage>36.5</Linecoverage>
     <Coveredbranches>0</Coveredbranches>
     <Totalbranches>0</Totalbranches>
   </Summary>
   <Coverage>
-    <Assembly name="Main" classes="61" coverage="49.9" coveredlines="1257" coverablelines="2517" totallines="4967" branchcoverage="" coveredbranches="0" totalbranches="0">
-      <Class name="Attack" coverage="30.9" coveredlines="68" coverablelines="220" totallines="373" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="AttackHelper" coverage="25.2" coveredlines="23" coverablelines="91" totallines="182" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="BattlecryDamageSingleTarget" coverage="41.7" coveredlines="28" coverablelines="67" totallines="117" branchcoverage="" coveredbranches="0" totalbranches="0" />
+    <Assembly name="Main" classes="61" coverage="21.6" coveredlines="557" coverablelines="2575" totallines="5103" branchcoverage="" coveredbranches="0" totalbranches="0">
+      <Class name="Attack" coverage="0.9" coveredlines="2" coverablelines="220" totallines="373" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="AttackHelper" coverage="32.9" coveredlines="30" coverablelines="91" totallines="182" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="BattlecryDamageSingleTarget" coverage="0" coveredlines="0" coverablelines="67" totallines="117" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="BattlecrySummonCopy" coverage="0" coveredlines="0" coverablelines="13" totallines="32" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="BoardCards" coverage="69.2" coveredlines="9" coverablelines="13" totallines="29" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="ButtonAnimation" coverage="75" coveredlines="36" coverablelines="48" totallines="102" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="Card" coverage="84.1" coveredlines="85" coverablelines="101" totallines="217" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="BoardCards" coverage="0" coveredlines="0" coverablelines="13" totallines="29" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="ButtonAnimation" coverage="0" coveredlines="0" coverablelines="48" totallines="102" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Card" coverage="39.2" coveredlines="51" coverablelines="130" totallines="272" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="CardCostHelper" coverage="81.8" coveredlines="18" coverablelines="22" totallines="58" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="CardDescriptionHelper" coverage="0" coveredlines="0" coverablelines="11" totallines="32" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="CardInHand" coverage="62" coveredlines="49" coverablelines="79" totallines="165" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="CardInHand" coverage="3.7" coveredlines="3" coverablelines="79" totallines="164" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="CardStatsHelper" coverage="81.5" coveredlines="31" coverablelines="38" totallines="86" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="Charge" coverage="100" coveredlines="13" coverablelines="13" totallines="31" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="ClassicGameManager" coverage="71" coveredlines="120" coverablelines="169" totallines="250" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="Client" coverage="9.6" coveredlines="12" coverablelines="124" totallines="216" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Charge" coverage="0" coveredlines="0" coverablelines="13" totallines="32" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="ClassicGameManager" coverage="72.1" coveredlines="122" coverablelines="169" totallines="250" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Client" coverage="8.8" coveredlines="11" coverablelines="124" totallines="216" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="ClientHandle" coverage="65.4" coveredlines="55" coverablelines="84" totallines="140" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="ClientSend" coverage="0" coveredlines="0" coverablelines="36" totallines="57" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="CloseGraveyard" coverage="0" coveredlines="0" coverablelines="3" totallines="15" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="CompletedPuzzles" coverage="100" coveredlines="4" coverablelines="4" totallines="14" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="CreatePuzzle" coverage="100" coveredlines="27" coverablelines="27" totallines="57" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="DamageAllCards" coverage="23.3" coveredlines="7" coverablelines="30" totallines="69" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="DamageAllEnemies" coverage="19.4" coveredlines="7" coverablelines="36" totallines="77" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="CompletedPuzzles" coverage="0" coveredlines="0" coverablelines="4" totallines="14" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="CreatePuzzle" coverage="0" coveredlines="0" coverablelines="29" totallines="62" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DamageAllCards" coverage="0" coveredlines="0" coverablelines="30" totallines="69" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DamageAllEnemies" coverage="0" coveredlines="0" coverablelines="36" totallines="77" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="Deck" coverage="84.2" coveredlines="32" coverablelines="38" totallines="58" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="DeckFormat" coverage="100" coveredlines="5" coverablelines="5" totallines="14" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="DeckSceneButtons" coverage="0" coveredlines="0" coverablelines="12" totallines="36" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="DestroyAllEnemyCards" coverage="0" coveredlines="0" coverablelines="15" totallines="38" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="DisplayAllCards" coverage="48.1" coveredlines="26" coverablelines="54" totallines="104" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="DisplayCardsInDeck" coverage="92.8" coveredlines="13" coverablelines="14" totallines="40" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="DisplayWinCondition" coverage="0" coveredlines="0" coverablelines="10" totallines="33" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="EnemyHand" coverage="65.9" coveredlines="31" coverablelines="47" totallines="74" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DisplayAllCards" coverage="0" coveredlines="0" coverablelines="54" totallines="104" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DisplayCardsInDeck" coverage="0" coveredlines="0" coverablelines="18" totallines="51" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="DisplayWinCondition" coverage="0" coveredlines="0" coverablelines="12" totallines="39" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="EnemyHand" coverage="70.2" coveredlines="33" coverablelines="47" totallines="74" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="Health" coverage="75.7" coveredlines="25" coverablelines="33" totallines="67" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="HideWindows" coverage="0" coveredlines="0" coverablelines="4" totallines="17" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="IncreaseAttackAndHpToTarget" coverage="41.9" coveredlines="26" coverablelines="62" totallines="109" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="HideWindows" coverage="0" coveredlines="0" coverablelines="8" totallines="29" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="IncreaseAttackAndHpToTarget" coverage="0" coveredlines="0" coverablelines="62" totallines="109" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="KillEnemyPlayer" coverage="0" coveredlines="0" coverablelines="15" totallines="37" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="LoadScene" coverage="77.7" coveredlines="7" coverablelines="9" totallines="34" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="Mana" coverage="78.9" coveredlines="15" coverablelines="19" totallines="48" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="MenuButtons" coverage="100" coveredlines="20" coverablelines="20" totallines="51" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="NextLevel" coverage="92.8" coveredlines="13" coverablelines="14" totallines="45" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="LoadScene" coverage="11.1" coveredlines="1" coverablelines="9" totallines="34" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Mana" coverage="0" coveredlines="0" coverablelines="19" totallines="48" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="MenuButtons" coverage="0" coveredlines="0" coverablelines="24" totallines="62" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="NextLevel" coverage="0" coveredlines="0" coverablelines="14" totallines="45" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="OnCardDestroy" coverage="0" coveredlines="0" coverablelines="19" totallines="37" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="OnCardHoverInGame" coverage="9" coveredlines="3" coverablelines="33" totallines="59" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="OnDeathRestoreHealth" coverage="45.4" coveredlines="10" coverablelines="22" totallines="48" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="OnDeckCardHover" coverage="61.9" coveredlines="13" coverablelines="21" totallines="60" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="OpenGraveyard" coverage="67.5" coveredlines="25" coverablelines="37" totallines="80" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="Options" coverage="75" coveredlines="45" coverablelines="60" totallines="136" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="Packet" coverage="62.5" coveredlines="117" coverablelines="187" totallines="371" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="OnCardHoverInGame" coverage="0" coveredlines="0" coverablelines="33" totallines="59" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="OnDeathRestoreHealth" coverage="0" coveredlines="0" coverablelines="24" totallines="54" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="OnDeckCardHover" coverage="0" coveredlines="0" coverablelines="21" totallines="60" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="OpenGraveyard" coverage="0" coveredlines="0" coverablelines="40" totallines="86" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Options" coverage="0" coveredlines="0" coverablelines="62" totallines="143" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Packet" coverage="50.8" coveredlines="95" coverablelines="187" totallines="371" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="PlayerManager" coverage="100" coveredlines="27" coverablelines="27" totallines="63" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="PuzzleButtons" coverage="66.6" coveredlines="2" coverablelines="3" totallines="14" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="PuzzleGameManager" coverage="66.1" coveredlines="43" coverablelines="65" totallines="115" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="PuzzleButtons" coverage="0" coveredlines="0" coverablelines="3" totallines="14" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="PuzzleGameManager" coverage="0" coveredlines="0" coverablelines="65" totallines="115" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="PuzzleLevelButton" coverage="0" coveredlines="0" coverablelines="16" totallines="36" branchcoverage="" coveredbranches="0" totalbranches="0" />
       <Class name="PuzzleLevels" coverage="0" coveredlines="0" coverablelines="19" totallines="44" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="ResetAttack" coverage="43.1" coveredlines="22" coverablelines="51" totallines="91" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="SaveSystem" coverage="45" coveredlines="18" coverablelines="40" totallines="74" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="SelectCards" coverage="27.6" coveredlines="29" coverablelines="105" totallines="198" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="SelectedPuzzle" coverage="100" coveredlines="6" coverablelines="6" totallines="20" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="SingleTargetDamage" coverage="36.1" coveredlines="26" coverablelines="72" totallines="127" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="SoundVolume" coverage="75" coveredlines="12" coverablelines="16" totallines="31" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="TabButton" coverage="100" coveredlines="17" coverablelines="17" totallines="46" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="TabControler" coverage="35" coveredlines="7" coverablelines="20" totallines="39" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="Taunt" coverage="100" coveredlines="4" coverablelines="4" totallines="13" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="ThreadManager" coverage="9" coveredlines="3" coverablelines="33" totallines="52" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="TimerManager" coverage="100" coveredlines="8" coverablelines="8" totallines="19" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="UIManager" coverage="41.6" coveredlines="15" coverablelines="36" totallines="70" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="ResetAttack" coverage="0" coveredlines="0" coverablelines="51" totallines="91" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="SaveSystem" coverage="0" coveredlines="0" coverablelines="40" totallines="74" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="SelectCards" coverage="0" coveredlines="0" coverablelines="105" totallines="198" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="SelectedPuzzle" coverage="0" coveredlines="0" coverablelines="6" totallines="20" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="SingleTargetDamage" coverage="0" coveredlines="0" coverablelines="72" totallines="127" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="SoundVolume" coverage="0" coveredlines="0" coverablelines="20" totallines="43" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="TabButton" coverage="0" coveredlines="0" coverablelines="19" totallines="51" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="TabControler" coverage="0" coveredlines="0" coverablelines="20" totallines="39" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Taunt" coverage="0" coveredlines="0" coverablelines="4" totallines="13" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="ThreadManager" coverage="0" coveredlines="0" coverablelines="33" totallines="52" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="TimerManager" coverage="0" coveredlines="0" coverablelines="8" totallines="19" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="UIManager" coverage="44.4" coveredlines="16" coverablelines="36" totallines="70" branchcoverage="" coveredbranches="0" totalbranches="0" />
     </Assembly>
-    <Assembly name="Tests" classes="2" coverage="95.6" coveredlines="1124" coverablelines="1175" totallines="1605" branchcoverage="" coveredbranches="0" totalbranches="0">
-      <Class name="Tests.Integration" coverage="98.8" coveredlines="252" coverablelines="255" totallines="324" branchcoverage="" coveredbranches="0" totalbranches="0" />
-      <Class name="Tests.Test" coverage="94.7" coveredlines="872" coverablelines="920" totallines="1281" branchcoverage="" coveredbranches="0" totalbranches="0" />
+    <Assembly name="Tests" classes="2" coverage="97.6" coveredlines="612" coverablelines="627" totallines="880" branchcoverage="" coveredbranches="0" totalbranches="0">
+      <Class name="Tests.Integration" coverage="98.7" coveredlines="241" coverablelines="244" totallines="312" branchcoverage="" coveredbranches="0" totalbranches="0" />
+      <Class name="Tests.Test" coverage="96.8" coveredlines="371" coverablelines="383" totallines="568" branchcoverage="" coveredbranches="0" totalbranches="0" />
     </Assembly>
   </Coverage>
 </CoverageReport>

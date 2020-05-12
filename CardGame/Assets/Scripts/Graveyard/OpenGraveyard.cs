@@ -19,7 +19,7 @@ public class OpenGraveyard : MonoBehaviour, IPointerClickHandler
 
     public Canvas cardsInGraveyard;             // Canvas for cards in graveyard
 
-    public void Awake()
+    private void Awake()
     {
         if (instance == null)
         {
@@ -33,9 +33,15 @@ public class OpenGraveyard : MonoBehaviour, IPointerClickHandler
     }
 
     // Start is called before the first frame update
-    public void Start()
+    void Start()
     {
         graveyardCards = new List<string>();
+    }
+
+
+    void OnDestroy()
+    {
+        Debug.Log("Destroyed");
     }
 
     // Display cards in graveyard.

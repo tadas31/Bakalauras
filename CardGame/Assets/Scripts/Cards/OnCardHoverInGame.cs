@@ -8,7 +8,7 @@ public class OnCardHoverInGame : MonoBehaviour, IPointerEnterHandler, IPointerEx
     private GameObject bigCard;                 // Copy of card that is being hovered over.
     private Transform displayHoveredCard;       // Parent of hovered card.
     // Start is called before the first frame update
-    public void Start()
+    void Start()
     {
         displayHoveredCard = GameObject.Find("Canvas/DisplayHoverCard").GetComponent<Transform>();
     }

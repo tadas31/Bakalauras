@@ -9,6 +9,17 @@ public class DisplayCardsInDeck : MonoBehaviour
     public GameObject compactCardPrefab;    //card prefab
     public Sprite compactBackground;        //card background
 
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     //displays cards in deck
     public void updateCardDisplay(List<DeckFormat> cardsInDeck)

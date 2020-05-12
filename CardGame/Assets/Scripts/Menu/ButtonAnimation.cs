@@ -20,13 +20,13 @@ public class ButtonAnimation : MonoBehaviour
     private Vector3 puzzleTarget;                //target position to puzzle button
 
     // Start is called before the first frame update
-    public void Start()
+    void Start()
     {
         isPlayPressed = false;
     }
 
     // Update is called once per frame
-    public void Update()
+    void Update()
     {
 
         //displays classic and puzzle buttons

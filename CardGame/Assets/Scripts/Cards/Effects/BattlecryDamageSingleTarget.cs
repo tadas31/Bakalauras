@@ -12,7 +12,7 @@ public class BattlecryDamageSingleTarget : MonoBehaviour, IDescription, ISpellDa
     private bool attacking;                 // Prevents battlecry from activating multiple times.
 
 
-    public void OnEnable()
+    private void OnEnable()
     {
         if (transform.parent != null)
         {
@@ -33,7 +33,7 @@ public class BattlecryDamageSingleTarget : MonoBehaviour, IDescription, ISpellDa
            
     }
 
-    public void OnDisable()
+    private void OnDisable()
     {
         if (transform.parent != null)
         {
@@ -45,7 +45,7 @@ public class BattlecryDamageSingleTarget : MonoBehaviour, IDescription, ISpellDa
     }
 
     // Update is called once per frame
-    public void Update()
+    void Update()
     {
         var screenPoint = Input.mousePosition;
         screenPoint.z = 10.0f; // Distance of the plane from the camera
