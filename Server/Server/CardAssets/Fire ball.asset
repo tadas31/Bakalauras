@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Fire ball
   m_EditorClassIdentifier: 
   cardName: Fire ball
-  cost: 2
+  cost: 0
   image: {fileID: 21300000, guid: 7f3696f0447aa444584a6d5f3eef128a, type: 3}
   type: Fire spell
-  spellDamage: 3
+  spellDamage: 1
   attack: 0
   life: 0
   scripts:
