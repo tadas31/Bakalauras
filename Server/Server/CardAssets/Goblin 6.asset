@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8075f5c689ce929458b1aa47046be16b, type: 3}
-  m_Name: Lightning strike
+  m_Name: Goblin 6
   m_EditorClassIdentifier: 
-  cardName: Lightning strike
-  cost: 4
-  image: {fileID: 21300000, guid: 499fd21880cb89b468ac0065dabdc639, type: 3}
-  type: Lightning spell
-  spellDamage: 5
-  attack: 0
-  life: 0
-  scripts:
-  - SingleTargetDamage
+  cardName: Goblin 6
+  cost: 6
+  image: {fileID: 21300000, guid: ba5e96a399f29b94582db096dbb973aa, type: 3}
+  type: Minion
+  spellDamage: 0
+  attack: 1
+  life: 2
+  scripts: []

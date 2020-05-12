@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Rat
   m_EditorClassIdentifier: 
   cardName: Rat
-  cost: 1
+  cost: 2
   image: {fileID: 21300000, guid: 4d70bf1e56f7e4e4e9c3e3318e004260, type: 3}
   type: Minion
   spellDamage: 0
   attack: 1
-  life: 2
+  life: 4
   scripts:
   - BattlecrySummonCopy

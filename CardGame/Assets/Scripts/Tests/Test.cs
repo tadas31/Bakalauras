@@ -110,7 +110,7 @@ namespace Tests
             GameObject cardHand = card.spawnCard();
             CardCostHelper helper = cardHand.GetComponent<CardCostHelper>();
             helper.Start();
-            Assert.AreEqual(3, helper.getCost());
+            Assert.AreEqual(6, helper.getCost());
         }
 
         [Test]
@@ -132,7 +132,7 @@ namespace Tests
             CardCostHelper helper = cardHand.GetComponent<CardCostHelper>();
             helper.Start();
             helper.setCost(-1);
-            Assert.AreEqual(3, helper.getCost());
+            Assert.AreEqual(6, helper.getCost());
         }
 
         [Test]
@@ -143,7 +143,7 @@ namespace Tests
             CardCostHelper helper = cardHand.GetComponent<CardCostHelper>();
             helper.Start();
             helper.removeCost(5);
-            Assert.AreEqual(3, helper.getCost());
+            Assert.AreEqual(1, helper.getCost());
         }
 
         [Test]
@@ -154,7 +154,7 @@ namespace Tests
             CardCostHelper helper = cardHand.GetComponent<CardCostHelper>();
             helper.Start();
             helper.removeCost(7);
-            Assert.AreEqual(3, helper.getCost());
+            Assert.AreEqual(6, helper.getCost());
         }
 
         //Card CardStatsHelper tests
@@ -276,7 +276,7 @@ namespace Tests
             {
                 child.SetParent(null);
             }
-            ClassicGameManager.instance.PullStartingCards("Goblin,Dwarf");
+            ClassicGameManager.instance.PullStartingCards("Goblin,Goblin 5");
             Assert.AreEqual(2, ClassicGameManager.instance.handCanvas.transform.childCount);
         }
 
@@ -525,44 +525,13 @@ namespace Tests
         [Test]
         public void useManaMana()
         {
-            Mana mana = GameObject.Find("Canvas/Player").GetComponent<Mana>();
-            mana.currentMana = 10;
-            mana.maxMana = 10;
+            GameObject.Find("Canvas").GetComponent<ClassicGameManager>().enemyPlayer.SetActive(true);
 
-            mana.useMana(4);
-            Assert.AreEqual(6, mana.currentMana);
-        }
+            EnemyHand enemyHand = GameObject.Find("/Canvas/Enemy/CardsInHand").GetComponent<EnemyHand>();
+            enemyHand.Awake();
+            EnemyHand.instance.SetCardCount(8);
 
-        [Test]
-        public void canUseCardMana()
-        {
-            Mana mana = GameObject.Find("Canvas/Player").GetComponent<Mana>();
-            mana.currentMana = 5;
-            mana.maxMana = 10;
-
-            bool result = mana.canUseCard(6);
-            Assert.AreEqual(false, result);
-        }
-
-        [Test]
-        public void takeDamageHealth()
-        {
-
-            Health health = GameObject.Find("Canvas/Player").GetComponent<Health>();
-            health.health = 30;
-
-            health.takeDamage(6);
-            Assert.AreEqual(24, health.health);
-        }
-
-        [Test]
-        public void RestoreHealthHealth()
-        {
-            Health health = GameObject.Find("Canvas/Player").GetComponent<Health>();
-            health.health = 5;
-
-            health.restoreHealth(6);
-            Assert.AreEqual(11, health.health);
+            Assert.AreEqual(8, EnemyHand.instance.cardCount);
         }
     }
 }
