@@ -8723,7 +8723,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -9047,11 +9047,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 4414926485881761063, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4414926484969292005, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9182,16 +9177,6 @@ PrefabInstance:
       propertyPath: loadScene
       value: 
       objectReference: {fileID: 1994266868}
-    - target: {fileID: 4414926485519862019, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
-        type: 3}
-      propertyPath: content
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4414926485519862019, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
-        type: 3}
-      propertyPath: cardsInGraveyard
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4414926484681045759, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
         type: 3}
       propertyPath: m_RootOrder
@@ -9212,15 +9197,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 53.495033
       objectReference: {fileID: 0}
-    - target: {fileID: 4414926485867195758, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
+    - target: {fileID: 4414926485881761063, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
         type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 4414926485867195758, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 50
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4414926485881761060, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
         type: 3}
@@ -9231,6 +9211,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontSizeBase
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4414926485519862019, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
+        type: 3}
+      propertyPath: content
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4414926485519862019, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
+        type: 3}
+      propertyPath: cardsInGraveyard
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4414926485867195758, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4414926485867195758, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4414926485867195759, guid: e28c1d1b957cd7e4e8f26d2c3eb73232, type: 3}
