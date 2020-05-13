@@ -8,13 +8,14 @@ public class Charge : MonoBehaviour, IDescription
     private Attack attack;      // Reference to attack script
 
     // Start is called before the first frame update
-    public void Start()
+    void Start()
     {
         attack = gameObject.GetComponent<Attack>();
+        
     }
 
     // Update is called once per frame
-    public void Update()
+    void Update()
     {
         if (attack.attacked)
         {

@@ -16,7 +16,7 @@ public class ClassicGameManager : MonoBehaviour
     public GameObject playerBoard;
     public GameObject enemyBoard;
     public TextMeshProUGUI deckCount;
-    public void Awake()
+    private void Awake()
     {
         if (instance == null)
         {

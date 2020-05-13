@@ -9,12 +9,18 @@ public class CardDescriptionHelper : MonoBehaviour
     private TextMeshProUGUI descriptionText;    // Game object to display description
 
     // Start is called before the first frame update
-    public void Start()
+    void Start()
     {
         descriptionText = transform.GetChild(0).Find("Description").GetComponent<TextMeshProUGUI>();
 
         // Get all needed descriptions and display them
         updateDescription();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 
 

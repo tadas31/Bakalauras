@@ -8,6 +8,18 @@ public class SoundVolume : MonoBehaviour
 
     public TextMeshProUGUI volumeText;
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
     public void onIncreasePress()
     {
         int volume = int.Parse(volumeText.text);

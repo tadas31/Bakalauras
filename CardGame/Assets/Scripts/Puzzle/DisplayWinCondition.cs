@@ -20,6 +20,12 @@ public class DisplayWinCondition : MonoBehaviour
 
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+    
     /// <summary>
     /// Displays win condition for set amount of seconds
     /// </summary>

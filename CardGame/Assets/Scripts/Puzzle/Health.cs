@@ -5,7 +5,7 @@ using TMPro;
 
 public class Health : MonoBehaviour
 {
-    public AttackHelper attackHelper;      // Reference to attack helper.
+    private AttackHelper attackHelper;      // Reference to attack helper.
 
     public int health
     {
@@ -19,7 +19,7 @@ public class Health : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        attackHelper = GameObject.Find("Board").GetComponent<AttackHelper>();
     }
 
 

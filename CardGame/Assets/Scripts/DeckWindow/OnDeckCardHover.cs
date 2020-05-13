@@ -19,12 +19,18 @@ public class OnDeckCardHover : MonoBehaviour, IPointerEnterHandler
     private GameObject createdCard;     // Created card.
 
     // Start is called before the first frame update
-    public void Start()
+    void Start()
     {
         cardPrefab = Resources.Load<GameObject>("Cards/Prefabs/Card");
         minionBackground = Resources.Load<Sprite>("Cards/Backgrounds/Minion");
         spellBackground = Resources.Load<Sprite>("Cards/Backgrounds/Spell");
         parent = GameObject.Find("DisplayHoveredCard");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 
     /// <summary>

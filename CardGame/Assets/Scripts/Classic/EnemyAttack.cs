@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Taunt : MonoBehaviour, IDescription
+public class EnemyAttack : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -14,12 +14,5 @@ public class Taunt : MonoBehaviour, IDescription
     void Update()
     {
         
-    }
-
-    // Returns description of effect granted by this script
-    public string getDescription()
-    {
-        string description = "Taunt";
-        return description;
     }
 }

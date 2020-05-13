@@ -13,7 +13,7 @@ public class CardCostHelper : MonoBehaviour
     private TextMeshProUGUI costText;   // Game object to display cost of the card.
 
     // Start is called before the first frame update
-    public void Start()
+    void Start()
     {
         costText = transform.GetChild(0).Find("Cost").GetComponent<TextMeshProUGUI>();
 
@@ -27,7 +27,7 @@ public class CardCostHelper : MonoBehaviour
     /// <param name="cost"></param>
     public void removeCost(int cost)
     {
-        if (this.cost > 0 && this.cost > cost)
+        if (this.cost > 0)
         {
             this.cost -= cost;
             costText.text = this.cost.ToString();

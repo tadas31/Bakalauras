@@ -24,7 +24,7 @@ public class Options : MonoBehaviour
     private List<Resolution> resolutions;
 
     // Start is called before the first frame update
-    public void Start()
+    void Start()
     {
         // Gets all supported resolutions
         resolutions = Screen.resolutions.Where(resolution => resolution.refreshRate == 60).ToList();
@@ -53,6 +53,13 @@ public class Options : MonoBehaviour
             windowModeToggle.isOn = true;
         }
     }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
 
     /// <summary>
     /// Applies all changes
