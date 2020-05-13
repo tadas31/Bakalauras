@@ -300,7 +300,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -819.3, y: 207}
+  m_AnchoredPosition: {x: 851, y: 204}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &29028572
@@ -321,7 +321,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: Tadas
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -390,13 +390,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 29028572}
-    characterCount: 0
+    characterCount: 5
     spriteCount: 0
     spaceCount: 0
-    wordCount: 0
+    wordCount: 1
     linkCount: 0
-    lineCount: 0
-    pageCount: 0
+    lineCount: 1
+    pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
@@ -3053,6 +3053,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11041cc834506b74eb7b54083cb68b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackHelper: {fileID: 0}
   healthText: {fileID: 802620196}
 --- !u!1 &560024117
 GameObject:
@@ -5930,6 +5931,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardDown: {fileID: 2370023780853384712, guid: 7eb6d7f41ff141b4b864b60675ad4a56,
     type: 3}
+  cardCount: 0
 --- !u!1001 &1321381358
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7082,6 +7084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11041cc834506b74eb7b54083cb68b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackHelper: {fileID: 0}
   healthText: {fileID: 581407828}
 --- !u!1 &1757428432
 GameObject:
@@ -7816,7 +7819,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: Gabrielius
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7885,13 +7888,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1878944400}
-    characterCount: 0
+    characterCount: 10
     spriteCount: 0
     spaceCount: 0
-    wordCount: 0
+    wordCount: 1
     linkCount: 0
-    lineCount: 0
-    pageCount: 0
+    lineCount: 1
+    pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
