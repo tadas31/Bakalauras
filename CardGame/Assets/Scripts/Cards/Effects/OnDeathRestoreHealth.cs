@@ -36,7 +36,7 @@ public class OnDeathRestoreHealth : MonoBehaviour, IDescription, ISpellDamage
     // Returns description of effect granted by this script
     public string getDescription()
     {
-        string description = "On deaths restores " + amountToRestore + " health to cards owner";
+        string description = "On death restores " + amountToRestore + " health to cards owner";
         return description;
     }
 
