@@ -11,7 +11,7 @@ public class NextLevel : MonoBehaviour
     public LoadScene loadScene;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         SaveSystem.SaveCompletedPuzzles(SelectedPuzzle.Level);
 
@@ -26,11 +26,6 @@ public class NextLevel : MonoBehaviour
             nextLevelButton.interactable = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     /// <summary>
     /// Moves to next level

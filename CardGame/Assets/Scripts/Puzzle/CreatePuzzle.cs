@@ -12,7 +12,7 @@ public class CreatePuzzle : MonoBehaviour
     public Mana playerMana;             // Reference to mana class for player.
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         // Get's selected level
         puzzle = Resources.Load<Puzzle>("Puzzle/CreatedPuzzles/" + SelectedPuzzle.Level);
@@ -54,9 +54,4 @@ public class CreatePuzzle : MonoBehaviour
         gameObject.AddComponent(scriptType);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

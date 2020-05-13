@@ -13,17 +13,6 @@ public class MenuButtons : MonoBehaviour
 
     public LoadScene loadScene;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     // Opens classic scene
     public void onClassicPress()

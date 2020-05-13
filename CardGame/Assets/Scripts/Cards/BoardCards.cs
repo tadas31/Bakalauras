@@ -6,7 +6,7 @@ public class BoardCards : MonoBehaviour
 {
     //The spacing between the cards that are put on board.
     private static float SPACING_BETWEEN_CARDS = 340f;
-    private void OnTransformChildrenChanged()
+    public void OnTransformChildrenChanged()
     {
         reorganizeBoard();
     }

@@ -41,11 +41,4 @@ public class PuzzleLevels : MonoBehaviour
             Destroy(level.gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
 }

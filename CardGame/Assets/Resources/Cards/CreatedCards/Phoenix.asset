@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8075f5c689ce929458b1aa47046be16b, type: 3}
   m_Name: Phoenix
   m_EditorClassIdentifier: 
-  cardName: Phoenix (get copy on death)
+  cardName: Phoenix
   cost: 3
   image: {fileID: 21300000, guid: 7134c86e582c5e541b9af349de9534eb, type: 3}
   type: Minion
