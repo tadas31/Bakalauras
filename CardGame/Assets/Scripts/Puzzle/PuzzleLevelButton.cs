@@ -21,7 +21,7 @@ public class PuzzleLevelButton : MonoBehaviour
         Puzzle puzzle = Resources.Load<Puzzle>("Puzzle/CreatedPuzzles/" + selectedPuzzle);
 
         // Get's script type.
-        System.Type scriptType = System.Type.GetType(puzzle.winCondition + ",Assembly-CSharp");
+        System.Type scriptType = System.Type.GetType(puzzle.winCondition);
         if (scriptType != null)
         {
             SelectedPuzzle.Level = selectedPuzzle;
