@@ -50,7 +50,7 @@ public class CreatePuzzle : MonoBehaviour
         }
 
         // Get's script type and adds it to game manager.
-        System.Type scriptType = System.Type.GetType(puzzle.winCondition + ",Assembly-CSharp");
+        System.Type scriptType = System.Type.GetType(puzzle.winCondition);
         gameObject.AddComponent(scriptType);
     }
 

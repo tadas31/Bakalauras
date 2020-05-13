@@ -38,7 +38,7 @@ public class Card : ScriptableObject
         foreach (var script in scripts)
         {
             // Get's script type.
-            scriptType = System.Type.GetType(script + ",Assembly-CSharp");
+            scriptType = System.Type.GetType(script);
 
             // Adds script to card.
             if (scriptType != null)
@@ -106,7 +106,7 @@ public class Card : ScriptableObject
         foreach (var script in scripts)
         {
             // Get's script type.
-            scriptType = System.Type.GetType(script + ",Assembly-CSharp");
+            scriptType = System.Type.GetType(script);
 
             // Adds script to card.
             if (scriptType != null)
