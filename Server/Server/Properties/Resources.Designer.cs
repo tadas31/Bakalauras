@@ -143,26 +143,6 @@ namespace Server.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] Mysterious_treasure {
-            get {
-                object obj = ResourceManager.GetObject("Mysterious_treasure", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] Phoenix {
-            get {
-                object obj = ResourceManager.GetObject("Phoenix", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         internal static byte[] Protector_tree {
             get {
                 object obj = ResourceManager.GetObject("Protector_tree", resourceCulture);

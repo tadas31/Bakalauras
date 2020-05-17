@@ -142,12 +142,6 @@
   <data name="Lightning_strike" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\cardassets\lightning strike.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Mysterious_treasure" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\cardassets\mysterious treasure.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Phoenix" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\cardassets\phoenix.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="Protector_tree" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\cardassets\protector tree.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

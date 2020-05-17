@@ -43,6 +43,11 @@ namespace Server
 
         public Card PullCardToHand()
         {
+            if (deck.CardCount() <= 0) 
+            {
+                return null;
+            }
+
             Card _card = deck.PullCard();
             hand.AddToDeck(_card);
             return _card;

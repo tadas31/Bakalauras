@@ -208,8 +208,13 @@ namespace Server
 
         public void SendPulledCard()
         {
-            ServerSend.PulledCard(id, player.PullCardToHand().cardName);
-            SendDeckCount();
+            Card _card = player.PullCardToHand();
+            if (_card != null)
+            {
+                ServerSend.PulledCard(id, _card.cardName);
+                SendDeckCount();
+            }
+            
         }
 
         public void PutCardOnTable(string _cardName)
