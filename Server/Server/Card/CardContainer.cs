@@ -123,6 +123,21 @@ namespace Server
             return deck.Count;
         }
 
+        public bool HasTauntCard()
+        {
+            foreach (Card item in deck)
+            {
+                foreach (string script in item.scripts)
+                {
+                    if (script.ToLower().Contains("taunt"))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         /// <summary>
         /// Deals damage to all of the cards in array. If life of the card is 0 or less removes from container.
         /// </summary>

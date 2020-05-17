@@ -238,10 +238,6 @@ namespace Server
                         {
                             DamageAllEnemies(_putCard.attack);
                         }
-                        //Add other spells.
-                        else if (false) 
-                        { 
-                        }
                     }
                 }
 
@@ -296,21 +292,6 @@ namespace Server
             {
 
             }
-            else if (false) //If the player it self is attacking
-            {
-
-            }
-            else
-            {
-                return;
-            }
-            //Get the card that the other player has.
-            //Deal damage to the card
-            //Send the information back to the clients
-
-            //TODO: If the player is attacked
-            //TODO: If the another minion is attacked
-
         }
 
         /// <summary>
@@ -335,16 +316,20 @@ namespace Server
             //If the card is attacking players health points
             if (isNumeric && enemyClient.id == n)
             {
-                enemyClient.player.life -= _attackFromCard.attack;
-                ServerSend.AttackPlayer(id, enemyClient.id, _attackFrom, enemyClient.player.life);
+                if (!enemyClient.player.table.HasTauntCard())
+                {
+                    enemyClient.player.life -= _attackFromCard.attack;
+                    ServerSend.AttackPlayer(id, enemyClient.id, _attackFrom, enemyClient.player.life);
+                    _attackFromCard.canAttack = false;
+                }
             }
             else
             {
                 Card _attackToCard = enemyClient.DealDamageTo(_attackFromCard.attack, _attackTo);
                 DealDamageTo(_attackToCard.attack, _attackFrom);
                 ServerSend.Attack(id, _attackFrom, _attackFromCard.life, _attackTo, _attackToCard.life);
+                _attackFromCard.canAttack = false;
             }
-            _attackFromCard.canAttack = false;
         }
 
         public Card DealDamageTo(int _amount, string _to)
