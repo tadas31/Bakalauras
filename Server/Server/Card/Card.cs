@@ -18,16 +18,18 @@ namespace Server
 
         public Card(string _cardName)
         {
-            string _path =  System.IO.Path.GetFullPath(@"..\..\..\CardAssets\") + _cardName + ".asset";
-            if (File.Exists(_path))
+            cardName = _cardName;
+            _cardName = _cardName.Replace(" ", "_");
+            string card = System.Text.Encoding.UTF8.GetString((byte[])Properties.Resources.ResourceManager.GetObject(_cardName));
+
+            if (!String.IsNullOrEmpty(card))
             {
-                cardName = _cardName;
-                using (StreamReader file = new StreamReader(_path))
+                using (StringReader reader = new StringReader(card))
                 {
                     int counter = 0;
                     string ln;
 
-                    while ((ln = file.ReadLine()) != null)
+                    while ((ln = reader.ReadLine()) != null)
                     {
                         if (ln.Contains("cost"))
                         {
@@ -52,7 +54,7 @@ namespace Server
                         else if (ln.Contains("scripts"))
                         {
                             scripts = new List<string>();
-                            while((ln = file.ReadLine()) != null)
+                            while((ln = reader.ReadLine()) != null)
                             {
                                 scripts.Add(ln);
                             }
