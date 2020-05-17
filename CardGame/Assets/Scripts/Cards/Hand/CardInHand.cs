@@ -26,6 +26,7 @@ public class CardInHand : MonoBehaviour
     private bool isDragged = false;
     //Reference to attack helper.
     private AttackHelper attackHelper;
+    public static int placedCard;
 
     public void Start()
     {
@@ -94,6 +95,7 @@ public class CardInHand : MonoBehaviour
                 else
                 {
                     Debug.Log("Putting card on the table");
+                    placedCard = transform.GetSiblingIndex();
                     ClientSend.PutCardOnTable(this.gameObject.name);
                     isDragged = false;
                     this.transform.localPosition = getLastPosition();

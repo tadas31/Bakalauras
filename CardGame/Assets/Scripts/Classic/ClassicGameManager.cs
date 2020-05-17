@@ -218,12 +218,22 @@ public class ClassicGameManager : MonoBehaviour
 
     public void RemoveCardFromHand(string cardName)
     {
-        foreach (Transform child in handCanvas.transform)
+        int cardNumber = CardInHand.placedCard;
+        if (CardInHand.placedCard >= 0 && handCanvas.transform.childCount - 1 >= cardNumber && handCanvas.transform.GetChild(cardNumber).name == cardName)
         {
-            if (child.name == cardName)
+            Transform card = handCanvas.transform.GetChild(cardNumber);
+            Destroy(card.gameObject);
+            CardInHand.placedCard = -1;
+        }
+        else
+        {
+            foreach (Transform child in handCanvas.transform)
             {
-                Destroy(child.gameObject);
-                break;
+                if (child.name == cardName)
+                {
+                    Destroy(child.gameObject);
+                    break;
+                }
             }
         }
         HandReorganize();
