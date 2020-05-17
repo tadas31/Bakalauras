@@ -16,14 +16,6 @@ public class Health : MonoBehaviour
 
     public TextMeshProUGUI healthText;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-
-
     public void displayHealth()
     {
         healthText.text = _health.ToString();

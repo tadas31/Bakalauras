@@ -71,6 +71,14 @@ namespace Server
         public void PutOnTable(string _cardName)
         {
             Card _card = hand.PullCard(_cardName);
+            //Check if the card has charge
+            foreach (string item in _card.scripts)
+            {
+                if (item.ToLower().Contains("charge"))
+                {
+                    _card.canAttack = true;
+                }
+            }
             mana -= _card.cost;
             if (!_card.type.ToLower().Contains("spell"))
             {
