@@ -13,6 +13,10 @@ namespace Server
         {
             ThreadManager.UpdateMain();
         }
+
+        /// <summary>
+        /// Calls all of the needed methods to start the game.
+        /// </summary>
         public static void StartGame()
         {
             StartSetTurns();
@@ -24,6 +28,7 @@ namespace Server
             SendMaxManaToPlayers();
             SetEnemyCardCountToPlayers();
         }
+
         public static void StartTimer()
         {
             timer = new Timer(Constants.TURN_TIME_MILISECONDS);

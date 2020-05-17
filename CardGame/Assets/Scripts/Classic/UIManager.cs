@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class UIManager : MonoBehaviour
     public GameObject pauze;
     public GameObject timer;
     public GameObject endTurn;
+    public TextMeshProUGUI ipAddressField;
     public TextMeshProUGUI usernameField;
     public LoadScene loadScene;
 

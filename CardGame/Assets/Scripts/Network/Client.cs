@@ -44,6 +44,13 @@ public class Client : MonoBehaviour
 
     public void ConnectToServer()
     {
+        string ipaddress = UIManager.instance.ipAddressField.text;
+        ipaddress = ipaddress.Substring(0, ipaddress.Length - 1);
+        if (!String.IsNullOrEmpty(ipaddress))
+        {
+            instance.ip = ipaddress;
+        }
+        
         InitializeClientData();
 
         isConnected = true;
