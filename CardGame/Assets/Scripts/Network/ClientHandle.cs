@@ -8,6 +8,7 @@ public class ClientHandle : MonoBehaviour
     {
         string _msg = _packet.ReadString();
         int _myId = _packet.ReadInt();
+        UIManager.instance.showConnect = false;
 
         Debug.Log($"Message from server: {_msg}");
         Client.instance.myId = _myId;

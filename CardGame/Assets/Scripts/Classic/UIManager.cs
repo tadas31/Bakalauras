@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public bool showConnect = true;
+    public float time = 0f;
     public static UIManager instance;
 
     public GameObject startMenu;
@@ -33,6 +35,18 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
+        if (!startMenu.activeSelf && showConnect)
+        {
+            if (time > 0)
+            {
+                time -= Time.deltaTime;
+            }
+            else
+            {
+                startMenu.SetActive(true);
+            }
+        }
+
         if (Input.GetKeyUp(KeyCode.Escape))
         {
             pauze.SetActive(!pauze.activeSelf);
@@ -42,6 +56,7 @@ public class UIManager : MonoBehaviour
     public void ConnectToServer()
     {
         startMenu.SetActive(false);
+        time = 1f;
         Client.instance.ConnectToServer();
     }
 
