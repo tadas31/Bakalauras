@@ -247,4 +247,9 @@ public class ClassicGameManager : MonoBehaviour
             positionX += spacing;
         }
     }
+
+    private void OnDestroy()
+    {
+        players = new Dictionary<int, PlayerManager>();
+    }
 }

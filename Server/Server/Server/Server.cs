@@ -15,6 +15,10 @@ namespace Server
             set 
             {
                 _playerCount = value;
+                if (_playerCount < MaxPlayers && GameLogic.timer != null)
+                {
+                    GameLogic.timer.Stop();
+                }
                 if (MaxPlayers == _playerCount)
                 {
                     GameLogic.StartGame();

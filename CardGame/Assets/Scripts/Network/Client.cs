@@ -51,7 +51,7 @@ public class Client : MonoBehaviour
             instance.ip = ipaddress;
         }
         
-        InitializeClientData();
+        instance.InitializeClientData();
 
         isConnected = true;
         tcp.Connect();
@@ -219,5 +219,12 @@ public class Client : MonoBehaviour
 
             Debug.Log("Disconnected from server");
         }
+    }
+
+    void OnDestroy()
+    {
+        Debug.Log("Destroy is called from client");
+        instance.Disconnect();
+        packetHandlers = null;
     }
 }

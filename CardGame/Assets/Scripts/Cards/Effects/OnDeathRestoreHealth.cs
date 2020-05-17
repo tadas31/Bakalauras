@@ -15,7 +15,6 @@ public class OnDeathRestoreHealth : MonoBehaviour, IDescription, ISpellDamage
         restoring = false;
     }
 
-
     private void OnDestroy()
     {
         // Determines if player or his enemy owns the card

@@ -71,4 +71,9 @@ public class EnemyHand : MonoBehaviour
             positionX += spacing;
         }
     }
+
+    void OnDestroy()
+    {
+        instance = null;
+    }
 }

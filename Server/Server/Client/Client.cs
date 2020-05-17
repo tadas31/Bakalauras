@@ -74,6 +74,7 @@ namespace Server
                     if (_byteLength <= 0)
                     {
                         Server.clients[id].Disconnect();
+                        Server.clients[id] = new Client(id);
                         return;
                     }
 

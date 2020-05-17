@@ -84,4 +84,9 @@ public class UIManager : MonoBehaviour
     {
         ClientSend.EndTurn();
     }
+
+    void OnDestroy()
+    {
+        instance = null;
+    }
 }
