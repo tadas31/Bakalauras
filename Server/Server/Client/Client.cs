@@ -244,6 +244,7 @@ namespace Server
                 player.PutOnTable(_cardName);
                 ServerSend.PutCardOnTable(id, true, _cardName);
                 ServerSend.SetMana(id, player.mana);
+                int enemeyId = -1;
                 //Putting the card in the enemy side.
                 foreach (Client _client in Server.clients.Values)
                 {
@@ -251,13 +252,21 @@ namespace Server
                     {
                         if (_client.id != id)
                         {
+                            enemeyId = _client.id;
                             ServerSend.PutCardOnTable(_client.id, false, _cardName);
                             ServerSend.SetEnemyCardCount(_client.id, player.CardCountInHand());
                         }
                     }
                 }
+
+                if (_putCard.HasScript("battlecrysummoncopy"))
+                {
+                    player.PutOnTable(_cardName);
+                    ServerSend.PutCardOnTable(id, true, _cardName);
+                    ServerSend.PutCardOnTable(enemeyId, false, _cardName);
+                    ServerSend.SetEnemyCardCount(enemeyId, player.CardCountInHand());
+                }
             }
-            //TODO: Can be that it is returned to the client that something is not okey. ???
         }
 
         public void TableCardsCanAttack(bool _canAttack)

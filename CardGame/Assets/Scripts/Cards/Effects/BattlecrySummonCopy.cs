@@ -11,13 +11,6 @@ public class BattlecrySummonCopy : MonoBehaviour, IDescription
         {
             PuzzleGameManager.instance.PutOnTable(gameObject, true);
         }
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public string getDescription()

@@ -71,5 +71,17 @@ namespace Server
             string tmp = ln.Substring(found + 2);
             return tmp;
         }
+
+        public bool HasScript(string script)
+        {
+            foreach (string item in scripts)
+            {
+                if (item.ToLower().Contains(script))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
