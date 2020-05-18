@@ -155,6 +155,11 @@ public class ClassicGameManager : MonoBehaviour
             playerHealth = GameObject.Find("Canvas/Player").GetComponent<Health>();
         }
         attackingCard.GetComponent<Attack>().AttackAnimationToPlayer(playerHealth);
+
+        if (_toLife <= 0)
+        {
+            playerHealth.gameObject.GetComponent<PlayerManager>().loseWinConditions.SetActive(true);
+        }
     }
 
     public void PutOnTable(string _cardName, bool _isPlayers)
@@ -219,6 +224,7 @@ public class ClassicGameManager : MonoBehaviour
     public void RemoveCardFromHand(string cardName)
     {
         int cardNumber = CardInHand.placedCard;
+        //If there is a saved card that was put on the table and it's name is the same then put it
         if (CardInHand.placedCard >= 0 && handCanvas.transform.childCount - 1 >= cardNumber && handCanvas.transform.GetChild(cardNumber).name == cardName)
         {
             Transform card = handCanvas.transform.GetChild(cardNumber);

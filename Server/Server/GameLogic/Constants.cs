@@ -13,7 +13,7 @@ namespace Server
         public const int TURN_TIME_SECONDS = 60;
         public const int TURN_TIME_MILISECONDS = TURN_TIME_SECONDS * 1000;
 
-        public const int START_LIFE = 30;
+        public const int START_LIFE = 1;
         public const int MAX_MANA = 10;
     }
 }

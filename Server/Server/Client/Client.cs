@@ -365,6 +365,8 @@ namespace Server
         {
             Console.WriteLine($"{tcp.socket.Client.RemoteEndPoint} had disconnected.");
 
+            player.life = -1;
+            SendLife();
             player = null;
             tcp.Disconnect();
         }
