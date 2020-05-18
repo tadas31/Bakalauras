@@ -119,8 +119,8 @@ public class ClassicGameManager : MonoBehaviour
         Debug.Log(_from);
         if (Client.instance.myId == _clientFrom)
         {
-            attackingCard = playerBoard.transform.Find(_from);
-            defendingCard = enemyBoard.transform.Find(_to);
+            attackingCard = playerBoard.transform.GetChild(BoardCards.attackingCard);
+            defendingCard = enemyBoard.transform.GetChild(BoardCards.defendingCard);
         }
         else
         {
@@ -144,7 +144,7 @@ public class ClassicGameManager : MonoBehaviour
         Health playerHealth;
         if (Client.instance.myId == _clientFrom)
         {
-            attackingCard = playerBoard.transform.Find(_from);
+            attackingCard = playerBoard.transform.GetChild(BoardCards.attackingCard);
             playerHealth = GameObject.Find("Canvas/Enemy").GetComponent<Health>();
         }
         else

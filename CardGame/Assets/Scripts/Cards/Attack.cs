@@ -78,6 +78,8 @@ public class Attack : MonoBehaviour, IPointerClickHandler
                 //If it is classic game mode.
                 else
                 {
+                    BoardCards.attackingCard = transform.GetSiblingIndex();
+                    BoardCards.defendingCard = defending.GetSiblingIndex();
                     //If the card is attacking another card.
                     if (defending != null)
                         ClientSend.Attack(this.gameObject.name, defending.parent.gameObject.name);

@@ -261,7 +261,7 @@ namespace Server
 
                 if (_putCard.HasScript("battlecrysummoncopy"))
                 {
-                    player.PutOnTable(_cardName);
+                    player.PutOnTable(_cardName, false);
                     ServerSend.PutCardOnTable(id, true, _cardName);
                     ServerSend.PutCardOnTable(enemeyId, false, _cardName);
                     ServerSend.SetEnemyCardCount(enemeyId, player.CardCountInHand());
@@ -296,10 +296,6 @@ namespace Server
             if (player.table.IsInDeck(_attackFrom))
             {
                 CardAttack(_attackFrom, _attackTo);
-            }
-            else if (false) //If it is attacking with a spell card
-            {
-
             }
         }
 

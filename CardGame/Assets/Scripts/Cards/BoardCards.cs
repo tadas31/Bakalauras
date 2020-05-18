@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BoardCards : MonoBehaviour
 {
+    public static int attackingCard;
+    public static int defendingCard;
     //The spacing between the cards that are put on board.
     private static float SPACING_BETWEEN_CARDS = 340f;
     public void OnTransformChildrenChanged()

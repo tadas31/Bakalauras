@@ -86,6 +86,6 @@ public class ResetAttack : MonoBehaviour, IDescription
 
     public string getDescription()
     {
-        return "Allows card that has already attacked attack again";
+        return "Allows selected card to attack again";
     }
 }

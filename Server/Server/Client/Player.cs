@@ -68,9 +68,18 @@ namespace Server
             return false;
         }
 
-        public void PutOnTable(string _cardName)
+        public void PutOnTable(string _cardName, bool _fromHand = true)
         {
-            Card _card = hand.PullCard(_cardName);
+            Card _card;
+            if (_fromHand)
+            {
+                _card = hand.PullCard(_cardName);
+            }
+            else
+            {
+                _card = table.GetCard(_cardName);
+            }
+
             //Check if the card has charge
             foreach (string item in _card.scripts)
             {
