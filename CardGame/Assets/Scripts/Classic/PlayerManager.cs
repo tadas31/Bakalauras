@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    public static bool hasTurnOn = false;
     public GameObject loseWinConditions;
     public int id;
     public string username
@@ -24,9 +25,10 @@ public class PlayerManager : MonoBehaviour
         set 
         {
             this.GetComponent<Health>().health = value;
-            if (value <= 0)
+            if (value <= 0 && !hasTurnOn)
             {
                 loseWinConditions.SetActive(true);
+                hasTurnOn = true;
             }
         } 
     }

@@ -127,8 +127,6 @@ public class ClassicGameManager : MonoBehaviour
             attackingCard = enemyBoard.transform.Find(_from);
             defendingCard = playerBoard.transform.Find(_to);
         }
-        Debug.Log(attackingCard);
-        Debug.Log(defendingCard);
 
         attackingCard.GetComponent<Attack>().AttackAnimationToCard(defendingCard);
     }
@@ -159,6 +157,7 @@ public class ClassicGameManager : MonoBehaviour
         if (_toLife <= 0)
         {
             playerHealth.gameObject.GetComponent<PlayerManager>().loseWinConditions.SetActive(true);
+            PlayerManager.hasTurnOn = true;
         }
     }
 
