@@ -10,7 +10,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
 {
     private float speed;                    // Card moving speed.
 
-    public bool attacking;                 // If card is selected to attack true else false.
+    public bool attacking;                  // If card is selected to attack true else false.
     private bool selectingCardToAttack;     // If player is selecting card to attack true else false.
 
     public bool attacked
@@ -23,8 +23,20 @@ public class Attack : MonoBehaviour, IPointerClickHandler
     private bool attackStarted;             // If defending card is found and attacking card started attacking true else false.
     private AttackHelper attackHelper;      // Reference to attack helper script.
 
-    private bool moveForward;               // True when card moves towards defending card.
-    private bool moveBack;                  // True when card goes back to it's position
+    // True when card moves towards defending card.
+    public bool moveForward
+    {
+        get { return _moveForward; }
+    }
+    private bool _moveForward;               
+
+    // True when card goes back to it's position
+    public bool moveBack                     
+    {
+        get { return _moveBack; }
+    }
+    private bool _moveBack;
+
     private Vector3 startPos;               // Cards starting position.
 
     private GameObject glow;                // Game object that adds glow to the card.
@@ -45,8 +57,8 @@ public class Attack : MonoBehaviour, IPointerClickHandler
         _attacked = true;
         attackStarted = false;
 
-        moveForward = false;
-        moveBack = false;
+        _moveForward = false;
+        _moveBack = false;
     }
 
     // Update is called once per frame
@@ -158,15 +170,15 @@ public class Attack : MonoBehaviour, IPointerClickHandler
         attackHelper.cachedLineRenderer.enabled = false;
 
         // Waits for attacking card to move to defending card.
-        moveForward = true;
-        while (moveForward)
+        _moveForward = true;
+        while (_moveForward)
             yield return null;
 
         CardStatsHelper attackingCardStats = GetComponent<CardStatsHelper>();
         playerHealth.takeDamage(attackingCardStats.getAttack());
 
-        moveBack = true;
-        while (moveBack)
+        _moveBack = true;
+        while (_moveBack)
         {
             yield return null;
         }
@@ -200,8 +212,8 @@ public class Attack : MonoBehaviour, IPointerClickHandler
             }
 
             // Waits for attacking card to move to defending card.
-            moveForward = true;
-            while (moveForward)
+            _moveForward = true;
+            while (_moveForward)
                 yield return null;
 
             // Gets card stats handlers
@@ -222,8 +234,8 @@ public class Attack : MonoBehaviour, IPointerClickHandler
             yield return new WaitForSeconds(0.1f);
 
             // Waits for card to get back to it's position.
-            moveBack = true;
-            while (moveBack)
+            _moveBack = true;
+            while (_moveBack)
             {
                 yield return null;
             }
@@ -283,8 +295,8 @@ public class Attack : MonoBehaviour, IPointerClickHandler
             attackHelper.cachedLineRenderer.enabled = false;
 
             // Waits for attacking card to move to defending card.
-            moveForward = true;
-            while (moveForward)
+            _moveForward = true;
+            while (_moveForward)
                 yield return null;
 
             if (defenderType == "card")
@@ -307,8 +319,8 @@ public class Attack : MonoBehaviour, IPointerClickHandler
                 yield return new WaitForSeconds(0.1f);
 
                 // Waits for card to get back to it's position.
-                moveBack = true;
-                while (moveBack)
+                _moveBack = true;
+                while (_moveBack)
                 {
                     yield return null;
                 }
@@ -326,8 +338,8 @@ public class Attack : MonoBehaviour, IPointerClickHandler
                 CardStatsHelper attackingCardStats = GetComponent<CardStatsHelper>();
                 playerHealth.takeDamage(attackingCardStats.getAttack());
 
-                moveBack = true;
-                while (moveBack)
+                _moveBack = true;
+                while (_moveBack)
                 {
                     yield return null;
                 }
@@ -352,23 +364,23 @@ public class Attack : MonoBehaviour, IPointerClickHandler
     private void movement()
     {
         // Moves to attacking card to defending card.
-        if (moveForward)
+        if (_moveForward)
         {
             attackingCard.position = Vector3.MoveTowards(attackingCard.position, defending.position, speed * Time.deltaTime);
             if (Vector3.Distance(attackingCard.position, defending.position) < 2f)
             {
-                moveForward = false;
+                _moveForward = false;
             }
         }
 
         // Attacking card moves to it's starting place
-        if (moveBack)
+        if (_moveBack)
         {
             attackingCard.position = Vector3.MoveTowards(attackingCard.position, startPos, speed * Time.deltaTime);
             if (Vector3.Distance(attackingCard.position, startPos) < 0.001f)
             {
                 attackingCard.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-                moveBack = false;
+                _moveBack = false;
             }
         }
     }
