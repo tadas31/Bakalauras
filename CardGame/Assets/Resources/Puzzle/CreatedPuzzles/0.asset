@@ -18,10 +18,11 @@ MonoBehaviour:
   playerMana: 99
   enemyCards:
   - Goblin
-  - Dwarf
+  - '!TEST 7'
   - Rat
   - Raider
-  - Dwarf
+  - '!TEST 7'
+  - '!TEST 7'
   playerCards:
   - '!TEST 6'
   - Spirit splash
@@ -29,3 +30,4 @@ MonoBehaviour:
   - Spirit splash
   - Dragon sword
   - Protector tree
+  - '!TEST 7'
