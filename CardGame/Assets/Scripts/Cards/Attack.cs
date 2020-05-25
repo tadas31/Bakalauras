@@ -311,7 +311,6 @@ public class Attack : MonoBehaviour, IPointerClickHandler
                      (this.defending.GetComponentInParent<Flying>() == null && GetComponent<Flying>() == null) ||
                      (this.defending.GetComponentInParent<Flying>() == null && GetComponent<Flying>() != null))
                 {
-                    Debug.Log("HERE");
                     defendingCardStats.takeDamage(attackingCardStats.getAttack());
                     defendingCardDamageTaken.text = "-" + attackingCardStats.getAttack();
                 }

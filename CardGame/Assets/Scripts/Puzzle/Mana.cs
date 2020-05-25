@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Mana : MonoBehaviour
 {
+    private AttackHelper attackHelper;      // Reference to attack helper script.
 
     public int currentMana
     {
@@ -21,6 +22,12 @@ public class Mana : MonoBehaviour
     private int _maxMana;
 
     public TextMeshProUGUI manaText;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        attackHelper = GameObject.Find("Board").GetComponent<AttackHelper>();
+    }
 
     public void displayMana()
     {
@@ -45,4 +52,24 @@ public class Mana : MonoBehaviour
             return false;
         }
     }
+
+    public void IncreaseMana(int mana)
+    {
+        StartCoroutine(increaseMana(mana));
+    }
+
+    private IEnumerator increaseMana(int mana)
+    {
+        TextMeshProUGUI displayRestoredAmount = transform.Find("Mana/ValueBackground/Restore").GetComponent<TextMeshProUGUI>();
+        displayRestoredAmount.gameObject.SetActive(true);
+        displayRestoredAmount.text = "+" + mana;
+        yield return new WaitForSeconds(attackHelper.TIME_TO_SHOW_DAMAGE_FROM_SPELLS);
+        currentMana += mana;
+        displayMana();
+        displayRestoredAmount.text = null;
+        displayRestoredAmount.gameObject.SetActive(false);
+        attackHelper.isAttacking = false;
+    }
+
+
 }

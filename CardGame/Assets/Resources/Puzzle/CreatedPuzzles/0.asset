@@ -12,22 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3223ef47a9009684b92677708779b0d8, type: 3}
   m_Name: 0
   m_EditorClassIdentifier: 
-  winCondition: DestroyAllEnemyCards
+  winCondition: KillEnemyPlayer
   enemyLife: 100
   playerLife: 100
   playerMana: 99
   enemyCards:
   - Goblin
-  - '!TEST 7'
+  - Dwarf
   - Rat
   - Raider
-  - '!TEST 7'
+  - Two headed giant
   - '!TEST 7'
   playerCards:
-  - '!TEST 6'
+  - '!TEST 16'
   - Spirit splash
   - Spirit splash
   - Spirit splash
   - Dragon sword
   - Protector tree
-  - '!TEST 7'
+  - '!TEST 16'

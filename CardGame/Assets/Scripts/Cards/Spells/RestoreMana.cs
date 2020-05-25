@@ -4,19 +4,16 @@ using UnityEngine;
 
 public class RestoreMana : MonoBehaviour, IDescription, ISpellDamage
 {
-
-    private int manaToRestore;      // Amount of mana to restore.
+    private int manaToRestore;              // Amount of mana to restore.
     
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
+        // Prevents another card from being used.
+        GameObject.Find("Board").GetComponent<AttackHelper>().isAttacking = true;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        GameObject.Find("Canvas/Player").GetComponent<Mana>().IncreaseMana(manaToRestore);
+        Destroy(gameObject);
     }
 
     // Returns description of effect granted by this script.
@@ -26,7 +23,7 @@ public class RestoreMana : MonoBehaviour, IDescription, ISpellDamage
         return description;
     }
 
-    // Sets amount of attack card will gain for each charge on board.
+    // Sets amount of mana card will restore.
     public void setSpellDamage(int spellDamage)
     {
         manaToRestore = spellDamage;

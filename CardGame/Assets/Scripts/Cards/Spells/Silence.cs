@@ -1,19 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
 
-public class SingleTargetDamage : MonoBehaviour, IDescription, ISpellDamage
+public class Silence : MonoBehaviour, IDescription
 {
-    private AttackHelper attackHelper;      // Reference to attack helper script.
 
-    private int damage;                     // Amount of damage spell deals.
-    private bool attacking;                 // If player pressed on card to attack true else false.
+    private AttackHelper attackHelper;      // Reference to attack helper script.
+    private bool silencing;                 // If player pressed on card to attack true else false.
+
 
     // Start is called before the first frame update
-    public void Start()
+    void Start()
     {
-        attacking = false;
+        silencing = false;
     }
 
     // Executes when script is enabled
@@ -36,41 +37,36 @@ public class SingleTargetDamage : MonoBehaviour, IDescription, ISpellDamage
         attackHelper.isAttacking = false;
     }
 
-
     // Update is called once per frame
-    public void Update()
+    void Update()
     {
         var screenPoint = Input.mousePosition;
         screenPoint.z = 10.0f; // Distance of the plane from the camera
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(screenPoint);
         attackHelper.arrowTarget = new Vector3(mousePos.x, mousePos.y, 6);
 
-        if (!attacking)
+        if (!silencing)
         {
             Transform defendingCard = attackHelper.getDefendingCard(null);
-            Transform defendingPlayer = attackHelper.getDefendingPlayer();
-            
 
             // If player hovers over cards in hand spell returns to hand
-            if (defendingCard != null && defendingCard.position == new Vector3(2000, 2000, 2000) && defendingPlayer == null)
+            if (defendingCard != null && defendingCard.position == new Vector3(2000, 2000, 2000))
             {
                 attackHelper.moveCardBackToHand(gameObject);
-                attacking = false;
+                silencing = false;
                 attackHelper.isAttacking = false;
                 Destroy(defendingCard.gameObject);
             }
 
             if (Input.GetMouseButtonUp(0))
             {
-                attacking = true;
+                silencing = true;
                 if (defendingCard != null && defendingCard.position != new Vector3(2000, 2000, 2000))
-                    StartCoroutine(castSpell(defendingCard, "card") );
-                else if (defendingPlayer != null)
-                    StartCoroutine(castSpell(defendingPlayer, "player"));
+                    castSpell(defendingCard);
                 else
                 {
                     attackHelper.moveCardBackToHand(gameObject);
-                    attacking = false;
+                    silencing = false;
                     attackHelper.isAttacking = false;
                 }
             }
@@ -78,36 +74,27 @@ public class SingleTargetDamage : MonoBehaviour, IDescription, ISpellDamage
     }
 
     /// <summary>
-    /// Gets card that was pressed and attacks it
+    /// Silences selected card.
     /// </summary>
-    private IEnumerator castSpell(Transform defending, string defenderType)
+    /// <param name="defendingCard"></param>
+    private void castSpell(Transform defendingCard)
     {
         attackHelper.cachedLineRenderer.enabled = false;
-
-        if (defenderType == "card")
+        
+        // Removes all effects scripts from card.
+        foreach (MonoBehaviour script in defendingCard.parent.GetComponents<MonoBehaviour>())
         {
-            CardStatsHelper defendingCardStats = defending.GetComponentInParent<CardStatsHelper>();
-
-            // Deals damage to defending card
-            defendingCardStats.takeDamage(damage);
-
-            // Displays damage dealt to defending card
-            TextMeshProUGUI defendingCardDamageTaken = defending.transform.Find("Image").transform.Find("DamageTaken").GetComponent<TextMeshProUGUI>();
-            defendingCardDamageTaken.text = "-" + damage;
-            yield return new WaitForSeconds(attackHelper.TIME_TO_SHOW_DAMAGE_FROM_SPELLS);
-            defendingCardDamageTaken.text = null;
-
-            // Destroys card if its dead
-            defendingCardStats.checkIfSitllAlive();
+            if (!script.GetType().Name.ToLower().Contains("helper") &&
+                script.GetType().Name != "Attack" &&
+                script.GetType().Name != "OnCardDestroy" &&
+                script.GetType().Name != "OnCardHoverInGame")
+            {
+                Destroy(script);
+            }
         }
-        else
-        {
-            Health playerHealth = GameObject.Find("Canvas/Enemy").GetComponent<Health>();
-            playerHealth.takeDamage(damage);
-        }
+        // Updates card description.
+        defendingCard.Find("Description").GetComponent<TextMeshProUGUI>().text = null;
 
-        // Resets all booleans to allow attack with another card
-        attacking = false;
         attackHelper.isAttacking = false;
         Destroy(gameObject);
     }
@@ -115,13 +102,7 @@ public class SingleTargetDamage : MonoBehaviour, IDescription, ISpellDamage
     // Returns description of effect granted by this script
     public string getDescription()
     {
-        string description = "Deals " + damage + " damage to single target";
+        string description = "Silence";
         return description;
-    }
-
-    // Sets amount of damage spell deals
-    public void setSpellDamage(int spellDamage)
-    {
-        damage = spellDamage;
     }
 }
