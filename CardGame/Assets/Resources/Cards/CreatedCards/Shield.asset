@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8075f5c689ce929458b1aa47046be16b, type: 3}
-  m_Name: '!TEST 14'
+  m_Name: Shield
   m_EditorClassIdentifier: 
-  cardName: '!TEST 14'
-  cost: 0
-  image: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  cardName: Shield
+  cost: 4
+  image: {fileID: 21300000, guid: 7679e2c71048dc540b02bd8336ad4f5d, type: 3}
   type: Spell
-  spellDamage: 2
+  spellDamage: 0
   attack: 0
   life: 0
   scripts:

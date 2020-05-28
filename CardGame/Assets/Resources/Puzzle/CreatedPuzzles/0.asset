@@ -18,16 +18,14 @@ MonoBehaviour:
   playerMana: 99
   enemyCards:
   - Goblin
-  - Dwarf
+  - Stone tree
   - Rat
   - Raider
   - Two headed giant
-  - '!TEST 7'
   playerCards:
-  - '!TEST 16'
+  - Goblin
   - Spirit splash
   - Spirit splash
   - Spirit splash
   - Dragon sword
-  - Protector tree
-  - '!TEST 16'
+  - Stone tree
