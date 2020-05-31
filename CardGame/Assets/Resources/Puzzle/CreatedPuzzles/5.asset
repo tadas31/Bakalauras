@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3223ef47a9009684b92677708779b0d8, type: 3}
-  m_Name: 4
+  m_Name: 5
   m_EditorClassIdentifier: 
-  winCondition: DestroyAllCards
-  enemyLife: 15
+  winCondition: KillEnemyPlayer
+  enemyLife: 2
   playerLife: 30
   playerMana: 10
   enemyCards:
-  - Rat
-  - Rat
-  - Berserker
+  - Stone tree
+  - Reaper
+  - Protector tree
   playerCards:
+  - Meteor shower
+  - Silence
+  - Two headed giant
+  - Silence
   - Spirit splash
-  - Goblin
-  - Circle of mana
-  - Troll
-  - Raider
-  - Tornado
+  - Reaper
