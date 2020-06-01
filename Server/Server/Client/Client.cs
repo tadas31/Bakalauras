@@ -310,6 +310,11 @@ namespace Server
                 {
                     SpellAttack(_attackFrom, _attackTo);
                 }
+                else
+                if ("Meteor" == _attackFrom)
+                {
+                    DestroyCard(_attackFrom, _attackTo);
+                }
             }
         }
 
@@ -336,6 +341,19 @@ namespace Server
                 ServerSend.Attack(id, _attackFrom, _attackFromCard.life, _attackTo, _attackToCard.life);
             }
 
+            player.hand.PullCard(_attackFrom);
+        }
+
+        public void DestroyCard(string _attackFrom, string _attackTo)
+        {
+            Card attackto = enemyClient.player.table.GetCard(_attackTo);
+            if (attackto.attack < 3)
+            {
+                return;
+            }
+
+            Card _attackToCard = enemyClient.DealDamageTo(99 , _attackTo);
+            ServerSend.Attack(id, _attackFrom, 99, _attackTo, _attackToCard.life);
             player.hand.PullCard(_attackFrom);
         }
 
@@ -371,7 +389,11 @@ namespace Server
             }
             else
             {
-                Card _attackToCard = enemyClient.DealDamageTo(_attackFromCard.attack, _attackTo);
+                Card _attackToCard = enemyClient.player.table.GetCard(_attackTo);
+                if (!_attackToCard.HasScript("flying"))
+                {
+                    _attackToCard = enemyClient.DealDamageTo(_attackFromCard.attack, _attackTo);
+                }
                 DealDamageTo(_attackToCard.attack, _attackFrom);
                 ServerSend.Attack(id, _attackFrom, _attackFromCard.life, _attackTo, _attackToCard.life);
                 _attackFromCard.canAttack = false;

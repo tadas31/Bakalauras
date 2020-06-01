@@ -220,16 +220,31 @@ public class Attack : MonoBehaviour, IPointerClickHandler
             CardStatsHelper attackingCardStats = GetComponent<CardStatsHelper>();
             CardStatsHelper defendingCardStats = defendingCard.GetComponentInParent<CardStatsHelper>();
 
-            // Deals damage and updates life's
+            //// Deals damage and updates life's
+            //attackingCardStats.takeDamage(defendingCardStats.getAttack());
+            //defendingCardStats.takeDamage(attackingCardStats.getAttack());
+
+
+            //TextMeshProUGUI attackingCardDamageTaken = attackingCard.transform.Find("Image").transform.Find("DamageTaken").GetComponent<TextMeshProUGUI>();
+            //TextMeshProUGUI defendingCardDamageTaken = defendingCard.transform.Find("Image").transform.Find("DamageTaken").GetComponent<TextMeshProUGUI>();
+
+            //attackingCardDamageTaken.text = "-" + defendingCardStats.getAttack();
+            //defendingCardDamageTaken.text = "-" + attackingCardStats.getAttack();
+
+            // Deals damage to defending card.
+            TextMeshProUGUI defendingCardDamageTaken = this.defending.transform.Find("Image").transform.Find("DamageTaken").GetComponent<TextMeshProUGUI>();
+            if ((this.defending.GetComponentInParent<Flying>() != null && GetComponent<Flying>() != null) ||
+                 (this.defending.GetComponentInParent<Flying>() == null && GetComponent<Flying>() == null) ||
+                 (this.defending.GetComponentInParent<Flying>() == null && GetComponent<Flying>() != null))
+            {
+                defendingCardStats.takeDamage(attackingCardStats.getAttack());
+                defendingCardDamageTaken.text = "-" + attackingCardStats.getAttack();
+            }
+
+            // Deals damage to attacking card.
             attackingCardStats.takeDamage(defendingCardStats.getAttack());
-            defendingCardStats.takeDamage(attackingCardStats.getAttack());
-
-
             TextMeshProUGUI attackingCardDamageTaken = attackingCard.transform.Find("Image").transform.Find("DamageTaken").GetComponent<TextMeshProUGUI>();
-            TextMeshProUGUI defendingCardDamageTaken = defendingCard.transform.Find("Image").transform.Find("DamageTaken").GetComponent<TextMeshProUGUI>();
-
             attackingCardDamageTaken.text = "-" + defendingCardStats.getAttack();
-            defendingCardDamageTaken.text = "-" + attackingCardStats.getAttack();
 
             yield return new WaitForSeconds(0.1f);
 

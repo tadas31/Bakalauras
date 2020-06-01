@@ -139,6 +139,11 @@ public class ClassicGameManager : MonoBehaviour
             StartCoroutine(castSpell(defendingCard.GetChild(0), 5, "card"));
         }
         else
+        if (_from == "Meteor")
+        {
+            Destroy(defendingCard.gameObject);
+        }
+        else
             attackingCard.GetComponent<Attack>().AttackAnimationToCard(defendingCard);
     }
 

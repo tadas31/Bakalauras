@@ -60,7 +60,19 @@ public class DestroyCardWithSetAttackOrMore : MonoBehaviour, IDescription, ISpel
             {
                 destroying = true;
                 if (defendingCard != null && defendingCard.position != new Vector3(2000, 2000, 2000))
-                    castSpell(defendingCard);
+                {
+                    if (GameObject.Find("ClientManager") != null)
+                    {
+                        ClientSend.Attack(this.name, defendingCard.parent.name);
+
+                        destroying = false;
+                        attackHelper.isAttacking = false;
+                    }
+                    else
+                    {
+                        castSpell(defendingCard);
+                    }
+                }
                 else
                 {
                     attackHelper.moveCardBackToHand(gameObject);
