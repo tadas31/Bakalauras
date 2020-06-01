@@ -13,7 +13,8 @@ public class NextLevel : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        SaveSystem.SaveCompletedPuzzles(SelectedPuzzle.Level);
+        if (SaveSystem.LoadCompletedPuzzles() == null || (SaveSystem.LoadCompletedPuzzles().completedPuzzles + 1) == SelectedPuzzle.Level)
+            SaveSystem.SaveCompletedPuzzles(SelectedPuzzle.Level);
 
         nextLevel.SetActive(true);
 

@@ -37,7 +37,6 @@ public class DamageThreeRandomCards : MonoBehaviour, IDescription, ISpellDamage
             for (int i = 0; i < 3; i++)
             {
                 cardsToAttack.Add(enemyCards[Random.Range(0, enemyCards.Count)]);
-                Debug.Log(cardsToAttack[i].name);
             }
 
             foreach (Transform card in cardsToAttack)
