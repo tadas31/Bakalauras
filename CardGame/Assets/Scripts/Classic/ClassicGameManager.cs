@@ -129,8 +129,51 @@ public class ClassicGameManager : MonoBehaviour
             attackingCard = enemyBoard.transform.Find(_from);
             defendingCard = playerBoard.transform.Find(_to);
         }
+        if (_from == "Fire ball")
+        {
+            StartCoroutine(castSpell(defendingCard.GetChild(0), 1, "card"));
+        }
+        else
+        if (_from == "Lightning strike")
+        {
+            StartCoroutine(castSpell(defendingCard.GetChild(0), 5, "card"));
+        }
+        else
+            attackingCard.GetComponent<Attack>().AttackAnimationToCard(defendingCard);
+    }
 
-        attackingCard.GetComponent<Attack>().AttackAnimationToCard(defendingCard);
+    /// <summary>
+    /// Gets card that was pressed and attacks it
+    /// </summary>
+    private IEnumerator castSpell(Transform defending,int damage, string defenderType)
+    {
+        attackHelper.cachedLineRenderer.enabled = false;
+
+        if (defenderType == "card")
+        {
+            CardStatsHelper defendingCardStats = defending.GetComponentInParent<CardStatsHelper>();
+
+            // Deals damage to defending card
+            defendingCardStats.takeDamage(damage);
+
+            // Displays damage dealt to defending card
+            TextMeshProUGUI defendingCardDamageTaken = defending.transform.Find("Image").transform.Find("DamageTaken").GetComponent<TextMeshProUGUI>();
+            defendingCardDamageTaken.text = "-" + damage;
+            yield return new WaitForSeconds(attackHelper.TIME_TO_SHOW_DAMAGE_FROM_SPELLS);
+            defendingCardDamageTaken.text = null;
+
+            // Destroys card if its dead
+            defendingCardStats.checkIfSitllAlive();
+        }
+        else
+        {
+            Health playerHealth = GameObject.Find("Canvas/Enemy").GetComponent<Health>();
+            playerHealth.takeDamage(damage);
+        }
+
+        // Resets all booleans to allow attack with another card
+        attackHelper.isAttacking = false;
+        Destroy(GameObject.Find("Spells").transform.GetChild(0).gameObject);
     }
 
 
@@ -145,6 +188,40 @@ public class ClassicGameManager : MonoBehaviour
     {
         Transform attackingCard;
         Health playerHealth;
+
+        if (_from == "Fire ball" || _from == "Lightning strike")
+        {
+            if (Client.instance.myId == _clientFrom)
+            {
+                playerHealth = GameObject.Find("Canvas/Enemy").GetComponent<Health>();
+            }
+            else
+            {
+                playerHealth = GameObject.Find("Canvas/Player").GetComponent<Health>();
+            }
+
+            if (_from == "Fire ball")
+            {
+                playerHealth.takeDamage(1);
+            }
+            else
+            if (_from == "Lightning strike")
+            {
+                playerHealth.takeDamage(5);
+            }
+
+            // Resets all booleans to allow attack with another card
+            attackHelper.isAttacking = false;
+            Destroy(GameObject.Find("Spells").transform.GetChild(0).gameObject);
+
+            if (_toLife <= 0)
+            {
+                playerHealth.gameObject.GetComponent<PlayerManager>().loseWinConditions.SetActive(true);
+                PlayerManager.hasTurnOn = true;
+            }
+            return;
+        }
+
         if (Client.instance.myId == _clientFrom)
         {
             attackingCard = playerBoard.transform.GetChild(BoardCards.attackingCard);
@@ -155,6 +232,7 @@ public class ClassicGameManager : MonoBehaviour
             attackingCard = enemyBoard.transform.Find(_from);
             playerHealth = GameObject.Find("Canvas/Player").GetComponent<Health>();
         }
+            
         attackingCard.GetComponent<Attack>().AttackAnimationToPlayer(playerHealth);
 
         if (_toLife <= 0)
@@ -193,6 +271,11 @@ public class ClassicGameManager : MonoBehaviour
             //Enables all attached scripts.
             foreach (MonoBehaviour script in cardTable.GetComponents<MonoBehaviour>())
                 script.enabled = true;
+
+            if (_cardName == "Circle of mana")
+            {
+                Destroy(cardTable);
+            }
         }
         else
         {

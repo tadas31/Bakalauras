@@ -96,7 +96,7 @@ public class CardInHand : MonoBehaviour
                 {
                     Debug.Log("Putting card on the table");
                     placedCard = transform.GetSiblingIndex();
-                    if (this.gameObject.name == "Fire ball")
+                    if ((this.gameObject.name == "Fire ball" || this.gameObject.name == "Lightning strike") && GameObject.Find("Canvas/Player").GetComponent<PlayerManager>().isTurn)
                     {
                         ClassicGameManager.instance.PutOnTable(this.gameObject.name, true);
                     }

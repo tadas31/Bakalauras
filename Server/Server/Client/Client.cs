@@ -238,6 +238,13 @@ namespace Server
                         {
                             DamageAllEnemies(_putCard.attack);
                         }
+                        else if (item.ToLower().Contains("restoremana"))
+                        {
+                            player.mana++;
+                            ServerSend.PutCardOnTable(id, true, _cardName);
+                            ServerSend.SetMana(id, player.mana);
+                            return;
+                        }
                     }
                 }
 
@@ -299,7 +306,7 @@ namespace Server
             }
             else if(player.hand.IsInDeck(_attackFrom) && player.HasEnoughMana(_attackFrom))
             {
-                if ("Fire ball" == _attackFrom)
+                if ("Fire ball" == _attackFrom || "Lightning strike" == _attackFrom)
                 {
                     SpellAttack(_attackFrom, _attackTo);
                 }
@@ -326,7 +333,7 @@ namespace Server
             else
             {
                 Card _attackToCard = enemyClient.DealDamageTo(_attackFromCard.spellDamage, _attackTo);
-                ServerSend.Attack(id, _attackFrom, _attackFromCard.life, _attackTo, _attackToCard.life, true);
+                ServerSend.Attack(id, _attackFrom, _attackFromCard.life, _attackTo, _attackToCard.life);
             }
 
             player.hand.PullCard(_attackFrom);
