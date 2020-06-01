@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3223ef47a9009684b92677708779b0d8, type: 3}
   m_Name: 3
   m_EditorClassIdentifier: 
-  winCondition: DestroyAllEnemyCards
+  winCondition: DestroyAllCards
   enemyLife: 15
   playerLife: 30
-  playerMana: 9
+  playerMana: 10
   enemyCards:
-  - Protector tree
-  playerCards:
-  - Dragon sword
   - Rat
-  - Dragon sword
+  - Rat
+  - Berserker
+  playerCards:
   - Spirit splash
-  - Dwarf
-  - Fire ball
+  - Goblin
+  - Circle of mana
+  - Troll
+  - Raider
+  - Tornado
