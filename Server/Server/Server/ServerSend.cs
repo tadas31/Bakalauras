@@ -174,12 +174,13 @@ namespace Server
             }
         }
 
-        public static void PutCardOnTable(int _toClient, bool _isPlayers, string _cardName)
+        public static void PutCardOnTable(int _toClient, bool _isPlayers, string _cardName, bool _removeFromHand = true)
         {
             using (Packet _packet = new Packet((int)ServerPackets.putCardOnTable))
             {
                 _packet.Write(_isPlayers);
                 _packet.Write(_cardName);
+                _packet.Write(_removeFromHand);
 
                 SendTCPData(_toClient, _packet);
             }

@@ -125,10 +125,18 @@ public class AttackHelper : MonoBehaviour
             
 
         spell.transform.localPosition = Vector3.zero;
-        puzzleGameManager.addCardToHand(spell);
+        if (GameObject.Find("ClientManager") != null)
+        {
+            ClassicGameManager.instance.AddCardToHand(spell);
+        }
+        else
+        {
+            puzzleGameManager.addCardToHand(spell); 
+            Mana mana = GameObject.Find("Canvas/Player").GetComponent<Mana>();
+            mana.useMana( -spell.GetComponent<CardCostHelper>().getCost() );
+        }
 
-        Mana mana = GameObject.Find("Canvas/Player").GetComponent<Mana>();
-        mana.useMana( -spell.GetComponent<CardCostHelper>().getCost() );
+       
 
         isAttacking = false;
         cachedLineRenderer.enabled = false;

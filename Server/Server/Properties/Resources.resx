@@ -121,6 +121,18 @@
   <data name="Arcane_explosion" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\cardassets\arcane explosion.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Berserker" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\cardassets\berserker.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Broken_weapon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\cardassets\broken weapon.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Circle_of_mana" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\cardassets\circle of mana.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Demon_wings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\cardassets\demon wings.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Dragon_sword" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\cardassets\dragon sword.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -139,8 +151,20 @@
   <data name="Goblin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\cardassets\goblin.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Griffin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\cardassets\griffin.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Lightning_strike" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\cardassets\lightning strike.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Meteor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\cardassets\meteor.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Meteor_shower" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\cardassets\meteor shower.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Oger" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\cardassets\oger.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Protector_tree" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\cardassets\protector tree.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -151,14 +175,38 @@
   <data name="Rat" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\cardassets\rat.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Reaper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\cardassets\reaper.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Scythe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\cardassets\scythe.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Shield" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\cardassets\shield.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Silence" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\cardassets\silence.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Spirit_splash" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\cardassets\spirit splash.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Stone_tree" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\cardassets\stone tree.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Tornado" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\cardassets\tornado.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Troll" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\cardassets\troll.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Two_headed_giant" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\cardassets\two headed giant.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Water_spirit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\cardassets\water spirit.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Wizard" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\cardassets\wizard.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Wolf" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\cardassets\wolf.asset;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

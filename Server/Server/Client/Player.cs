@@ -77,7 +77,7 @@ namespace Server
             }
             else
             {
-                _card = table.GetCard(_cardName);
+                _card = new Card(_cardName);
             }
 
             //Check if the card has charge
@@ -91,6 +91,7 @@ namespace Server
             mana -= _card.cost;
             if (!_card.type.ToLower().Contains("spell"))
             {
+                _card.cardName = table.ChangeName(_card.cardName);
                 table.AddToDeck(_card);
             }
         }
@@ -99,6 +100,7 @@ namespace Server
         {
             table.SetCardsCanAttack(_canAttack);
         }
+
         public void AddMaxMana()
         {
             if (maxMana < Constants.MAX_MANA)

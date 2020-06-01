@@ -73,6 +73,46 @@ namespace Server.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] Berserker {
+            get {
+                object obj = ResourceManager.GetObject("Berserker", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Broken_weapon {
+            get {
+                object obj = ResourceManager.GetObject("Broken_weapon", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Circle_of_mana {
+            get {
+                object obj = ResourceManager.GetObject("Circle_of_mana", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Demon_wings {
+            get {
+                object obj = ResourceManager.GetObject("Demon_wings", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] Dragon_sword {
             get {
                 object obj = ResourceManager.GetObject("Dragon_sword", resourceCulture);
@@ -133,9 +173,49 @@ namespace Server.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] Griffin {
+            get {
+                object obj = ResourceManager.GetObject("Griffin", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] Lightning_strike {
             get {
                 object obj = ResourceManager.GetObject("Lightning_strike", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Meteor {
+            get {
+                object obj = ResourceManager.GetObject("Meteor", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Meteor_shower {
+            get {
+                object obj = ResourceManager.GetObject("Meteor_shower", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Oger {
+            get {
+                object obj = ResourceManager.GetObject("Oger", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -173,9 +253,79 @@ namespace Server.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] Reaper {
+            get {
+                object obj = ResourceManager.GetObject("Reaper", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Scythe {
+            get {
+                object obj = ResourceManager.GetObject("Scythe", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Shield {
+            get {
+                object obj = ResourceManager.GetObject("Shield", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Silence {
+            get {
+                object obj = ResourceManager.GetObject("Silence", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] Spirit_splash {
             get {
                 object obj = ResourceManager.GetObject("Spirit_splash", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Stone_tree {
+            get {
+                object obj = ResourceManager.GetObject("Stone_tree", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Tornado {
+            get {
+                object obj = ResourceManager.GetObject("Tornado", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Troll {
+            get {
+                object obj = ResourceManager.GetObject("Troll", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -196,6 +346,16 @@ namespace Server.Properties {
         internal static byte[] Water_spirit {
             get {
                 object obj = ResourceManager.GetObject("Water_spirit", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Wizard {
+            get {
+                object obj = ResourceManager.GetObject("Wizard", resourceCulture);
                 return ((byte[])(obj));
             }
         }

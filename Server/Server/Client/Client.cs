@@ -262,7 +262,7 @@ namespace Server
                 if (_putCard.HasScript("battlecrysummoncopy"))
                 {
                     player.PutOnTable(_cardName, false);
-                    ServerSend.PutCardOnTable(id, true, _cardName);
+                    ServerSend.PutCardOnTable(id, true, _cardName, false);
                     ServerSend.PutCardOnTable(enemeyId, false, _cardName);
                     ServerSend.SetEnemyCardCount(enemeyId, player.CardCountInHand());
                 }
@@ -297,7 +297,41 @@ namespace Server
             {
                 CardAttack(_attackFrom, _attackTo);
             }
+            else if(player.hand.IsInDeck(_attackFrom) && player.HasEnoughMana(_attackFrom))
+            {
+                if ("Fire ball" == _attackFrom)
+                {
+                    SpellAttack(_attackFrom, _attackTo);
+                }
+            }
         }
+
+        public void SpellAttack(string _attackFrom, string _attackTo)
+        {
+            //Check is it id.
+            int n = -1;
+            bool isNumeric = int.TryParse(_attackTo, out n);
+            //Get the card form which the player is attacking.
+            Card _attackFromCard = player.hand.GetCard(_attackFrom);
+
+            //If the card is attacking players health points
+            if (isNumeric && enemyClient.id == n)
+            {
+                if (!enemyClient.player.table.HasTauntCard())
+                {
+                    enemyClient.player.life -= _attackFromCard.spellDamage;
+                    ServerSend.AttackPlayer(id, enemyClient.id, _attackFrom, enemyClient.player.life);
+                }
+            }
+            else
+            {
+                Card _attackToCard = enemyClient.DealDamageTo(_attackFromCard.spellDamage, _attackTo);
+                ServerSend.Attack(id, _attackFrom, _attackFromCard.life, _attackTo, _attackToCard.life, true);
+            }
+
+            player.hand.PullCard(_attackFrom);
+        }
+
 
         /// <summary>
         /// Card attack to an object

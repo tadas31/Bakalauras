@@ -86,10 +86,11 @@ public class ClientHandle : MonoBehaviour
     {
         bool _isPlayers = _packet.ReadBool();
         string _cardName = _packet.ReadString();
+        bool removeFromHand = _packet.ReadBool();
 
         Debug.Log($"Putting card on table : {_cardName}, {_isPlayers}");
 
-        ClassicGameManager.instance.PutOnTable(_cardName,_isPlayers);
+        ClassicGameManager.instance.PutOnTable(_cardName,_isPlayers, removeFromHand);
     }
 
     public static void PulledCard(Packet _packet)

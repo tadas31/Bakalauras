@@ -6353,6 +6353,7 @@ MonoBehaviour:
   handCanvas: {fileID: 2039914264}
   playerBoard: {fileID: 187295661}
   enemyBoard: {fileID: 1585010946}
+  attackHelper: {fileID: 225183030}
   deckCount: {fileID: 283703377}
 --- !u!4 &1187063741
 Transform:
@@ -10411,7 +10412,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: -0.000061035156}
+  m_AnchoredPosition: {x: 0, y: -0.000061035156}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2039914264 stripped
@@ -10830,6 +10831,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4414926485881761063, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4414926484969292005, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10935,11 +10941,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4414926484969292004, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4414926484969292010, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
         type: 3}
       propertyPath: usernameField
@@ -10970,6 +10971,11 @@ PrefabInstance:
       propertyPath: ipAddressField
       value: 
       objectReference: {fileID: 1300374591}
+    - target: {fileID: 4414926484969292004, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4414926484681045759, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
         type: 3}
       propertyPath: m_RootOrder
@@ -10989,11 +10995,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 53.495033
-      objectReference: {fileID: 0}
-    - target: {fileID: 4414926485881761063, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4414926485881761060, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
         type: 3}

@@ -96,7 +96,14 @@ public class CardInHand : MonoBehaviour
                 {
                     Debug.Log("Putting card on the table");
                     placedCard = transform.GetSiblingIndex();
-                    ClientSend.PutCardOnTable(this.gameObject.name);
+                    if (this.gameObject.name == "Fire ball")
+                    {
+                        ClassicGameManager.instance.PutOnTable(this.gameObject.name, true);
+                    }
+                    else
+                    {
+                        ClientSend.PutCardOnTable(this.gameObject.name);
+                    }
                     isDragged = false;
                     this.transform.localPosition = getLastPosition();
                 }

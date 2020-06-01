@@ -64,18 +64,38 @@ public class SingleTargetDamage : MonoBehaviour, IDescription, ISpellDamage
             {
                 attacking = true;
                 if (defendingCard != null && defendingCard.position != new Vector3(2000, 2000, 2000))
-                    StartCoroutine(castSpell(defendingCard, "card") );
-                else if (defendingPlayer != null)
-                    StartCoroutine(castSpell(defendingPlayer, "player"));
-                else
                 {
-                    attackHelper.moveCardBackToHand(gameObject);
-                    attacking = false;
-                    attackHelper.isAttacking = false;
+                    if (GameObject.Find("ClientManager") != null)
+                    {
+                        ClientSend.Attack(this.name, defendingCard.parent.name);
+                    }
+                    else
+                    {
+                        StartCoroutine(castSpell(defendingCard, "card"));
+                    }
                 }
+                else if (defendingPlayer != null)
+                {
+                    if (GameObject.Find("ClientManager") != null)
+                    {
+                        string player = defendingPlayer.parent.GetComponent<PlayerManager>().id.ToString();
+                        ClientSend.Attack(this.name, player);
+                    }
+                    else
+                    {
+                        StartCoroutine(castSpell(defendingPlayer, "player"));
+                    }
+            }
+            else
+            {
+                attackHelper.moveCardBackToHand(gameObject);
+                attacking = false;
+                attackHelper.isAttacking = false;
+            }
             }
         }
     }
+
 
     /// <summary>
     /// Gets card that was pressed and attacks it

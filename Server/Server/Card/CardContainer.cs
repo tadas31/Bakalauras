@@ -76,6 +76,46 @@ namespace Server
             deck.Add(card);
         }
 
+        public string ChangeName(string _cardName)
+        {
+            int numb = -1;
+
+            //Go through the list
+            foreach (Card item in deck)
+            {
+                string name = item.cardName;
+
+                //If the name is the same make calculations
+                if (name.Contains(_cardName))
+                {
+                    if (name == _cardName)
+                    {
+                        numb = 1;
+                    }
+                    else
+                    {
+                        char c = name[name.Length - 1];
+                        int a;
+                        //If there is a number at the back then add it.
+                        if (int.TryParse(new string(c, 1), out a))
+                        {
+                            if (numb <= a)
+                            {
+                                numb = a + 1;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (numb > 0)
+            {
+                return _cardName + numb;
+            }
+
+            return _cardName;
+        }
+
         public string NamesToString()
         {
             string tmp = null;

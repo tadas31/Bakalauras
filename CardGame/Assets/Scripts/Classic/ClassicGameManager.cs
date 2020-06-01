@@ -15,6 +15,7 @@ public class ClassicGameManager : MonoBehaviour
     //TODO: Maybe change that the localPLayer and enemy prefabs would be spawned as board elements.
     public GameObject playerBoard;
     public GameObject enemyBoard;
+    public AttackHelper attackHelper;
     public TextMeshProUGUI deckCount;
     public void Awake()
     {
@@ -117,10 +118,11 @@ public class ClassicGameManager : MonoBehaviour
         Transform attackingCard;
         Transform defendingCard;
         Debug.Log(_from);
+
         if (Client.instance.myId == _clientFrom)
         {
-            attackingCard = playerBoard.transform.GetChild(BoardCards.attackingCard);
-            defendingCard = enemyBoard.transform.GetChild(BoardCards.defendingCard);
+            attackingCard = playerBoard.transform.Find(_from);
+            defendingCard = enemyBoard.transform.Find(_to);
         }
         else
         {
@@ -130,6 +132,7 @@ public class ClassicGameManager : MonoBehaviour
 
         attackingCard.GetComponent<Attack>().AttackAnimationToCard(defendingCard);
     }
+
 
     /// <summary>
     /// Attacks player with some of the cards.
@@ -161,11 +164,12 @@ public class ClassicGameManager : MonoBehaviour
         }
     }
 
-    public void PutOnTable(string _cardName, bool _isPlayers)
+    public void PutOnTable(string _cardName, bool _isPlayers, bool removeFromHand = true)
     {
 
         Card card = Resources.Load<Card>("Cards/CreatedCards/" + _cardName);
         GameObject cardTable = card.spawnCard();
+        cardTable.name = ChangeName(_cardName, _isPlayers);
         if (_isPlayers)
         {
             if (cardTable.transform.GetChild(0).Find("Type").GetComponent<TextMeshProUGUI>().text.ToLower().Contains("spell"))
@@ -182,7 +186,10 @@ public class ClassicGameManager : MonoBehaviour
                 cardTable.GetComponent<Attack>().enabled = true;
                 cardTable.GetComponent<CardStatsHelper>().enabled = true;
             }
-            RemoveCardFromHand(_cardName);
+
+            if (removeFromHand)
+                RemoveCardFromHand(_cardName);
+           
             //Enables all attached scripts.
             foreach (MonoBehaviour script in cardTable.GetComponents<MonoBehaviour>())
                 script.enabled = true;
@@ -209,6 +216,60 @@ public class ClassicGameManager : MonoBehaviour
         }
     }
 
+   /// <summary>
+   /// Changes the name of the card if there is a same card there
+   /// </summary>
+   /// <param name="_isPlayers"></param>
+    public string ChangeName(string _cardName, bool _isPlayers)
+    {
+        int numb = -1;
+        List<Transform> cardList = new List<Transform>();
+
+        //If it is players return the players card if not then return enemy cards
+        if (_isPlayers)
+        {
+            cardList = attackHelper.getAllPlayerCards();
+        }
+        else
+        {
+            cardList = attackHelper.getAllEnemyCards();
+        }
+        //Go through the list
+        foreach (Transform item in cardList)
+        {
+            string name = item.parent.name;
+            
+            //If the name is the same make calculations
+            if (name.Contains(_cardName))
+            {
+                if (name == _cardName)
+                {
+                    numb = 1;
+                }
+                else
+                {
+                    char c = name[name.Length - 1];
+                    int a;
+                    //If there is a number at the back then add it.
+                    if (int.TryParse(new string(c, 1), out a))
+                    {
+                        if (numb <= a)
+                        {
+                            numb = a + 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (numb > 0)
+        {
+            return _cardName + numb;
+        }
+
+        return _cardName;
+    }
+
     public void AddCardToHand(string cardName)
     {
         Card card = Resources.Load<Card>("Cards/CreatedCards/" + cardName);
@@ -217,6 +278,15 @@ public class ClassicGameManager : MonoBehaviour
         cardHand.transform.localScale = handCanvas.transform.localScale;
         cardHand.AddComponent<CardInHand>();
         cardHand.transform.SetParent(handCanvas.transform);
+        HandReorganize();
+    }
+
+    //Adds card to hand without the servers help, use if it is as a spell
+    public void AddCardToHand(GameObject addedCard)
+    {
+        addedCard.transform.localScale = handCanvas.transform.localScale;
+        addedCard.AddComponent<CardInHand>();
+        addedCard.transform.SetParent(handCanvas.transform);
         HandReorganize();
     }
 
