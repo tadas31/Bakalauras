@@ -152,7 +152,7 @@ public class Attack : MonoBehaviour, IPointerClickHandler
     private IEnumerator attackAnimationToPlayer(Health playerHealth) 
     {
         startPos = this.transform.position;
-        attackingCard = this.transform;
+        attackingCard = this.transform.GetChild(0);
         //If the player health was taken.
         if (playerHealth.transform.name == "Player")
         {
@@ -183,6 +183,12 @@ public class Attack : MonoBehaviour, IPointerClickHandler
         // Marks card as attacked this turn
         _attacked = true;
         attackStarted = false;
+
+        attacking = false;
+        selectingCardToAttack = false;
+
+        attackHelper.cachedLineRenderer.enabled = false;
+        attackHelper.isAttacking = false;
     }
 
     public void AttackAnimationToCard(Transform defendingCard)

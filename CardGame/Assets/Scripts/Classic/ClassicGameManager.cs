@@ -229,7 +229,7 @@ public class ClassicGameManager : MonoBehaviour
 
         if (Client.instance.myId == _clientFrom)
         {
-            attackingCard = playerBoard.transform.GetChild(BoardCards.attackingCard);
+            attackingCard = playerBoard.transform.Find(_from);
             playerHealth = GameObject.Find("Canvas/Enemy").GetComponent<Health>();
         }
         else
