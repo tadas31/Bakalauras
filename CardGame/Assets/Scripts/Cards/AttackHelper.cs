@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class AttackHelper : MonoBehaviour
 {
-    public float TIME_TO_SHOW_DAMAGE_FROM_SPELLS = 0.3f;
+    public float TIME_TO_SHOW_DAMAGE_FROM_SPELLS = 0.7f;
 
 
     public Vector3 arrowOrigin;                 // Star position of arrow.
