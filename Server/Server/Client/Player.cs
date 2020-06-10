@@ -24,8 +24,8 @@ namespace Server
             username = _username;
             isTurn = false;
             life = Constants.START_LIFE;
-            mana = 1;
-            maxMana = 1;
+            mana = 5;
+            maxMana = 5;
             deck = new CardContainer(_dataDeck);
             hand = new CardContainer();
             graveYard = new CardContainer();

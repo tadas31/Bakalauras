@@ -25,7 +25,7 @@ public class PlayerManager : MonoBehaviour
         set 
         {
             this.GetComponent<Health>().health = value;
-            if (value <= 0 && !hasTurnOn)
+            if (value <= 0)
             {
                 loseWinConditions.SetActive(true);
                 hasTurnOn = true;
