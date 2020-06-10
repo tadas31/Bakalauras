@@ -5238,7 +5238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bff09310e74970a449b0e8cfcdd1cb3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ip: 51.11.129.70
+  ip: 78.61.39.197
   port: 26950
   myId: 0
 --- !u!1 &843830674
@@ -10816,6 +10816,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4414926485881761063, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4414926484969292005, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10921,11 +10926,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4414926484969292004, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4414926484969292010, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
         type: 3}
       propertyPath: usernameField
@@ -10956,6 +10956,11 @@ PrefabInstance:
       propertyPath: ipAddressField
       value: 
       objectReference: {fileID: 1300374591}
+    - target: {fileID: 4414926484969292004, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4414926484681045759, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
         type: 3}
       propertyPath: m_RootOrder
@@ -10975,11 +10980,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 53.495033
-      objectReference: {fileID: 0}
-    - target: {fileID: 4414926485881761063, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4414926485881761060, guid: e28c1d1b957cd7e4e8f26d2c3eb73232,
         type: 3}
